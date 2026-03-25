@@ -25,7 +25,7 @@ import { HomeHero } from "@/sections/home-hero";
 
 export const metadata: Metadata = buildMetadata(
   "Premium Technology Solutions in Zimbabwe",
-  "ITQUEST AFRICA delivers premium networking infrastructure, digital systems, IT hardware supply, and IoT solutions for modern businesses and institutions in Zimbabwe.",
+  "ITQUEST AFRICA delivers premium networking infrastructure, access control systems, CCTV and surveillance systems, digital systems, IT hardware supply, and IoT solutions for modern businesses and institutions in Zimbabwe.",
 );
 
 export default function HomePage() {
@@ -103,8 +103,8 @@ export default function HomePage() {
           <Reveal>
             <SectionHeading
               eyebrow="Service Pillars"
-              title="Integrated solutions across infrastructure, digital systems, hardware, and connected intelligence"
-              description="The brand brings multiple capability areas together under one premium technology partner, allowing clients to move from isolated fixes toward more cohesive, future-ready systems."
+              title="Integrated solutions across infrastructure, security systems, digital platforms, hardware, and connected intelligence"
+              description="The brand brings connectivity, surveillance, access control, digital capability, and smart systems together under one premium technology partner, allowing clients to move from isolated fixes toward more cohesive, future-ready systems."
               light
             />
           </Reveal>

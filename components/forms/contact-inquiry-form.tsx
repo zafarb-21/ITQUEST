@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useState, useTransition } from "react";
+import { serviceOptions } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 type ContactInquiryFormProps = {
@@ -33,6 +34,7 @@ export function ContactInquiryForm({ light = false, sourcePage }: ContactInquiry
       company: String(formData.get("company") || ""),
       email: String(formData.get("email") || ""),
       phone: String(formData.get("phone") || ""),
+      primaryService: String(formData.get("primaryService") || ""),
       message: String(formData.get("message") || ""),
       website: String(formData.get("website") || ""),
       sourcePage,
@@ -95,9 +97,23 @@ export function ContactInquiryForm({ light = false, sourcePage }: ContactInquiry
         <Field label="Phone number" error={errors.phone}>
           <input className="input-field" type="tel" name="phone" placeholder="Phone number" />
         </Field>
+        <Field label="Service of interest" error={errors.primaryService} className="md:col-span-2">
+          <select className="input-field appearance-none" name="primaryService" defaultValue="">
+            <option value="">Select a service</option>
+            {serviceOptions.map((service) => (
+              <option key={service} value={service}>
+                {service}
+              </option>
+            ))}
+          </select>
+        </Field>
       </div>
       <Field label="Project details" error={errors.message} className="mt-4">
-        <textarea className="input-field min-h-36 resize-none" name="message" placeholder="How can we help?" />
+        <textarea
+          className="input-field min-h-36 resize-none"
+          name="message"
+          placeholder="Tell us about the environment, challenge, or service you need."
+        />
       </Field>
       <SubmissionNotice light={light} state={submitState} />
       <button

@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useState, useTransition } from "react";
+import { serviceOptions } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 type QuoteInquiryFormProps = {
@@ -111,13 +112,24 @@ export function QuoteInquiryForm({
         <Field label="Estimated timeline" error={errors.timeline}>
           <input className="input-field" type="text" name="timeline" placeholder="Estimated timeline" />
         </Field>
+        <Field
+          label={variant === "full" ? "Primary service needed" : "Service of interest"}
+          error={errors.primaryService}
+          className={variant === "compact" ? "md:col-span-2" : undefined}
+        >
+          <select className="input-field appearance-none" name="primaryService" defaultValue="">
+            <option value="">Select a service</option>
+            {serviceOptions.map((service) => (
+              <option key={service} value={service}>
+                {service}
+              </option>
+            ))}
+          </select>
+        </Field>
         {variant === "full" ? (
           <>
             <Field label="Budget range" error={errors.budget}>
               <input className="input-field" type="text" name="budget" placeholder="Budget range (optional)" />
-            </Field>
-            <Field label="Primary service needed" error={errors.primaryService}>
-              <input className="input-field" type="text" name="primaryService" placeholder="Primary service needed" />
             </Field>
             <Field label="Preferred contact method" error={errors.preferredContactMethod} className="md:col-span-2">
               <input className="input-field" type="text" name="preferredContactMethod" placeholder="Preferred contact method" />
@@ -163,7 +175,7 @@ function CompactIntro({ light }: { light: boolean }) {
         Request a tailored proposal
       </h3>
       <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-white/[0.68]"}>
-        For networking, hardware sourcing, digital platforms, or smart systems, share the scope and we will frame an appropriate response.
+        For networking, surveillance, access control, hardware sourcing, digital platforms, or smart systems, share the scope and we will frame an appropriate response.
       </p>
     </div>
   );

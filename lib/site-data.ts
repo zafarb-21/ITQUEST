@@ -5,9 +5,13 @@ import {
   Blocks,
   Building2,
   Cable,
+  Camera,
   CircuitBoard,
+  CreditCard,
   Cpu,
+  DoorClosed,
   Factory,
+  Fingerprint,
   Globe,
   GraduationCap,
   HeartPulse,
@@ -49,6 +53,19 @@ export type ServiceItem = {
   bullets: string[];
   cta: string;
   icon: LucideIcon;
+  featureSectionTitle?: string;
+  featureSectionDescription?: string;
+  featureCards?: FeatureItem[];
+  useCasesTitle?: string;
+  useCases?: string[];
+  benefitsTitle?: string;
+  benefits?: string[];
+  ctaPanel?: {
+    title: string;
+    description: string;
+    primaryLabel: string;
+    secondaryLabel: string;
+  };
 };
 
 export type IndustryItem = {
@@ -144,6 +161,169 @@ export const servicePillars: ServiceItem[] = [
     icon: Network,
   },
   {
+    title: "Access Control Systems",
+    slug: "access-control-systems",
+    description:
+      "Modern access control solutions engineered to strengthen security, manage entry points, and give organizations full visibility over who can access their facilities.",
+    bullets: [
+      "Card-based and biometric access systems",
+      "Smart door entry and exit control",
+      "Office and facility access management",
+      "Integration with existing network systems",
+    ],
+    cta: "Request an Access Control Quote",
+    icon: ShieldCheck,
+    featureSectionTitle: "Security systems built for controlled, connected environments",
+    featureSectionDescription:
+      "Premium access control designed to fit modern offices, institutions, commercial spaces, and intelligent properties.",
+    featureCards: [
+      {
+        title: "Card-Based Credentials",
+        description:
+          "Reliable card and token-based entry systems for staff, approved visitors, and restricted operational areas.",
+        icon: CreditCard,
+      },
+      {
+        title: "Biometric Verification",
+        description:
+          "Fingerprint-enabled access for environments that need stronger identity assurance and better accountability.",
+        icon: Fingerprint,
+      },
+      {
+        title: "Smart Entry Control",
+        description:
+          "Manage doors, gates, and controlled exits with rules that match security requirements and site workflows.",
+        icon: DoorClosed,
+      },
+      {
+        title: "Facility Access Management",
+        description:
+          "Coordinate permissions across offices, departments, and multi-building sites from a structured access framework.",
+        icon: Building2,
+      },
+      {
+        title: "Network Integration",
+        description:
+          "Deploy access control as part of wider infrastructure so security systems work cleanly with existing networks.",
+        icon: Network,
+      },
+      {
+        title: "Centralized Monitoring",
+        description:
+          "Track events, permissions, and activity through a central control point designed for operational visibility.",
+        icon: MonitorSmartphone,
+      },
+    ],
+    useCasesTitle: "Where It's Used",
+    useCases: [
+      "Offices and corporate buildings",
+      "Schools and universities",
+      "Hospitals and clinics",
+      "Retail and commercial spaces",
+      "Residential properties and gated premises",
+    ],
+    benefitsTitle: "Why Choose Our Access Control Solutions",
+    benefits: [
+      "Improved security and controlled access",
+      "Reduced risk of unauthorized entry",
+      "Real-time monitoring and management",
+      "Scalable for growing environments",
+      "Integration with modern smart systems",
+    ],
+    ctaPanel: {
+      title: "Secure Your Environment with Confidence",
+      description:
+        "Take control of your facility's access and security with modern, reliable systems designed for today's environments.",
+      primaryLabel: "Request a Quote",
+      secondaryLabel: "Talk to Our Team",
+    },
+  },
+  {
+    title: "CCTV & Surveillance Systems",
+    slug: "cctv-surveillance-systems",
+    description:
+      "Modern CCTV and surveillance solutions designed to improve visibility, strengthen security, and support reliable monitoring across business, institutional, and residential environments.",
+    bullets: [
+      "CCTV camera supply and installation",
+      "Indoor and outdoor surveillance systems",
+      "HD and IP-based camera solutions",
+      "Remote viewing and monitoring setup",
+    ],
+    cta: "Request a CCTV Quote",
+    icon: Camera,
+    featureSectionTitle: "Surveillance systems designed for visibility, control, and dependable coverage",
+    featureSectionDescription:
+      "Premium CCTV infrastructure aligned with modern networking, access control, and smart security environments.",
+    featureCards: [
+      {
+        title: "Camera Supply and Installation",
+        description:
+          "Professional CCTV deployment with camera placement planned for clear coverage, operational reliability, and clean installation.",
+        icon: Camera,
+      },
+      {
+        title: "Indoor and Outdoor Coverage",
+        description:
+          "Surveillance systems designed for offices, perimeter zones, entry points, yards, and sensitive operational spaces.",
+        icon: Radar,
+      },
+      {
+        title: "HD and IP-Based Systems",
+        description:
+          "Modern high-definition and IP camera solutions that support stronger image quality, scalability, and network integration.",
+        icon: Activity,
+      },
+      {
+        title: "Remote Viewing and Monitoring",
+        description:
+          "Secure remote visibility across approved devices so stakeholders can monitor sites and events from wherever they are.",
+        icon: MonitorSmartphone,
+      },
+      {
+        title: "NVR and DVR Configuration",
+        description:
+          "Recorder setup structured for dependable storage, organized playback, and smoother day-to-day surveillance management.",
+        icon: Cable,
+      },
+      {
+        title: "Maintenance and Support",
+        description:
+          "Ongoing servicing, adjustments, and technical support to help surveillance systems remain dependable over time.",
+        icon: ShieldCheck,
+      },
+      {
+        title: "Integrated Security Infrastructure",
+        description:
+          "Connect surveillance with access control and network infrastructure for a more cohesive, technology-driven security environment.",
+        icon: Network,
+      },
+    ],
+    useCasesTitle: "Where It's Used",
+    useCases: [
+      "Offices and corporate facilities",
+      "Schools and campuses",
+      "Hospitals and clinics",
+      "Retail and commercial spaces",
+      "Warehouses and storage facilities",
+      "Residential properties and gated premises",
+    ],
+    benefitsTitle: "Why Choose Our CCTV Solutions",
+    benefits: [
+      "Improved visibility and security coverage",
+      "Real-time and recorded monitoring",
+      "Reliable integration with network systems",
+      "Scalable solutions for different environments",
+      "Enhanced protection for people, assets, and operations",
+    ],
+    ctaPanel: {
+      title: "Strengthen Your Security with Modern Surveillance",
+      description:
+        "Protect your environment with dependable CCTV and surveillance systems designed for visibility, control, and peace of mind.",
+      primaryLabel: "Request a Quote",
+      secondaryLabel: "Talk to Our Team",
+    },
+  },
+  {
     title: "Web & Digital Solutions",
     slug: "web-digital-solutions",
     description:
@@ -186,6 +366,8 @@ export const servicePillars: ServiceItem[] = [
     icon: Cpu,
   },
 ];
+
+export const serviceOptions = servicePillars.map((service) => service.title);
 
 export const reasonsToChoose: FeatureItem[] = [
   {
@@ -564,6 +746,9 @@ export const footerLinks = {
 export const seoKeywords = [
   "IT services Zimbabwe",
   "networking solutions Zimbabwe",
+  "access control systems Zimbabwe",
+  "CCTV systems Zimbabwe",
+  "surveillance systems Zimbabwe",
   "web development Zimbabwe",
   "IoT solutions Zimbabwe",
   "IT hardware supply Zimbabwe",

@@ -9,7 +9,7 @@ import { siteConfig } from "@/lib/site-data";
 
 export const metadata: Metadata = buildMetadata(
   "Contact",
-  "Contact ITQUEST AFRICA for networking, digital systems, hardware sourcing, and IoT consultations in Zimbabwe.",
+  "Contact ITQUEST AFRICA for networking, access control systems, CCTV and surveillance systems, digital systems, hardware sourcing, and IoT consultations in Zimbabwe.",
 );
 
 export default function ContactPage() {
@@ -18,7 +18,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Speak with a team focused on modern infrastructure, digital systems, and connected growth"
-        description="Whether you are planning a network deployment, sourcing infrastructure, building a digital platform, or exploring smart systems, our team is ready to help."
+        description="Whether you are planning a network deployment, deploying access control, installing surveillance systems, sourcing infrastructure, building a digital platform, or exploring smart systems, our team is ready to help."
         primaryCta={{ href: "/quote", label: "Request a Quote" }}
         secondaryCta={{ href: "/services", label: "Explore Services" }}
       />

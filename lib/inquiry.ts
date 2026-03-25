@@ -106,6 +106,10 @@ export function formatInquiryEmail(data: ValidInquiry) {
     ["Source Page", data.sourcePage || "Not provided"],
   ];
 
+  if (data.primaryService) {
+    fields.push(["Service Interest", data.primaryService]);
+  }
+
   if (data.kind === "quote") {
     fields.push(
       ["Project Type", data.projectType || "Not provided"],
@@ -113,7 +117,6 @@ export function formatInquiryEmail(data: ValidInquiry) {
       ["Location", data.location || "Not provided"],
       ["Timeline", data.timeline || "Not provided"],
       ["Budget", data.budget || "Not provided"],
-      ["Primary Service", data.primaryService || "Not provided"],
       ["Preferred Contact Method", data.preferredContactMethod || "Not provided"],
     );
   }
