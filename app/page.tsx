@@ -13,10 +13,10 @@ import { TestimonialCard } from "@/components/testimonial-card";
 import { buildMetadata } from "@/lib/metadata";
 import {
   caseStudies,
+  featuredServices,
   faqs,
   industries,
   reasonsToChoose,
-  servicePillars,
   smartSenseFeatures,
   testimonials,
   trustStrip,
@@ -25,7 +25,7 @@ import { HomeHero } from "@/sections/home-hero";
 
 export const metadata: Metadata = buildMetadata(
   "Premium Technology Solutions in Zimbabwe",
-  "ITQUEST AFRICA delivers premium networking infrastructure, access control systems, CCTV and surveillance systems, digital systems, IT hardware supply, and IoT solutions for modern businesses and institutions in Zimbabwe.",
+  "ITQUEST AFRICA delivers premium infrastructure, security systems, managed IT support, digital platforms, hardware sourcing, and IoT solutions for modern businesses and institutions in Zimbabwe.",
 );
 
 export default function HomePage() {
@@ -104,12 +104,12 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Service Pillars"
               title="Integrated solutions across infrastructure, security systems, digital platforms, hardware, and connected intelligence"
-              description="The brand brings connectivity, surveillance, access control, digital capability, and smart systems together under one premium technology partner, allowing clients to move from isolated fixes toward more cohesive, future-ready systems."
+              description="A curated look at the infrastructure, security, support, and digital capabilities that define ITQUEST AFRICA's premium service model."
               light
             />
           </Reveal>
           <div className="grid gap-6 xl:grid-cols-2">
-            {servicePillars.map((service, index) => (
+            {featuredServices.map((service, index) => (
               <Reveal key={service.slug} delay={index * 0.08}>
                 <ServiceCard service={service} light />
               </Reveal>

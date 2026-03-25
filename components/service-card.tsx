@@ -14,6 +14,9 @@ export function ServiceCard({ service, light = false }: ServiceCardProps) {
       <div className={light ? "inline-flex rounded-2xl bg-slate-950 px-4 py-4 text-cyan-300" : "inline-flex rounded-2xl bg-white/[0.08] px-4 py-4 text-cyan-300"}>
         <Icon className="h-6 w-6" />
       </div>
+      <p className={light ? "mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-brand-700/80" : "mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300/80"}>
+        {service.category}
+      </p>
       <h3 className={light ? "mt-6 text-2xl font-semibold text-slate-950" : "mt-6 text-2xl font-semibold text-white"}>
         {service.title}
       </h3>

@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata(
   "Services",
-  "Explore ITQUEST AFRICA services including networking infrastructure, access control systems, CCTV and surveillance systems, web and digital solutions, IT hardware supply, and practical IoT systems in Zimbabwe.",
+  "Explore ITQUEST AFRICA services across infrastructure, security, support, cloud, digital systems, hardware sourcing, and smart technology in Zimbabwe.",
 );
 
 export default function ServicesPage() {
@@ -15,7 +15,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Integrated technology services designed for operational confidence and growth"
-        description="ITQUEST AFRICA provides a structured blend of connectivity, surveillance, access control, digital platforms, hardware sourcing, and smart technology capability. Each service area is designed to support serious organizations with clear needs and long-term ambitions."
+        description="ITQUEST AFRICA brings infrastructure, security, support, digital capability, cloud setup, hardware sourcing, and smart technology together under one premium service model. Each service area is structured to support serious organizations with clear operational needs and long-term ambitions."
         primaryCta={{ href: "/quote", label: "Request a Quote" }}
         secondaryCta={{ href: "/contact", label: "Talk to Our Team" }}
       />
@@ -24,7 +24,7 @@ export default function ServicesPage() {
 
       <CtaBanner
         title="Need a tailored technology scope instead of a generic package?"
-        description="Share your environment, priorities, and operational requirements. ITQUEST AFRICA will help define the right combination of infrastructure, surveillance, access control, digital platforms, and supply support."
+        description="Share your environment, priorities, and operational requirements. ITQUEST AFRICA will help define the right combination of infrastructure, security, support, digital systems, cloud services, and supply support."
       />
     </>
   );

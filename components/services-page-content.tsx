@@ -57,6 +57,9 @@ export function ServicesPageContent() {
                         <Icon className="h-8 w-8" />
                       </motion.div>
                     </motion.div>
+                    <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">
+                      {service.category}
+                    </p>
                     <h2 className="mt-6 text-3xl font-semibold text-white">{service.title}</h2>
                     <p className="mt-5 text-base leading-8 text-white/[0.72]">{service.description}</p>
                   </div>

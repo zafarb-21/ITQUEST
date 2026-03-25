@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata(
   "Request a Quote",
-  "Request a tailored quote from ITQUEST AFRICA for networking, access control systems, CCTV and surveillance systems, digital systems, hardware sourcing, or smart IoT solutions in Zimbabwe.",
+  "Request a tailored quote from ITQUEST AFRICA for infrastructure, security systems, digital platforms, support services, hardware sourcing, cloud setup, or smart IoT solutions in Zimbabwe.",
 );
 
 export default function QuotePage() {
@@ -17,7 +17,7 @@ export default function QuotePage() {
       <PageHero
         eyebrow="Consultation / Request Quote"
         title="Share your requirements and receive a more tailored next step"
-        description="Use this form to outline your environment, priorities, and project timing. ITQUEST AFRICA will use that context to frame a more relevant response for infrastructure, surveillance, access control, digital systems, supply, or smart monitoring work."
+        description="Use this form to outline your environment, priorities, and project timing. ITQUEST AFRICA will use that context to frame a more relevant response for infrastructure, security, support, digital systems, supply, cloud, or smart monitoring work."
       />
 
       <section className="section-pad">
@@ -30,7 +30,7 @@ export default function QuotePage() {
                 <div className="mt-6 space-y-4">
                   {[
                     "Your industry, site type, or business context",
-                    "Whether you need networking, surveillance, access control, web systems, hardware, or smart monitoring",
+                    "Whether you need infrastructure, security, digital systems, cloud setup, support services, hardware, or smart monitoring",
                     "Expected scale, quantities, or locations involved",
                     "Timing, urgency, and any critical constraints",
                   ].map((item) => (
