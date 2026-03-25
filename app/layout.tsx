@@ -7,6 +7,11 @@ import { seoKeywords, siteConfig } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.itquestafrica.co.zw"),
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   title: {
     default: "ITQUEST AFRICA | Premium Technology Solutions in Zimbabwe",
     template: "%s | ITQUEST AFRICA",
