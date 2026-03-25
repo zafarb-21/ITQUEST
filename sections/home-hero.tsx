@@ -83,29 +83,27 @@ export function HomeHero() {
       ))}
 
       <Container className="relative section-pad">
-        <motion.div
-          className="hero-video-card absolute right-[22rem] top-8 z-[5] hidden aspect-[4/5] w-[15.5rem] overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/60 shadow-[0_24px_64px_rgba(2,10,22,0.34)] lg:block xl:right-[23rem] xl:top-6 xl:w-[17rem]"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
-        >
-          <video
-            className="h-full w-full object-cover opacity-[0.92]"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-          >
-            <source src="/videos/hero.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,10,24,0.06)_0%,rgba(3,10,24,0.1)_100%)]" />
-          <div className="absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-cyan-300/12" />
-        </motion.div>
-
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_500px] lg:items-center">
           <Reveal>
             <div className="relative max-w-3xl">
+              <motion.div
+                className="relative mb-8 w-full max-w-[29rem] overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-950/40 p-2 sm:mb-10 sm:p-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
+              >
+                <video
+                  className="block h-auto w-full object-contain"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                >
+                  <source src="/videos/hero.mp4" type="video/mp4" />
+                </video>
+                <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/8" />
+              </motion.div>
               <motion.div
                 className="hero-headline-glow absolute -left-8 top-10 h-52 w-52 rounded-full"
                 animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.08, 1] }}
