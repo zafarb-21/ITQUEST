@@ -9,7 +9,7 @@ import { siteConfig } from "@/lib/site-data";
 
 export const metadata: Metadata = buildMetadata(
   "Contact",
-  "Contact ITQUEST AFRICA for infrastructure, security systems, support services, digital platforms, hardware sourcing, cloud setup, and IoT consultations in Zimbabwe.",
+  "Contact ITQUEST AFRICA for infrastructure, security systems, support services, digital platforms, AI-driven systems, hardware sourcing, cloud setup, and IoT consultations in Zimbabwe.",
 );
 
 export default function ContactPage() {

@@ -11,8 +11,8 @@ export function SiteFooter() {
           <div className="max-w-sm">
             <BrandMark size="footer" />
             <p className="mt-5 text-sm leading-7 text-white/[0.65]">
-              ITQUEST AFRICA provides premium infrastructure, security systems, digital services, hardware sourcing,
-              support, and smart technology solutions for organizations building with confidence.
+              ITQUEST AFRICA provides premium infrastructure, security systems, digital services, AI-ready business
+              solutions, hardware sourcing, support, and smart technology for organizations building with confidence.
             </p>
             <div className="mt-6 space-y-2 text-sm text-white/60">
               <p>{siteConfig.location}</p>

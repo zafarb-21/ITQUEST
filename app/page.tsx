@@ -25,7 +25,7 @@ import { HomeHero } from "@/sections/home-hero";
 
 export const metadata: Metadata = buildMetadata(
   "Premium Technology Solutions in Zimbabwe",
-  "ITQUEST AFRICA delivers premium infrastructure, security systems, managed IT support, digital platforms, hardware sourcing, and IoT solutions for modern businesses and institutions in Zimbabwe.",
+  "ITQUEST AFRICA delivers premium infrastructure, security systems, managed IT support, digital platforms, AI-driven systems, hardware sourcing, and IoT solutions for modern businesses and institutions in Zimbabwe.",
 );
 
 export default function HomePage() {

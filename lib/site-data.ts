@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   Activity,
   ArrowRight,
+  Bot,
   Blocks,
   Building2,
   Cable,
@@ -117,7 +118,7 @@ export const siteConfig = {
   tagline: "Engineering the Future of Connectivity",
   supportingPhrase: "Smart Networking, Digital Systems & IoT Solutions",
   description:
-    "Premium networking infrastructure, web and digital systems, IT hardware supply, and IoT solutions for businesses, institutions, and modern residences in Zimbabwe.",
+    "Premium networking infrastructure, digital systems, AI-enabled business solutions, IT hardware supply, and IoT solutions for businesses, institutions, and modern residences in Zimbabwe.",
   location: "Zimbabwe",
   email: "info@itquestafrica.co.zw",
   phone: "+263 00 000 0000",
@@ -890,6 +891,88 @@ export const servicePillars: ServiceItem[] = [
     },
   },
   {
+    category: "Smart Technology",
+    title: "AI & Intelligent Systems",
+    slug: "ai-intelligent-systems",
+    description:
+      "ITQUEST AFRICA provides practical AI-driven solutions designed to improve efficiency, automate routine processes, enhance visibility, and support smarter decision-making across modern business and operational environments.",
+    bullets: [
+      "AI-powered website assistants",
+      "Intelligent business support systems",
+      "Automated inquiry and response workflows",
+      "Smart monitoring and alert systems",
+      "AI-enhanced reporting and insights",
+      "Workflow automation support",
+    ],
+    cta: "Discuss AI Solutions",
+    icon: Bot,
+    featureSectionTitle: "Intelligent systems built for modern operations",
+    featureSectionDescription:
+      "Practical AI services aligned with digital platforms, support workflows, monitoring systems, and future-ready infrastructure decisions.",
+    featureCards: [
+      {
+        title: "AI Website Assistants",
+        description:
+          "Deploy intelligent assistants that help website visitors find services, ask questions, and connect with the right support more efficiently.",
+        icon: Bot,
+      },
+      {
+        title: "Business Process Automation",
+        description:
+          "Automate repetitive tasks, response flows, and support processes to improve speed, consistency, and operational efficiency.",
+        icon: Blocks,
+      },
+      {
+        title: "Smart Monitoring & Alerts",
+        description:
+          "Use intelligent systems to monitor conditions, detect events, and support fast response through automated notifications and visibility tools.",
+        icon: Radar,
+      },
+      {
+        title: "AI Support Systems",
+        description:
+          "Create support tools that guide users, answer common questions, and streamline digital interactions for businesses and institutions.",
+        icon: Users,
+      },
+      {
+        title: "Insight & Reporting Tools",
+        description:
+          "Use AI-assisted summaries, reporting logic, and data-driven support tools to improve understanding and decision-making.",
+        icon: MonitorSmartphone,
+      },
+      {
+        title: "Future-Ready Intelligent Integration",
+        description:
+          "Lay the groundwork for AI-enhanced systems that can grow alongside networking, IoT, security, and digital infrastructure.",
+        icon: Cpu,
+      },
+    ],
+    useCasesTitle: "Where It's Used",
+    useCases: [
+      "Business websites",
+      "Offices and teams",
+      "Support environments",
+      "Monitoring systems",
+      "Client service workflows",
+      "Smart operational environments",
+    ],
+    benefitsTitle: "Why Choose Our AI & Intelligent Systems Solutions",
+    benefits: [
+      "Practical automation with real business value",
+      "Improved response speed and efficiency",
+      "Better visibility across systems and interactions",
+      "Scalable support for growing operations",
+      "Strong alignment with digital and smart infrastructure",
+    ],
+    ctaPanel: {
+      title: "Bring Intelligence Into Your Operations",
+      description:
+        "Explore practical AI solutions that help your business respond faster, work smarter, and build a more capable digital environment.",
+      primaryLabel: "Request a Quote",
+      secondaryLabel: "Talk to Our Team",
+    },
+  },
+  {
     category: "Connectivity",
     title: "Wi-Fi Coverage Optimization",
     slug: "wifi-coverage-optimization",
@@ -1303,6 +1386,7 @@ export const featuredServices = [
   "network-security-solutions",
   "cctv-surveillance-systems",
   "access-control-systems",
+  "ai-intelligent-systems",
   "managed-it-support-services",
   "web-digital-solutions",
 ]
@@ -1858,6 +1942,8 @@ export const seoKeywords = [
   "access control systems Zimbabwe",
   "CCTV systems Zimbabwe",
   "surveillance systems Zimbabwe",
+  "AI solutions Zimbabwe",
+  "intelligent systems Zimbabwe",
   "managed IT support Zimbabwe",
   "business email setup Zimbabwe",
   "POS systems setup Zimbabwe",

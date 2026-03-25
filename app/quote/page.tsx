@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata(
   "Request a Quote",
-  "Request a tailored quote from ITQUEST AFRICA for infrastructure, security systems, digital platforms, support services, hardware sourcing, cloud setup, or smart IoT solutions in Zimbabwe.",
+  "Request a tailored quote from ITQUEST AFRICA for infrastructure, security systems, digital platforms, AI-driven systems, support services, hardware sourcing, cloud setup, or smart IoT solutions in Zimbabwe.",
 );
 
 export default function QuotePage() {

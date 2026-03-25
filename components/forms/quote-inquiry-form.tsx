@@ -175,7 +175,7 @@ function CompactIntro({ light }: { light: boolean }) {
         Request a tailored proposal
       </h3>
       <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-white/[0.68]"}>
-        For networking, surveillance, access control, hardware sourcing, digital platforms, or smart systems, share the scope and we will frame an appropriate response.
+        For networking, surveillance, access control, AI systems, hardware sourcing, digital platforms, or smart technology, share the scope and we will frame an appropriate response.
       </p>
     </div>
   );
