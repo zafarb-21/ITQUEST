@@ -77,10 +77,19 @@ export type IndustryItem = {
 };
 
 export type ProductItem = {
+  slug: string;
   title: string;
   description: string;
   points: string[];
   icon: LucideIcon;
+};
+
+export type SearchItem = {
+  title: string;
+  description: string;
+  href: string;
+  type: "service" | "product" | "solution" | "page";
+  keywords: string[];
 };
 
 export type CaseStudy = {
@@ -1489,6 +1498,7 @@ export const futureIoTCategories: FeatureItem[] = [
 
 export const products: ProductItem[] = [
   {
+    slug: "routers",
     title: "Routers",
     description:
       "Business-ready routing options for branch offices, growing SMEs, institutions, and managed connectivity environments.",
@@ -1496,6 +1506,7 @@ export const products: ProductItem[] = [
     icon: Wifi,
   },
   {
+    slug: "switches",
     title: "Switches",
     description:
       "Structured switching capability for enterprise floors, institutional networks, and performance-sensitive operations.",
@@ -1503,6 +1514,7 @@ export const products: ProductItem[] = [
     icon: Network,
   },
   {
+    slug: "wireless-wifi-solutions",
     title: "Wireless & Wi-Fi Solutions",
     description:
       "Wireless connectivity equipment for reliable coverage and improved network performance.",
@@ -1510,6 +1522,7 @@ export const products: ProductItem[] = [
     icon: Wifi,
   },
   {
+    slug: "fibre-cables-accessories",
     title: "Fibre Cables & Accessories",
     description:
       "Core fibre-linked components and accessories for robust connectivity projects and future-ready installations.",
@@ -1517,6 +1530,7 @@ export const products: ProductItem[] = [
     icon: Cable,
   },
   {
+    slug: "structured-cabling-components",
     title: "Structured Cabling Components",
     description:
       "Essential cabling and physical infrastructure components for organized and scalable network deployment.",
@@ -1524,6 +1538,7 @@ export const products: ProductItem[] = [
     icon: Cable,
   },
   {
+    slug: "networking-components",
     title: "Networking Components",
     description:
       "Connectivity hardware and supporting infrastructure for structured, dependable technology environments.",
@@ -1531,6 +1546,7 @@ export const products: ProductItem[] = [
     icon: CircuitBoard,
   },
   {
+    slug: "network-security-devices",
     title: "Network Security Devices",
     description:
       "Security-focused networking hardware designed to protect infrastructure and manage secure access.",
@@ -1538,6 +1554,7 @@ export const products: ProductItem[] = [
     icon: ShieldCheck,
   },
   {
+    slug: "cctv-systems",
     title: "CCTV Systems",
     description:
       "Modern surveillance equipment designed for visibility, monitoring, and security across business and residential environments.",
@@ -1545,6 +1562,7 @@ export const products: ProductItem[] = [
     icon: Camera,
   },
   {
+    slug: "access-control-hardware",
     title: "Access Control Hardware",
     description:
       "Secure entry systems and control hardware for managing facility access and improving operational security.",
@@ -1552,6 +1570,7 @@ export const products: ProductItem[] = [
     icon: DoorClosed,
   },
   {
+    slug: "power-backup-solutions",
     title: "Power Backup Solutions",
     description:
       "Power continuity systems designed to support uptime for networking and operational infrastructure.",
@@ -1559,6 +1578,7 @@ export const products: ProductItem[] = [
     icon: Zap,
   },
   {
+    slug: "pos-business-devices",
     title: "POS & Business Devices",
     description:
       "Operational technology and devices used to support retail, commercial, and transaction environments.",
@@ -1566,6 +1586,7 @@ export const products: ProductItem[] = [
     icon: Store,
   },
   {
+    slug: "hosting-domain-infrastructure",
     title: "Hosting & Domain Infrastructure",
     description:
       "Support components and configurations for domain, hosting, and digital infrastructure setup.",
@@ -1573,6 +1594,7 @@ export const products: ProductItem[] = [
     icon: Globe,
   },
   {
+    slug: "selected-electronics",
     title: "Selected Electronics",
     description:
       "Practical supporting electronics for business operations, technical deployments, and specialized infrastructure needs.",
@@ -1580,12 +1602,110 @@ export const products: ProductItem[] = [
     icon: Factory,
   },
   {
+    slug: "smart-devices",
     title: "Smart Devices",
     description:
       "Connected hardware relevant to monitoring, automation readiness, and emerging intelligent systems projects.",
     points: ["Sensor-capable devices", "Smart monitoring components", "Custom sourcing support"],
     icon: MonitorSmartphone,
   },
+];
+
+const pageSearchItems: SearchItem[] = [
+  {
+    title: "Home",
+    description: "Overview of ITQUEST AFRICA's premium infrastructure, systems, and technology capabilities.",
+    href: "/",
+    type: "page",
+    keywords: ["homepage", "overview", "technology company", "itquest africa"],
+  },
+  {
+    title: "About",
+    description: "Company profile, positioning, and the operating philosophy behind ITQUEST AFRICA.",
+    href: "/about",
+    type: "page",
+    keywords: ["company", "about us", "profile", "mission"],
+  },
+  {
+    title: "Services",
+    description: "Full service catalog covering infrastructure, security, support, digital, cloud, systems, and IoT.",
+    href: "/services",
+    type: "page",
+    keywords: ["services", "technology services", "infrastructure", "security", "support"],
+  },
+  {
+    title: "Solutions & Industries",
+    description: "Sector-aware technology support for offices, schools, clinics, retail, hospitality, and residences.",
+    href: "/solutions",
+    type: "page",
+    keywords: ["solutions", "industries", "education", "healthcare", "retail", "hospitality"],
+  },
+  {
+    title: "IoT",
+    description: "Smart monitoring and connected systems including the SmartSense offering.",
+    href: "/iot",
+    type: "page",
+    keywords: ["iot", "smartsense", "monitoring", "sensors", "smart systems"],
+  },
+  {
+    title: "Products",
+    description: "Capability showcase of supply categories across networking, security, business systems, and smart devices.",
+    href: "/products",
+    type: "page",
+    keywords: ["products", "catalog", "hardware", "equipment", "technology supply"],
+  },
+  {
+    title: "Projects",
+    description: "Selected project narratives and capability previews from ITQUEST AFRICA.",
+    href: "/projects",
+    type: "page",
+    keywords: ["projects", "case studies", "work", "portfolio"],
+  },
+  {
+    title: "Contact",
+    description: "Get in touch with the team for consultations, enquiries, and tailored next steps.",
+    href: "/contact",
+    type: "page",
+    keywords: ["contact", "enquiry", "talk to team", "sales"],
+  },
+  {
+    title: "Request a Quote",
+    description: "Share your requirements and request a tailored quote for infrastructure, products, or services.",
+    href: "/quote",
+    type: "page",
+    keywords: ["quote", "proposal", "pricing", "request quote"],
+  },
+];
+
+export const siteSearchItems: SearchItem[] = [
+  ...pageSearchItems,
+  ...servicePillars.map((service) => ({
+    title: service.title,
+    description: service.description,
+    href: `/services#${service.slug}`,
+    type: "service" as const,
+    keywords: [
+      service.category,
+      service.title,
+      ...service.bullets,
+      ...(service.useCases ?? []),
+      ...(service.benefits ?? []),
+    ],
+  })),
+  ...products.map((product) => ({
+    title: product.title,
+    description: product.description,
+    href: `/products#${product.slug}`,
+    type: "product" as const,
+    keywords: [product.title, ...product.points],
+  })),
+  ...industries.map((industry) => ({
+    title: industry.title,
+    description: industry.description,
+    href: "/solutions",
+    type: "solution" as const,
+    keywords: [industry.title, ...industry.needs],
+  })),
 ];
 
 export const caseStudies: CaseStudy[] = [

@@ -22,6 +22,7 @@ export function ServicesPageContent() {
           return (
             <Reveal key={service.slug} delay={index * 0.05}>
               <motion.article
+                id={service.slug}
                 className="service-module group section-panel relative overflow-hidden p-8 md:p-10 lg:p-12"
                 whileHover={{
                   y: -8,

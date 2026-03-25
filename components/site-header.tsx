@@ -9,6 +9,7 @@ import { BrandMark } from "@/components/brand-mark";
 import { ButtonLink } from "@/components/button-link";
 import { Container } from "@/components/container";
 import { MobileMenu } from "@/components/mobile-menu";
+import { SearchTrigger, SiteSearch } from "@/components/site-search";
 import { navItems } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +17,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -26,9 +28,10 @@ export function SiteHeader() {
 
   useEffect(() => {
     setOpen(false);
+    setSearchOpen(false);
   }, [pathname]);
 
-  const solid = pathname !== "/" || scrolled || open;
+  const solid = pathname !== "/" || scrolled || open || searchOpen;
 
   return (
     <>
@@ -75,23 +78,37 @@ export function SiteHeader() {
               })}
             </nav>
             <div className="hidden items-center gap-3 lg:flex">
+              <SearchTrigger onClick={() => setSearchOpen(true)} />
               <ButtonLink href="/contact" variant="ghost">
                 Talk to Our Team
               </ButtonLink>
               <ButtonLink href="/quote">Request a Quote</ButtonLink>
             </div>
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white lg:hidden"
-              aria-label="Open menu"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
+            <div className="flex items-center gap-2 lg:hidden">
+              <SearchTrigger
+                mobile
+                onClick={() => {
+                  setOpen(false);
+                  setSearchOpen(true);
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchOpen(false);
+                  setOpen(true);
+                }}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white"
+                aria-label="Open menu"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
+            </div>
           </motion.div>
         </Container>
       </header>
       <MobileMenu open={open} onClose={() => setOpen(false)} />
+      <SiteSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
