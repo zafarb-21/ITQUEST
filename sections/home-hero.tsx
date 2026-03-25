@@ -83,11 +83,11 @@ export function HomeHero() {
       ))}
 
       <Container className="relative section-pad">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_500px] lg:items-center">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_500px] lg:items-start">
           <Reveal>
             <div className="relative max-w-3xl">
               <motion.div
-                className="relative mb-4 w-full max-w-[24rem] overflow-hidden rounded-[1.25rem] border border-white/8 bg-transparent shadow-[0_18px_42px_rgba(2,10,22,0.22)] sm:mb-5 sm:max-w-[26rem]"
+                className="relative mb-6 w-full max-w-[36rem] overflow-hidden rounded-[1.35rem] border border-white/8 bg-transparent shadow-[0_18px_42px_rgba(2,10,22,0.18)] sm:mb-6 sm:max-w-[38rem]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
@@ -139,7 +139,7 @@ export function HomeHero() {
           </Reveal>
           <Reveal delay={0.12}>
             <motion.div
-              className="section-panel hero-panel-float relative overflow-hidden p-6 md:p-7"
+              className="section-panel hero-panel-float relative overflow-hidden p-6 md:p-7 lg:mt-2"
                 animate={{ y: [0, -12, 0], rotate: [0, -0.7, 0], scale: [1, 1.01, 1] }}
                 transition={{ duration: 9, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
               >
