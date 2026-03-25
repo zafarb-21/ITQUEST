@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { SiteAssistant } from "@/components/site-assistant";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { seoKeywords, siteConfig } from "@/lib/site-data";
@@ -44,6 +45,7 @@ export default function RootLayout({
           <SiteHeader />
           <main>{children}</main>
           <SiteFooter />
+          <SiteAssistant />
         </div>
       </body>
     </html>
