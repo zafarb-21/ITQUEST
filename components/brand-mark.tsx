@@ -11,7 +11,9 @@ const sizeMap = {
     gap: "gap-3 sm:gap-4",
     iconWrap: "h-11 w-11 rounded-2xl",
     icon: "h-6 w-6",
-    word: "text-sm sm:text-[0.95rem] tracking-[0.34em]",
+    word: "text-sm sm:text-[0.95rem]",
+    wordGap: "gap-[0.34em] sm:gap-[0.36em]",
+    africaGap: "ml-[0.44em] sm:ml-[0.48em]",
     sub: "text-[9px] sm:text-[10px] tracking-[0.22em]",
     subtitleVisibility: "hidden sm:block",
   },
@@ -19,7 +21,9 @@ const sizeMap = {
     gap: "gap-4",
     iconWrap: "h-12 w-12 rounded-2xl",
     icon: "h-6 w-6",
-    word: "text-[0.98rem] tracking-[0.36em]",
+    word: "text-[0.98rem]",
+    wordGap: "gap-[0.36em]",
+    africaGap: "ml-[0.48em]",
     sub: "text-[10px] tracking-[0.22em]",
     subtitleVisibility: "block",
   },
@@ -27,7 +31,9 @@ const sizeMap = {
     gap: "gap-3",
     iconWrap: "h-10 w-10 rounded-xl",
     icon: "h-5 w-5",
-    word: "text-xs tracking-[0.3em]",
+    word: "text-xs",
+    wordGap: "gap-[0.28em]",
+    africaGap: "ml-[0.38em]",
     sub: "text-[8px] tracking-[0.2em]",
     subtitleVisibility: "hidden",
   },
@@ -55,7 +61,7 @@ export function BrandMark({ className, size = "header" }: BrandMarkProps) {
             styles.word,
           )}
         >
-          <Wordmark />
+          <Wordmark letterGap={styles.wordGap} africaGap={styles.africaGap} />
         </span>
         <span
           className={cn(
@@ -71,24 +77,30 @@ export function BrandMark({ className, size = "header" }: BrandMarkProps) {
   );
 }
 
-function Wordmark() {
+function Wordmark({
+  letterGap,
+  africaGap,
+}: {
+  letterGap: string;
+  africaGap: string;
+}) {
   return (
-    <span className="inline-flex items-center whitespace-nowrap">
-      <span>I</span>
-      <span>T</span>
-      <span>Q</span>
-      <span>U</span>
+    <span className={cn("inline-flex items-center whitespace-nowrap", letterGap)}>
+      <span className="inline-flex items-center justify-center">I</span>
+      <span className="inline-flex items-center justify-center">T</span>
+      <span className="inline-flex items-center justify-center">Q</span>
+      <span className="inline-flex items-center justify-center">U</span>
       <span
         aria-label="E"
-        className="mx-[0.04em] inline-flex h-[0.8em] w-[0.48em] translate-y-[0.01em] flex-col justify-between text-cyan-300 transition duration-300 group-hover:text-cyan-200"
+        className="inline-flex h-[0.8em] w-[0.52em] translate-y-[0.01em] flex-col justify-between text-cyan-300 transition duration-300 group-hover:text-cyan-200"
       >
         <span className="h-[1.5px] w-full rounded-full bg-current shadow-[0_0_12px_rgba(90,216,255,0.22)] transition duration-300 group-hover:shadow-[0_0_16px_rgba(90,216,255,0.4)]" />
         <span className="h-[1.5px] w-full rounded-full bg-current shadow-[0_0_12px_rgba(90,216,255,0.22)] transition duration-300 group-hover:shadow-[0_0_16px_rgba(90,216,255,0.4)]" />
         <span className="h-[1.5px] w-full rounded-full bg-current shadow-[0_0_12px_rgba(90,216,255,0.22)] transition duration-300 group-hover:shadow-[0_0_16px_rgba(90,216,255,0.4)]" />
       </span>
-      <span>S</span>
-      <span>T</span>
-      <span className="ml-[0.42em]">AFRICA</span>
+      <span className="inline-flex items-center justify-center">S</span>
+      <span className="inline-flex items-center justify-center">T</span>
+      <span className={cn("inline-flex items-center justify-center", africaGap)}>AFRICA</span>
     </span>
   );
 }
