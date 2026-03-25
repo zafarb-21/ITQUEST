@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -33,18 +34,26 @@ export function SiteHeader() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition duration-300",
+          "fixed inset-x-0 top-0 z-50 transition duration-500",
           solid ? "py-3" : "py-5",
         )}
       >
         <Container>
-          <div
+          <motion.div
             className={cn(
-              "flex items-center justify-between rounded-full border px-4 py-3 transition duration-300 md:px-5",
+              "flex items-center justify-between rounded-full border px-4 py-3 transition duration-500 md:px-5",
               solid
-                ? "border-white/10 bg-slate-950/[0.82] shadow-glow backdrop-blur-xl"
-                : "border-white/10 bg-white/[0.04] backdrop-blur-md",
+                ? "border-white/10 bg-slate-950/[0.86] shadow-glow backdrop-blur-xl"
+                : "border-white/10 bg-white/[0.03] backdrop-blur-md",
             )}
+            animate={{
+              y: solid ? 0 : 6,
+              scale: solid ? 1 : 0.985,
+              boxShadow: solid
+                ? "0 18px 56px rgba(2, 10, 24, 0.28)"
+                : "0 8px 30px rgba(2, 10, 24, 0.08)",
+            }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
             <BrandMark />
             <nav className="hidden items-center gap-1 lg:flex">
@@ -79,7 +88,7 @@ export function SiteHeader() {
             >
               <Menu className="h-5 w-5" />
             </button>
-          </div>
+          </motion.div>
         </Container>
       </header>
       <MobileMenu open={open} onClose={() => setOpen(false)} />

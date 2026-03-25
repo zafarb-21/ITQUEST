@@ -9,7 +9,7 @@ export function SiteFooter() {
       <Container className="py-14">
         <div className="grid gap-10 lg:grid-cols-[1.15fr_repeat(3,minmax(0,1fr))]">
           <div className="max-w-sm">
-            <BrandMark />
+            <BrandMark size="footer" />
             <p className="mt-5 text-sm leading-7 text-white/[0.65]">
               ITQUEST AFRICA provides premium networking infrastructure, digital systems, hardware supply,
               and practical IoT solutions for organizations building with confidence.
