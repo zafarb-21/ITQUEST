@@ -1503,10 +1503,24 @@ export const products: ProductItem[] = [
     icon: Network,
   },
   {
+    title: "Wireless & Wi-Fi Solutions",
+    description:
+      "Wireless connectivity equipment for reliable coverage and improved network performance.",
+    points: ["Access points and mesh systems", "Range extension solutions", "Wireless deployment support"],
+    icon: Wifi,
+  },
+  {
     title: "Fibre Cables & Accessories",
     description:
       "Core fibre-linked components and accessories for robust connectivity projects and future-ready installations.",
     points: ["Cables and patch solutions", "Installation accessories", "Project-aligned sourcing"],
+    icon: Cable,
+  },
+  {
+    title: "Structured Cabling Components",
+    description:
+      "Essential cabling and physical infrastructure components for organized and scalable network deployment.",
+    points: ["Ethernet and fibre systems", "Patch panels and connectors", "Installation and management accessories"],
     icon: Cable,
   },
   {
@@ -1515,6 +1529,48 @@ export const products: ProductItem[] = [
       "Connectivity hardware and supporting infrastructure for structured, dependable technology environments.",
     points: ["Modules and accessories", "Wireless support gear", "Operational essentials"],
     icon: CircuitBoard,
+  },
+  {
+    title: "Network Security Devices",
+    description:
+      "Security-focused networking hardware designed to protect infrastructure and manage secure access.",
+    points: ["Firewalls and security gateways", "VPN-enabled devices", "Secure network routing systems"],
+    icon: ShieldCheck,
+  },
+  {
+    title: "CCTV Systems",
+    description:
+      "Modern surveillance equipment designed for visibility, monitoring, and security across business and residential environments.",
+    points: ["Indoor and outdoor camera systems", "NVR and DVR recording solutions", "Scalable surveillance deployments"],
+    icon: Camera,
+  },
+  {
+    title: "Access Control Hardware",
+    description:
+      "Secure entry systems and control hardware for managing facility access and improving operational security.",
+    points: ["Biometric and card-based systems", "Smart locking and entry devices", "Facility access management tools"],
+    icon: DoorClosed,
+  },
+  {
+    title: "Power Backup Solutions",
+    description:
+      "Power continuity systems designed to support uptime for networking and operational infrastructure.",
+    points: ["UPS and backup systems", "Surge protection devices", "Power stability solutions"],
+    icon: Zap,
+  },
+  {
+    title: "POS & Business Devices",
+    description:
+      "Operational technology and devices used to support retail, commercial, and transaction environments.",
+    points: ["POS terminals and systems", "Barcode scanners and printers", "Business operation devices"],
+    icon: Store,
+  },
+  {
+    title: "Hosting & Domain Infrastructure",
+    description:
+      "Support components and configurations for domain, hosting, and digital infrastructure setup.",
+    points: ["Domain support tools", "Hosting-ready configurations", "Connectivity and DNS support"],
+    icon: Globe,
   },
   {
     title: "Selected Electronics",
