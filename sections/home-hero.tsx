@@ -87,7 +87,7 @@ export function HomeHero() {
           <Reveal>
             <div className="relative max-w-3xl">
               <motion.div
-                className="relative mb-8 w-full max-w-[29rem] overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-950/40 p-2 sm:mb-10 sm:p-3"
+                className="relative mb-4 w-full max-w-[24rem] overflow-hidden rounded-[1.25rem] border border-white/8 bg-transparent shadow-[0_18px_42px_rgba(2,10,22,0.22)] sm:mb-5 sm:max-w-[26rem]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
@@ -102,7 +102,7 @@ export function HomeHero() {
                 >
                   <source src="/videos/hero.mp4" type="video/mp4" />
                 </video>
-                <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/8" />
+                <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-cyan-300/10" />
               </motion.div>
               <motion.div
                 className="hero-headline-glow absolute -left-8 top-10 h-52 w-52 rounded-full"
