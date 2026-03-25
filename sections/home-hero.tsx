@@ -83,7 +83,7 @@ export function HomeHero() {
       ))}
 
       <Container className="relative section-pad">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.02fr)_560px] lg:items-center">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.98fr)_minmax(620px,720px)] lg:items-center">
           <Reveal>
             <div className="relative max-w-3xl">
               <motion.div
@@ -121,32 +121,196 @@ export function HomeHero() {
           </Reveal>
           <Reveal delay={0.12}>
             <div className="relative">
-              <motion.div
-                className="hero-video-shell relative hidden min-h-[40rem] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/70 shadow-[0_28px_72px_rgba(2,10,22,0.36)] lg:block"
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,192,240,0.2),transparent_32%)]" />
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-950/20 via-transparent to-slate-950/55" />
-                <div className="absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent" />
-                <video
-                  className="h-full w-full object-cover opacity-[0.82] mix-blend-screen"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
+              <div className="hidden gap-5 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
+                <motion.div
+                  className="hero-video-shell relative min-h-[39rem] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/70 shadow-[0_28px_72px_rgba(2,10,22,0.36)]"
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
                 >
-                  <source src="/videos/hero.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,10,24,0.08)_0%,rgba(3,10,24,0.22)_45%,rgba(3,10,24,0.72)_100%)]" />
-                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#07111f] via-[#07111f]/45 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#07111f] via-[#07111f]/65 to-transparent" />
-              </motion.div>
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,192,240,0.2),transparent_32%)]" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/20 via-transparent to-slate-950/55" />
+                  <div className="absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent" />
+                  <video
+                    className="h-full w-full object-cover opacity-[0.82] mix-blend-screen"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src="/videos/hero.mp4" type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,10,24,0.08)_0%,rgba(3,10,24,0.22)_45%,rgba(3,10,24,0.72)_100%)]" />
+                  <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#07111f] via-[#07111f]/45 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#07111f] via-[#07111f]/65 to-transparent" />
+                </motion.div>
+
+                <motion.div
+                  className="section-panel hero-panel-float relative overflow-hidden p-6 md:p-7"
+                  animate={{ y: [0, -12, 0], rotate: [0, -0.7, 0], scale: [1, 1.01, 1] }}
+                  transition={{ duration: 9, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,192,240,0.22),transparent_30%)]" />
+                  <div className="absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent" />
+                  <motion.div
+                    className="absolute -right-8 top-6 h-36 w-36 rounded-full bg-cyan-300/[0.14] blur-3xl"
+                    animate={{ opacity: [0.18, 0.34, 0.18], scale: [1, 1.12, 1] }}
+                    transition={{ duration: 5.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                  />
+                  <motion.div
+                    className="relative space-y-6"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: {},
+                      visible: {
+                        transition: {
+                          staggerChildren: 0.12,
+                          delayChildren: 0.12,
+                        },
+                      },
+                    }}
+                  >
+                    <motion.div
+                      className="rounded-[1.75rem] border border-white/10 bg-slate-950/70 p-6 shadow-[0_24px_50px_rgba(2,12,28,0.3)]"
+                      variants={{
+                        hidden: { opacity: 0, y: 24 },
+                        visible: { opacity: 1, y: 0 },
+                      }}
+                      transition={panelTransition}
+                      whileHover={{ y: -6, borderColor: "rgba(90,216,255,0.24)" }}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.2em] text-white/45">Unified Capability</p>
+                          <h2 className="mt-2 text-2xl font-semibold text-white">Infrastructure to Innovation</h2>
+                        </div>
+                        <Sparkles className="h-7 w-7 text-cyan-300" />
+                      </div>
+                      <div className="mt-7 grid gap-4 sm:grid-cols-2">
+                        {companyStats.map((stat) => (
+                          <motion.div
+                            key={stat.value}
+                            className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-md"
+                            whileHover={{
+                              y: -4,
+                              backgroundColor: "rgba(255,255,255,0.08)",
+                              borderColor: "rgba(90,216,255,0.22)",
+                            }}
+                            transition={{ duration: 0.22, ease: "easeOut" }}
+                          >
+                            <p className="text-sm font-semibold text-cyan-300">{stat.value}</p>
+                            <p className="mt-2 text-sm leading-6 text-white/[0.65]">{stat.label}</p>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                    <div className="grid gap-5">
+                      <motion.div
+                        className="surface-card p-6"
+                        variants={{
+                          hidden: { opacity: 0, y: 24 },
+                          visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={panelTransition}
+                        whileHover={{
+                          y: -6,
+                          borderColor: "rgba(90,216,255,0.2)",
+                          boxShadow: "0 22px 56px rgba(2,12,28,0.34)",
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <p className="text-xs uppercase tracking-[0.2em] text-white/45">Interaction Layer</p>
+                            <p className="mt-2 text-base font-semibold text-white">Technology Pillars</p>
+                          </div>
+                          <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+                            <ArrowRight className="h-4 w-4 text-cyan-300" />
+                          </motion.div>
+                        </div>
+                        <div className="mt-5 space-y-3">
+                          {[
+                            "Networking Infrastructure",
+                            "Web & Digital Systems",
+                            "Hardware Supply",
+                            "Smart IoT Monitoring",
+                          ].map((item, index) => (
+                            <motion.div
+                              key={item}
+                              initial={{ opacity: 0, x: 16 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{
+                                ...panelTransition,
+                                delay: 0.28 + index * 0.08,
+                              }}
+                              whileHover={{
+                                x: 8,
+                                borderColor: "rgba(90,216,255,0.28)",
+                                backgroundColor: "rgba(255,255,255,0.08)",
+                              }}
+                              className="group flex items-center justify-between rounded-2xl border border-white/10 px-4 py-3 transition-colors"
+                            >
+                              <span className="text-sm text-white/[0.78] transition group-hover:text-white">{item}</span>
+                              <span className="text-xs font-semibold text-cyan-300 transition group-hover:translate-x-1">
+                                0{index + 1}
+                              </span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                      <motion.div
+                        className="surface-card p-6"
+                        variants={{
+                          hidden: { opacity: 0, y: 24 },
+                          visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={panelTransition}
+                        whileHover={{
+                          y: -6,
+                          borderColor: "rgba(90,216,255,0.22)",
+                          boxShadow: "0 24px 60px rgba(2,12,28,0.36)",
+                        }}
+                      >
+                        <motion.div
+                          className="rounded-2xl border border-cyan-300/20 bg-cyan-300/[0.1] p-4"
+                          whileHover={{
+                            backgroundColor: "rgba(34,192,240,0.16)",
+                            borderColor: "rgba(90,216,255,0.34)",
+                          }}
+                        >
+                          <Shield className="h-6 w-6 text-cyan-300" />
+                          <p className="mt-3 text-lg font-semibold text-white">Credible delivery for serious projects</p>
+                          <p className="mt-3 text-sm leading-7 text-white/[0.68]">
+                            Structured, professional execution built for institutions, modern enterprises, and
+                            high-value environments.
+                          </p>
+                        </motion.div>
+                        <motion.div
+                          className="hero-smartsense-card relative mt-5 overflow-hidden rounded-2xl border border-white/10 p-4"
+                          whileHover={{
+                            y: -4,
+                            borderColor: "rgba(90,216,255,0.3)",
+                            boxShadow: "0 16px 42px rgba(34,192,240,0.18)",
+                          }}
+                        >
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(90,216,255,0.12),transparent_45%)]" />
+                          <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent" />
+                          <p className="relative text-xs uppercase tracking-[0.2em] text-cyan-200/80">Flagship IoT</p>
+                          <p className="relative mt-2 text-lg font-semibold text-white">ITQUEST SmartSense</p>
+                          <p className="relative mt-3 text-sm leading-6 text-white/[0.68]">
+                            Monitoring and alerts for server rooms, clinics, storage spaces, and critical
+                            operational environments.
+                          </p>
+                        </motion.div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </div>
 
               <motion.div
-                className="section-panel hero-panel-float relative overflow-hidden p-6 md:p-7 lg:absolute lg:inset-x-5 lg:bottom-5 lg:z-10"
+                className="section-panel hero-panel-float relative overflow-hidden p-6 md:p-7 lg:hidden"
                 animate={{ y: [0, -12, 0], rotate: [0, -0.7, 0], scale: [1, 1.01, 1] }}
                 transition={{ duration: 9, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
               >
