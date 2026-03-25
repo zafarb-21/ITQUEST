@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #07111f;
+  --foreground: #f6f9fd;
+  --muted: #98a8bf;
+  --line: rgba(148, 163, 184, 0.18);
+  --card: rgba(11, 21, 38, 0.74);
+  --card-strong: rgba(9, 17, 31, 0.92);
+  --light-surface: #f4f7fb;
+  --accent: #22c0f0;
+  --accent-strong: #0b82b2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(34, 192, 240, 0.18), transparent 24%),
+    radial-gradient(circle at 85% 15%, rgba(37, 99, 235, 0.16), transparent 22%),
+    linear-gradient(180deg, #07111f 0%, #091523 34%, #08111f 100%);
+  color: var(--foreground);
+  font-family: Satoshi, Manrope, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  border-color: var(--line);
+}
+
+::selection {
+  background: rgba(34, 192, 240, 0.3);
+  color: #ffffff;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Manrope, Aptos, "Segoe UI", sans-serif;
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    color: rgba(229, 237, 247, 0.86);
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply relative overflow-hidden;
+  }
+
+  .section-pad {
+    @apply py-20 md:py-24;
+  }
+
+  .section-light {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(34, 192, 240, 0.1), transparent 20%),
+      linear-gradient(180deg, #f6f9fd 0%, #edf3f9 100%);
+    color: #08111f;
+  }
+
+  .section-light p {
+    color: rgba(8, 17, 31, 0.72);
+  }
+
+  .section-panel {
+    @apply rounded-[2rem] border backdrop-blur-xl;
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 24px 64px rgba(3, 10, 24, 0.28);
+  }
+
+  .surface-card {
+    @apply rounded-[1.75rem] border transition-all duration-300;
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 16px 42px rgba(3, 10, 24, 0.18);
+  }
+
+  .surface-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(34, 192, 240, 0.26);
+    box-shadow: 0 22px 54px rgba(2, 12, 28, 0.28);
+  }
+
+  .surface-card-light {
+    @apply rounded-[1.75rem] border bg-white transition-all duration-300;
+    border-color: rgba(226, 232, 240, 0.8);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  }
+
+  .surface-card-light:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em];
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .section-light .eyebrow {
+    @apply border-slate-200 bg-white text-slate-600;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #c6eefe 42%, #5ad8ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-dark {
+    background: linear-gradient(135deg, #08111f 0%, #0b4f7f 44%, #18a9d9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .grid-backdrop {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .grid-backdrop-light {
+    background-image: linear-gradient(rgba(8, 17, 31, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(8, 17, 31, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .input-field {
+    @apply w-full rounded-2xl border px-4 py-3.5 text-sm text-white outline-none transition;
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .input-field::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .input-field:focus {
+    border-color: rgba(83, 215, 255, 0.6);
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .section-light .input-field {
+    @apply bg-white text-slate-900;
+    border-color: rgb(226 232 240);
+  }
+
+  .section-light .input-field::placeholder {
+    color: rgb(148 163 184);
+  }
+
+  .section-light .input-field:focus {
+    border-color: rgba(10, 165, 214, 0.5);
+  }
+}
