@@ -78,8 +78,13 @@ function Wordmark() {
       <span>T</span>
       <span>Q</span>
       <span>U</span>
-      <span className="mx-[0.12em] text-cyan-300 drop-shadow-[0_0_14px_rgba(90,216,255,0.32)] transition duration-300 group-hover:text-cyan-200 group-hover:drop-shadow-[0_0_18px_rgba(90,216,255,0.45)]">
-        E
+      <span
+        aria-label="E"
+        className="mx-[0.14em] inline-flex h-[0.8em] w-[0.56em] translate-y-[0.01em] flex-col justify-between text-cyan-300 transition duration-300 group-hover:text-cyan-200"
+      >
+        <span className="h-[1.5px] w-full rounded-full bg-current shadow-[0_0_12px_rgba(90,216,255,0.22)] transition duration-300 group-hover:shadow-[0_0_16px_rgba(90,216,255,0.4)]" />
+        <span className="h-[1.5px] w-full rounded-full bg-current shadow-[0_0_12px_rgba(90,216,255,0.22)] transition duration-300 group-hover:shadow-[0_0_16px_rgba(90,216,255,0.4)]" />
+        <span className="h-[1.5px] w-full rounded-full bg-current shadow-[0_0_12px_rgba(90,216,255,0.22)] transition duration-300 group-hover:shadow-[0_0_16px_rgba(90,216,255,0.4)]" />
       </span>
       <span>S</span>
       <span>T</span>
