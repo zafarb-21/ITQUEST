@@ -87,13 +87,13 @@ export function HomeHero() {
           <Reveal>
             <div className="relative max-w-3xl">
               <motion.div
-                className="relative mb-6 w-full max-w-[36rem] overflow-hidden rounded-[1.35rem] border border-white/8 bg-transparent shadow-[0_18px_42px_rgba(2,10,22,0.18)] sm:mb-6 sm:max-w-[38rem]"
+                className="relative mb-6 w-full max-w-[36rem] overflow-hidden rounded-[1.35rem] border border-white/8 bg-transparent shadow-[0_18px_42px_rgba(2,10,22,0.18)] sm:mb-6 sm:max-w-[38rem] lg:max-w-[42rem]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
               >
                 <video
-                  className="block h-auto w-full object-contain"
+                  className="block h-auto w-full object-contain [filter:brightness(1.1)_contrast(1.08)_saturate(1.04)] lg:[filter:brightness(1.18)_contrast(1.14)_saturate(1.06)]"
                   autoPlay
                   loop
                   muted
