@@ -16,6 +16,10 @@ export type InquiryInput = {
   budget?: string;
   primaryService?: string;
   preferredContactMethod?: string;
+  selectedProductSlug?: string;
+  selectedProductName?: string;
+  selectedProductSku?: string;
+  selectedProductQuantity?: string;
 };
 
 export type ValidInquiry = InquiryInput & {
@@ -30,6 +34,10 @@ export type ValidInquiry = InquiryInput & {
   budget: string;
   primaryService: string;
   preferredContactMethod: string;
+  selectedProductSlug: string;
+  selectedProductName: string;
+  selectedProductSku: string;
+  selectedProductQuantity: string;
 };
 
 export type InquiryValidationResult =
@@ -61,6 +69,10 @@ export function validateInquiry(input: InquiryInput): InquiryValidationResult {
     budget: clean(input.budget),
     primaryService: clean(input.primaryService),
     preferredContactMethod: clean(input.preferredContactMethod),
+    selectedProductSlug: clean(input.selectedProductSlug),
+    selectedProductName: clean(input.selectedProductName),
+    selectedProductSku: clean(input.selectedProductSku),
+    selectedProductQuantity: clean(input.selectedProductQuantity),
   };
 
   const errors: Record<string, string> = {};
@@ -87,6 +99,10 @@ export function validateInquiry(input: InquiryInput): InquiryValidationResult {
 
   if (data.kind === "quote" && data.projectType.length < 2) {
     errors.projectType = "Select or describe the project type.";
+  }
+
+  if (data.selectedProductSlug && (!/^\d+$/.test(data.selectedProductQuantity) || Number(data.selectedProductQuantity) < 1)) {
+    errors.selectedProductQuantity = "Enter a valid quantity.";
   }
 
   if (Object.keys(errors).length > 0) {
@@ -119,6 +135,14 @@ export function formatInquiryEmail(data: ValidInquiry) {
       ["Budget", data.budget || "Not provided"],
       ["Preferred Contact Method", data.preferredContactMethod || "Not provided"],
     );
+
+    if (data.selectedProductName || data.selectedProductSlug) {
+      fields.push(
+        ["Selected Product", data.selectedProductName || data.selectedProductSlug],
+        ["Selected SKU", data.selectedProductSku || "Not provided"],
+        ["Requested Quantity", data.selectedProductQuantity || "1"],
+      );
+    }
   }
 
   const text = `${fields

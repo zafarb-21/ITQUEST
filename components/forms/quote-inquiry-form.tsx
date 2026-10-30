@@ -1,7 +1,9 @@
 "use client";
 
+import { PackageCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import { useState, useTransition } from "react";
+import type { CatalogProduct } from "@/lib/catalog";
 import { serviceOptions } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +11,7 @@ type QuoteInquiryFormProps = {
   light?: boolean;
   sourcePage: string;
   variant?: "compact" | "full";
+  selectedProduct?: Pick<CatalogProduct, "name" | "slug" | "sku" | "summary"> | null;
 };
 
 type SubmitState = {
@@ -20,10 +23,14 @@ export function QuoteInquiryForm({
   light = false,
   sourcePage,
   variant = "compact",
+  selectedProduct = null,
 }: QuoteInquiryFormProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitState, setSubmitState] = useState<SubmitState>(null);
   const [isPending, startTransition] = useTransition();
+  const defaultMessage = selectedProduct
+    ? `Please quote ${selectedProduct.name} (${selectedProduct.sku}). Estimated quantity: 1. Please share current availability, lead time, and recommended alternatives if needed.`
+    : "";
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -46,6 +53,10 @@ export function QuoteInquiryForm({
       budget: String(formData.get("budget") || ""),
       primaryService: String(formData.get("primaryService") || ""),
       preferredContactMethod: String(formData.get("preferredContactMethod") || ""),
+      selectedProductSlug: String(formData.get("selectedProductSlug") || ""),
+      selectedProductName: String(formData.get("selectedProductName") || ""),
+      selectedProductSku: String(formData.get("selectedProductSku") || ""),
+      selectedProductQuantity: String(formData.get("selectedProductQuantity") || ""),
       message: String(formData.get("message") || ""),
       website: String(formData.get("website") || ""),
       sourcePage,
@@ -87,6 +98,26 @@ export function QuoteInquiryForm({
         <CompactIntro light={light} />
       ) : null}
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" />
+      {selectedProduct ? (
+        <div className={cn("mb-6 rounded-[1.5rem] border px-5 py-5", light ? "border-slate-200 bg-slate-50" : "border-white/10 bg-white/[0.04]")}>
+          <div className="flex items-start gap-4">
+            <div className={cn("rounded-2xl p-3", light ? "bg-slate-950 text-cyan-300" : "bg-white/[0.08] text-cyan-300")}>
+              <PackageCheck className="h-5 w-5" />
+            </div>
+            <div>
+              <p className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300"}>
+                Selected Product
+              </p>
+              <h3 className={light ? "mt-2 text-xl font-semibold text-slate-950" : "mt-2 text-xl font-semibold text-white"}>{selectedProduct.name}</h3>
+              <p className={light ? "mt-1 text-sm font-medium text-slate-500" : "mt-1 text-sm font-medium text-white/60"}>{selectedProduct.sku}</p>
+              <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-white/[0.72]"}>{selectedProduct.summary}</p>
+            </div>
+          </div>
+          <input type="hidden" name="selectedProductSlug" value={selectedProduct.slug} />
+          <input type="hidden" name="selectedProductName" value={selectedProduct.name} />
+          <input type="hidden" name="selectedProductSku" value={selectedProduct.sku} />
+        </div>
+      ) : null}
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Full name" error={errors.fullName}>
           <input className="input-field" type="text" name="fullName" placeholder="Full name" />
@@ -101,7 +132,13 @@ export function QuoteInquiryForm({
           <input className="input-field" type="tel" name="phone" placeholder="Phone number" />
         </Field>
         <Field label="Project type" error={errors.projectType}>
-          <input className="input-field" type="text" name="projectType" placeholder="Project type" />
+          <input
+            className="input-field"
+            type="text"
+            name="projectType"
+            placeholder="Project type"
+            defaultValue={selectedProduct ? "Product sourcing" : ""}
+          />
         </Field>
         <Field label="Industry / Sector" error={errors.industry}>
           <input className="input-field" type="text" name="industry" placeholder="Industry / Sector" />
@@ -112,10 +149,15 @@ export function QuoteInquiryForm({
         <Field label="Estimated timeline" error={errors.timeline}>
           <input className="input-field" type="text" name="timeline" placeholder="Estimated timeline" />
         </Field>
+        {selectedProduct ? (
+          <Field label="Quantity required" error={errors.selectedProductQuantity}>
+            <input className="input-field" type="number" name="selectedProductQuantity" min={1} defaultValue="1" />
+          </Field>
+        ) : null}
         <Field
           label={variant === "full" ? "Primary service needed" : "Service of interest"}
           error={errors.primaryService}
-          className={variant === "compact" ? "md:col-span-2" : undefined}
+          className={variant === "compact" || selectedProduct ? "md:col-span-2" : undefined}
         >
           <select className="input-field appearance-none" name="primaryService" defaultValue="">
             <option value="">Select a service</option>
@@ -141,6 +183,7 @@ export function QuoteInquiryForm({
         <textarea
           className={cn("input-field resize-none", variant === "full" ? "min-h-44" : "min-h-36")}
           name="message"
+          defaultValue={defaultMessage}
           placeholder={
             variant === "full"
               ? "Describe the project scope, technical needs, quantities, or operating challenges"

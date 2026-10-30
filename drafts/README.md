@@ -1,14 +1,9 @@
-# Unfinished admin integration
+# Archived admin integration files
 
-These files preserve an incomplete authentication and database integration.
-They use `.ts.txt` extensions because they are reference drafts, not executable
-application configuration. The current website does not import them.
+These files preserve the previously untracked authentication and database files.
+They were archived before merging remote commit `9806e23`, which supplies the
+complete integration, dependencies, and active root-level versions.
 
-- `auth.ts.txt` requires NextAuth, `lib/admin-authorization`, admin routes, and
-  session/token type extensions that are not present in this project.
-- `prisma.config.ts.txt` requires Prisma, dotenv, a database schema, migrations,
-  and a seed script that are not present in this project.
-
-To resume this work, implement the missing pieces and install their dependencies
-before restoring these files to their original names in the project root.
-Run the production build and verify admin authorization before deployment.
+The `.ts.txt` files are historical references and are not executed or imported.
+Maintain `auth.ts` and `prisma.config.ts` in the project root for current behavior;
+do not restore these archived copies over them.

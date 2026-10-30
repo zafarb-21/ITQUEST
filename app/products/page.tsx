@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CtaBanner } from "@/components/cta-banner";
 import { PageHero } from "@/components/page-hero";
 import { ProductsPageContent } from "@/components/products-page-content";
+import { getCatalogProducts } from "@/lib/catalog";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata(
@@ -9,7 +10,11 @@ export const metadata: Metadata = buildMetadata(
   "View ITQUEST AFRICA’s premium catalog-style technology supply categories including routers, switches, fibre accessories, networking components, electronics, and smart devices.",
 );
 
-export default function ProductsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ProductsPage() {
+  const products = await getCatalogProducts();
+
   return (
     <>
       <PageHero
@@ -20,7 +25,7 @@ export default function ProductsPage() {
         secondaryCta={{ href: "/contact", label: "Talk to Sales" }}
       />
 
-      <ProductsPageContent />
+      <ProductsPageContent products={products} />
 
       <CtaBanner
         title="Need hardware aligned to a specific project or environment?"
