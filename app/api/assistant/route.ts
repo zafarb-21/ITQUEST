@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import {
   buildAssistantSystemPrompt,
   extractLastUserMessage,
+  liveCatalogNote,
   recommendServices,
   shouldCaptureLead,
   validateAssistantMessages,
@@ -97,7 +98,7 @@ export async function POST(request: Request) {
         model,
         store: false,
         max_output_tokens: 320,
-        instructions: buildAssistantSystemPrompt(recommendedServices),
+        instructions: buildAssistantSystemPrompt(recommendedServices, await liveCatalogNote()),
         metadata: {
           sourcePage: typeof payload.sourcePage === "string" ? payload.sourcePage : "",
         },

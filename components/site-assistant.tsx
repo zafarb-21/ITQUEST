@@ -202,6 +202,10 @@ export function SiteAssistant() {
         body: JSON.stringify({
           ...leadForm,
           sourcePage: pathname,
+          // the chat so far, so the sales team (Zbot HQ's Sales agent) sees what the visitor asked for
+          transcript: messages
+            .filter((message) => message.id !== welcomeMessage.id)
+            .map(({ role, content }) => ({ role, content })),
         }),
       });
 
