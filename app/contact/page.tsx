@@ -43,7 +43,13 @@ export default function ContactPage() {
                           <Icon className="h-5 w-5" />
                         </div>
                         <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">{item.title}</p>
-                        <p className="mt-3 text-lg font-semibold text-slate-950">{item.value}</p>
+                        <p className="mt-3 break-words text-lg font-semibold text-slate-950">
+                          {item.title === "Email" ? (
+                            <a href={`mailto:${siteConfig.email}`} className="hover:underline">
+                              {item.value}
+                            </a>
+                          ) : item.value}
+                        </p>
                       </div>
                     </Reveal>
                   );

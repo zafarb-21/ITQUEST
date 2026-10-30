@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 import { seoKeywords, siteConfig } from "@/lib/site-data";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.itquestafrica.co.zw"),
+  metadataBase: new URL(siteConfig.url),
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",

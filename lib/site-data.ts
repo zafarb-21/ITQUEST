@@ -115,12 +115,13 @@ export type FaqItem = {
 
 export const siteConfig = {
   name: "ITQUEST AFRICA",
+  url: "https://itquestafrica.com",
   tagline: "Engineering the Future of Connectivity",
   supportingPhrase: "Smart Networking, Digital Systems & IoT Solutions",
   description:
     "Premium networking infrastructure, digital systems, AI-enabled business solutions, IT hardware supply, and IoT solutions for businesses, institutions, and modern residences in Zimbabwe.",
   location: "Zimbabwe",
-  email: "info@itquestafrica.co.zw",
+  email: "info@itquestafrica.com",
   phone: "+263 00 000 0000",
   hours: "Mon - Fri | 08:00 - 17:00",
 };

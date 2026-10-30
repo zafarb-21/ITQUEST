@@ -16,7 +16,11 @@ export function SiteFooter() {
             </p>
             <div className="mt-6 space-y-2 text-sm text-white/60">
               <p>{siteConfig.location}</p>
-              <p>{siteConfig.email}</p>
+              <p>
+                <a href={`mailto:${siteConfig.email}`} className="transition hover:text-white">
+                  {siteConfig.email}
+                </a>
+              </p>
               <p>{siteConfig.phone}</p>
             </div>
           </div>

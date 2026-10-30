@@ -95,7 +95,11 @@ Use this callback URL in the Entra application registration:
 http://localhost:3000/api/auth/callback/microsoft-entra-id
 ```
 
-Replace `http://localhost:3000` with the production origin when registering production callbacks. Google access requires a verified email in `ADMIN_EMAILS`; Microsoft access uses the stable Entra object ID rather than its mutable email claim.
+For production, register `https://itquestafrica.com/api/auth/callback/google`
+or `https://itquestafrica.com/api/auth/callback/microsoft-entra-id` with the
+corresponding OAuth provider. Keep localhost callbacks for local development.
+Google access requires a verified email in `ADMIN_EMAILS`; Microsoft access uses
+the stable Entra object ID rather than its mutable email claim.
 
 ## Form delivery
 
@@ -125,12 +129,12 @@ Required environment variables:
 
 ```env
 MAIL_PROVIDER=smtp
-INQUIRY_TO_EMAIL=info@itquestafrica.co.zw
-INQUIRY_FROM_EMAIL=ITQUEST AFRICA <info@itquestafrica.co.zw>
+INQUIRY_TO_EMAIL=info@itquestafrica.com
+INQUIRY_FROM_EMAIL=ITQUEST AFRICA <info@itquestafrica.com>
 SMTP_HOST=smtp.example.com
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=info@itquestafrica.co.zw
+SMTP_USER=info@itquestafrica.com
 SMTP_PASSWORD=your-password
 ```
 
@@ -143,8 +147,8 @@ Required environment variables:
 ```env
 MAIL_PROVIDER=resend
 RESEND_API_KEY=your-resend-key
-INQUIRY_TO_EMAIL=info@itquestafrica.co.zw
-INQUIRY_FROM_EMAIL=ITQUEST AFRICA <enquiries@itquestafrica.co.zw>
+INQUIRY_TO_EMAIL=info@itquestafrica.com
+INQUIRY_FROM_EMAIL=ITQUEST AFRICA <enquiries@itquestafrica.com>
 ```
 
 For production on Resend:
@@ -156,7 +160,7 @@ For production on Resend:
 Optional:
 
 ```env
-INQUIRY_BCC_EMAIL=director@itquestafrica.co.zw
+INQUIRY_BCC_EMAIL=director@itquestafrica.com
 ```
 
 ## Deploy to Vercel
@@ -201,6 +205,22 @@ For admin access, also configure `AUTH_SECRET`, OAuth credentials, the provider
 allowlist, and production callback URLs as described above. Dependency installation
 generates the Prisma client automatically. Use separate databases and OAuth
 configuration for preview environments.
+
+## Production domain and email
+
+The public website uses `https://itquestafrica.com` and displays
+`info@itquestafrica.com`. The shared values live in `lib/site-data.ts`.
+
+Before switching production email delivery, provision the mailbox or alias and
+verify the sending domain with your mail provider. Update Vercel's
+`INQUIRY_TO_EMAIL`, `INQUIRY_FROM_EMAIL`, and any optional `INQUIRY_BCC_EMAIL`.
+For SMTP, use the credentials provided by the mailbox host; for Resend, use a
+verified sender on the new domain. Redeploy after updating environment variables.
+Changing the source code or `.env.example` does not update Vercel's saved settings.
+
+Keep admin allowlists tied to real authorized accounts; do not rename them just
+because the website domain changed. Test both a contact enquiry and a quote and
+confirm receipt in the destination inbox after deployment.
 
 ## Local checks
 
