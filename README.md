@@ -77,7 +77,43 @@ INQUIRY_BCC_EMAIL=director@itquestafrica.co.zw
 
 Copy `.env.example` to `.env.local` and fill in the values for the chosen provider.
 
-## Verification
+## Deploy to Vercel
+
+The root `vercel.json` selects Next.js, installs locked dependencies with
+`npm ci`, and builds with `npm run build`. Vercel manages the output directory
+and API routes through its Next.js integration.
+
+1. Push the project to your Git repository and import it into Vercel.
+2. Select this folder as the Root Directory and keep the Next.js framework preset.
+3. In Project Settings → Environment Variables, add the mail settings from
+   `.env.example` for Production and, if needed, Preview. Configure either SMTP
+   or Resend, including `INQUIRY_TO_EMAIL` and `INQUIRY_FROM_EMAIL`. Without a
+   configured provider and recipient, forms only log submissions rather than
+   delivering email. Use a separate test recipient for Preview deployments.
+4. Deploy, then check the contact and quote forms and confirm email receipt.
+5. Add your domain in Project Settings → Domains and apply the DNS records
+   Vercel displays. Redeploy after changing environment variables.
+
+For a CLI deployment from this folder:
+
+```bash
+npx vercel
+```
+
+Follow the prompts to sign in and link the project, then review the preview.
+To publish to production:
+
+```bash
+npx vercel --prod
+```
+
+Project linking creates `.vercel/` locally. That directory and local environment
+files are ignored by Git; keep credentials in Vercel's environment settings.
+Do not commit `env.download`.
+
+Configuration reference: https://vercel.com/docs/project-configuration/vercel-json
+
+## Local checks
 
 ```bash
 npm run build
