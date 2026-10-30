@@ -97,3 +97,83 @@ export async function sendInquiryEmail(inquiry: ValidInquiry) {
 
   return { delivered: false, provider: "log" as const };
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Signed quotes from Zbot HQ's Sales agent go out from sales@ (app/api/hq/send-quote). Sales can have its own SMTP login
+// (SALES_SMTP_*); otherwise the site's main SMTP or Resend is used, which must be allowed to send as SALES_FROM_EMAIL.
+const salesFromEmail = process.env.SALES_FROM_EMAIL || "ITQUEST AFRICA Sales <sales@itquestafrica.com>";
+const salesReplyTo = process.env.SALES_REPLY_TO || "sales@itquestafrica.com";
+const salesBccEmail = process.env.SALES_BCC_EMAIL;
+
+const salesSmtpTransport =
+  process.env.SALES_SMTP_USER && process.env.SALES_SMTP_PASSWORD && (process.env.SALES_SMTP_HOST || smtpHost)
+    ? nodemailer.createTransport({
+        host: process.env.SALES_SMTP_HOST || smtpHost,
+        port: Number(process.env.SALES_SMTP_PORT || smtpPort),
+        secure: (process.env.SALES_SMTP_SECURE || String(smtpSecure)) === "true",
+        auth: {
+          user: process.env.SALES_SMTP_USER,
+          pass: process.env.SALES_SMTP_PASSWORD,
+        },
+      })
+    : null;
+
+export type SalesQuoteEmail = {
+  to: string;
+  name: string;
+  subject: string;
+  message: string;
+  pdf: Buffer;
+  pdfName: string;
+};
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+export async function sendSalesQuoteEmail(quote: SalesQuoteEmail) {
+  const html = `<div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(
+    quote.message,
+  )}</div>`;
+  const attachment = { filename: quote.pdfName, content: quote.pdf };
+
+  const transport = salesSmtpTransport ?? (resolveProvider() === "smtp" ? smtpTransport : null);
+
+  if (transport) {
+    await transport.sendMail({
+      from: salesFromEmail,
+      to: quote.to,
+      bcc: salesBccEmail || undefined,
+      replyTo: salesReplyTo,
+      subject: quote.subject,
+      text: quote.message,
+      html,
+      attachments: [{ ...attachment, contentType: "application/pdf" }],
+    });
+    return { delivered: true, provider: "smtp" as const };
+  }
+
+  if (resolveProvider() === "resend" && resend) {
+    const result = await resend.emails.send({
+      from: salesFromEmail,
+      to: quote.to,
+      bcc: salesBccEmail || undefined,
+      replyTo: salesReplyTo,
+      subject: quote.subject,
+      text: quote.message,
+      html,
+      attachments: [attachment],
+    });
+    if (result.error) {
+      throw new Error(result.error.message || "Resend refused the email");
+    }
+    return { delivered: true, provider: "resend" as const };
+  }
+
+  throw new Error("No mail provider is configured for sales@ (set SMTP or RESEND_API_KEY on the site).");
+}

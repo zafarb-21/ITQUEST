@@ -21,6 +21,13 @@ enum StockStatus {
   ON_REQUEST
 }
 
+enum SalesQuoteStatus {
+  READY
+  SENDING
+  SENT
+  FAILED
+}
+
 enum QuoteRequestStatus {
   NEW
   REVIEWING
@@ -108,9 +115,53 @@ model QuoteRequest {
   status                 QuoteRequestStatus @default(NEW)
   submittedAt            DateTime           @default(now())
   items                  QuoteRequestItem[]
+  // Zbot HQ's ITQUEST Sales agent: where the request came from, the chat that led to it, and the agent's pickup / quote.
+  source                 String             @default("form")
+  transcript             String?
+  hqPickedAt             DateTime?
+  hqQuoteNumber          String?
+  assistantLead          AssistantLead?
+  salesQuotes            SalesQuote[]
 
   @@index([status, submittedAt(sort: Desc)])
   @@index([email])
+  @@index([hqPickedAt])
+}
+
+// A lead captured by the website assistant (it also becomes a QuoteRequest with source "chat").
+model AssistantLead {
+  id             String        @id @default(cuid())
+  name           String
+  email          String
+  company        String
+  service        String
+  notes          String?
+  sourcePage     String?
+  transcript     String?
+  quoteRequestId String?       @unique
+  quoteRequest   QuoteRequest? @relation(fields: [quoteRequestId], references: [id], onDelete: SetNull)
+  createdAt      DateTime      @default(now())
+}
+
+// A quote the HQ Sales agent prepared and Victor signed; the site emails it from sales@ (POST /api/hq/send-quote).
+model SalesQuote {
+  id             String           @id @default(cuid())
+  number         String           @unique
+  quoteRequestId String?
+  quoteRequest   QuoteRequest?    @relation(fields: [quoteRequestId], references: [id], onDelete: SetNull)
+  customerName   String
+  customerEmail  String
+  subject        String
+  message        String
+  pdf            Bytes
+  pdfName        String
+  totalUsd       Decimal          @db.Decimal(12, 2)
+  status         SalesQuoteStatus @default(READY)
+  error          String?
+  createdAt      DateTime         @default(now())
+  sentAt         DateTime?
+
+  @@index([status, createdAt])
 }
 
 model QuoteRequestItem {
