@@ -4,6 +4,7 @@ import { QuoteInquiryForm } from "@/components/forms/quote-inquiry-form";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
+import { getCatalogProductBySlug } from "@/lib/catalog";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata(
@@ -11,13 +12,31 @@ export const metadata: Metadata = buildMetadata(
   "Request a tailored quote from ITQUEST AFRICA for infrastructure, security systems, digital platforms, AI-driven systems, support services, hardware sourcing, cloud setup, or smart IoT solutions in Zimbabwe.",
 );
 
-export default function QuotePage() {
+type QuotePageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export const dynamic = "force-dynamic";
+
+export default async function QuotePage({ searchParams }: QuotePageProps) {
+  const resolvedSearchParams = (searchParams ? await searchParams : {}) || {};
+  const selectedProductSlug = Array.isArray(resolvedSearchParams.product)
+    ? resolvedSearchParams.product[0]
+    : resolvedSearchParams.product;
+  const selectedProduct = selectedProductSlug ? await getCatalogProductBySlug(selectedProductSlug) : null;
+  const heroTitle = selectedProduct
+    ? `Request a Quote for ${selectedProduct.name}`
+    : "Share your requirements and receive a more tailored next step";
+  const heroDescription = selectedProduct
+    ? `${selectedProduct.summary} SKU ${selectedProduct.sku}. Use this form to request current pricing, confirm availability, share quantity needs, and ask for lead-time guidance.`
+    : "Use this form to outline your environment, priorities, and project timing. ITQUEST AFRICA will use that context to frame a more relevant response for infrastructure, security, support, digital systems, supply, cloud, or smart monitoring work.";
+
   return (
     <>
       <PageHero
-        eyebrow="Consultation / Request Quote"
-        title="Share your requirements and receive a more tailored next step"
-        description="Use this form to outline your environment, priorities, and project timing. ITQUEST AFRICA will use that context to frame a more relevant response for infrastructure, security, support, digital systems, supply, cloud, or smart monitoring work."
+        eyebrow={selectedProduct ? `Product Quote / ${selectedProduct.sku}` : "Consultation / Request Quote"}
+        title={heroTitle}
+        description={heroDescription}
       />
 
       <section className="section-pad">
@@ -26,7 +45,17 @@ export default function QuotePage() {
             <Reveal>
               <div className="section-panel p-8 md:p-10">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">What to include</p>
-                <h2 className="mt-4 text-3xl font-semibold text-white">The clearer the brief, the better the response</h2>
+                <h2 className="mt-4 text-3xl font-semibold text-white">
+                  {selectedProduct ? "Your selected product has been attached to this request" : "The clearer the brief, the better the response"}
+                </h2>
+                {selectedProduct ? (
+                  <div className="mt-6 rounded-2xl border border-cyan-300/15 bg-cyan-300/8 px-5 py-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">Selected Product</p>
+                    <h3 className="mt-2 text-xl font-semibold text-white">{selectedProduct.name}</h3>
+                    <p className="mt-2 text-sm font-medium text-white/65">{selectedProduct.sku}</p>
+                    <p className="mt-3 text-sm leading-7 text-white/[0.72]">{selectedProduct.summary}</p>
+                  </div>
+                ) : null}
                 <div className="mt-6 space-y-4">
                   {[
                     "Your industry, site type, or business context",
@@ -43,7 +72,7 @@ export default function QuotePage() {
               </div>
             </Reveal>
             <Reveal delay={0.08}>
-              <QuoteInquiryForm sourcePage="/quote" variant="full" />
+              <QuoteInquiryForm sourcePage="/quote" variant="full" selectedProduct={selectedProduct} />
             </Reveal>
           </div>
         </Container>

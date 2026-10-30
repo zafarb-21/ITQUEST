@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { type InquiryInput, validateInquiry } from "@/lib/inquiry";
 import { sendInquiryEmail } from "@/lib/mailer";
+import { isDatabaseConfigured } from "@/lib/prisma";
+import { createQuoteRequestFromInquiry } from "@/lib/quote-requests";
 import { siteConfig } from "@/lib/site-data";
 
 export async function POST(request: Request) {
@@ -29,6 +31,25 @@ export async function POST(request: Request) {
   }
 
   const inquiry = validation.data;
+
+  try {
+    if (inquiry.kind === "quote" && isDatabaseConfigured()) {
+      await createQuoteRequestFromInquiry(inquiry);
+    }
+  } catch (error) {
+    console.error("[ITQUEST AFRICA] Quote request persistence failed", error);
+
+    return NextResponse.json(
+      {
+        ok: false,
+        message:
+          "Your quote request could not be saved right now. Please try again or contact us directly at " +
+          siteConfig.email +
+          ".",
+      },
+      { status: 500 },
+    );
+  }
 
   try {
     await sendInquiryEmail(inquiry);

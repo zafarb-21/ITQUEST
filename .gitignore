@@ -1,5 +1,9 @@
 .next
 node_modules
+generated
+.env
+.env.local
+*.tsbuildinfo
 out
 dist
 .eslintcache
