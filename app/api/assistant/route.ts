@@ -7,6 +7,7 @@ import {
   shouldCaptureLead,
   validateAssistantMessages,
 } from "@/lib/assistant";
+import { reasoningFor, toResponsesInput } from "@/lib/responses";
 import { siteConfig } from "@/lib/site-data";
 
 export const runtime = "nodejs";
@@ -97,20 +98,13 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         model,
         store: false,
-        max_output_tokens: 320,
+        max_output_tokens: 800,
+        ...(reasoningFor(model) ? { reasoning: reasoningFor(model) } : {}),
         instructions: buildAssistantSystemPrompt(recommendedServices, await liveCatalogNote()),
         metadata: {
           sourcePage: typeof payload.sourcePage === "string" ? payload.sourcePage : "",
         },
-        input: messages.map((message) => ({
-          role: message.role,
-          content: [
-            {
-              type: "input_text",
-              text: message.content,
-            },
-          ],
-        })),
+        input: toResponsesInput(messages),
       }),
     });
 
@@ -120,6 +114,7 @@ export async function POST(request: Request) {
       console.error("[ITQUEST AFRICA] Assistant response failed", {
         status: response.status,
         error: result.error?.message ?? "Unknown OpenAI error",
+        model,
       });
 
       return NextResponse.json(

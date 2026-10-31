@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { checkHqToken } from "../lib/hq";
+import { reasoningFor, toResponsesInput } from "../lib/responses";
 import { formatTranscript } from "../lib/transcript";
 
 const secret = "a".repeat(40);
@@ -31,4 +32,22 @@ test("transcript: visitor and assistant lines, junk dropped, capped", () => {
   assert.equal(formatTranscript("not an array"), "");
   const long = formatTranscript(Array.from({ length: 40 }, (_, i) => ({ role: "user", content: `${i} ${"x".repeat(1400)}` })));
   assert.ok(long.length <= 6000 && long.includes("39 "));
+});
+
+test("assistant: the chat goes to OpenAI as plain turns (the welcome is the assistant's own words)", () => {
+  const input = toResponsesInput([
+    { role: "assistant", content: "Ask about ITQUEST AFRICA services" },
+    { role: "user", content: "hello" },
+  ]);
+  assert.deepEqual(input, [
+    { role: "assistant", content: "Ask about ITQUEST AFRICA services" },
+    { role: "user", content: "hello" },
+  ]);
+  assert.ok(!JSON.stringify(input).includes("input_text"));
+});
+
+test("assistant: short reasoning only for reasoning models", () => {
+  assert.deepEqual(reasoningFor("gpt-5-mini"), { effort: "low" });
+  assert.deepEqual(reasoningFor("o4-mini"), { effort: "low" });
+  assert.equal(reasoningFor("gpt-4.1-mini"), undefined);
 });
