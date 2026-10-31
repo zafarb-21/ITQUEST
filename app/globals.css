@@ -262,4 +262,30 @@ body {
   .section-light .input-field:focus {
     border-color: rgba(10, 165, 214, 0.5);
   }
+
+  /* Drop-downs: the open list is drawn by the browser, which used white text on a white list (only the highlighted choice
+     showed). Give the list the site's dark colours, and the light section its light ones. */
+  select.input-field {
+    color-scheme: dark;
+    cursor: pointer;
+  }
+
+  select.input-field option {
+    background-color: #0b1220;
+    color: #e5e7eb;
+  }
+
+  select.input-field option:checked {
+    background-color: #0e3a4a;
+    color: #ffffff;
+  }
+
+  .section-light select.input-field {
+    color-scheme: light;
+  }
+
+  .section-light select.input-field option {
+    background-color: #ffffff;
+    color: #0f172a;
+  }
 }
