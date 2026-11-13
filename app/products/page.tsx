@@ -7,7 +7,7 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata(
   "Products",
-  "View ITQUEST AFRICA’s premium catalog-style technology supply categories including routers, switches, fibre accessories, networking components, electronics, and smart devices.",
+  "View ITQUEST AFRICA’s catalog of technology supply categories including routers, switches, fibre accessories, networking components, electronics, and smart devices.",
 );
 
 export const dynamic = "force-dynamic";
@@ -19,8 +19,8 @@ export default async function ProductsPage() {
     <>
       <PageHero
         eyebrow="Products"
-        title="A premium catalog view of dependable technology supply capability"
-        description="ITQUEST AFRICA supplies dependable technology hardware and connectivity equipment tailored to business, institutional, and infrastructure needs. This page is positioned as a capability showcase, not a low-end storefront."
+        title="Networking gear, hardware and smart devices, sourced and supported"
+        description="Routers, switches, Wi-Fi, CCTV, UPS, laptops and smart devices, sourced from trusted brands, configured before delivery and backed by support."
         primaryCta={{ href: "/quote", label: "Request Product Sourcing" }}
         secondaryCta={{ href: "/contact", label: "Talk to Sales" }}
       />
@@ -28,8 +28,8 @@ export default async function ProductsPage() {
       <ProductsPageContent products={products} />
 
       <CtaBanner
-        title="Need hardware aligned to a specific project or environment?"
-        description="Share the deployment context, expected scale, and technical requirements. ITQUEST AFRICA can help shape a more precise sourcing response."
+        title="Need something not listed?"
+        description="Send us the model or what it needs to do. We'll source it, price it and deliver it configured."
       />
     </>
   );

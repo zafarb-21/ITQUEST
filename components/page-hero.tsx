@@ -29,15 +29,15 @@ export function PageHero({
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_420px] lg:items-end">
           <div className="max-w-3xl">
             <span className="eyebrow">{eyebrow}</span>
-            <h1 className={cn("mt-6 text-4xl font-semibold leading-tight md:text-6xl", light ? "text-slate-950" : "text-white")}>
+            <h1 className={cn("mt-6 text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-6xl", light ? "text-slate-950" : "text-ink")}>
               {title}
             </h1>
-            <p className={cn("mt-6 max-w-2xl text-lg leading-8", light ? "text-slate-600" : "text-white/70")}>{description}</p>
+            <p className={cn("mt-6 max-w-2xl text-lg leading-8", light ? "text-slate-600" : "text-slate-600")}>{description}</p>
             {(primaryCta || secondaryCta) && (
               <div className="mt-8 flex flex-wrap gap-3">
                 {primaryCta ? <ButtonLink href={primaryCta.href}>{primaryCta.label}</ButtonLink> : null}
                 {secondaryCta ? (
-                  <ButtonLink href={secondaryCta.href} variant={light ? "primary" : "secondary"}>
+                  <ButtonLink href={secondaryCta.href} variant="secondary">
                     {secondaryCta.label}
                   </ButtonLink>
                 ) : null}

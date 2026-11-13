@@ -26,15 +26,15 @@ export default async function QuotePage({ searchParams }: QuotePageProps) {
   const selectedProduct = selectedProductSlug ? await getCatalogProductBySlug(selectedProductSlug) : null;
   const heroTitle = selectedProduct
     ? `Request a Quote for ${selectedProduct.name}`
-    : "Share your requirements and receive a more tailored next step";
+    : "Get an itemised quote within 24 hours";
   const heroDescription = selectedProduct
     ? `${selectedProduct.summary} SKU ${selectedProduct.sku}. Use this form to request current pricing, confirm availability, share quantity needs, and ask for lead-time guidance.`
-    : "Use this form to outline your environment, priorities, and project timing. ITQUEST AFRICA will use that context to frame a more relevant response for infrastructure, security, support, digital systems, supply, cloud, or smart monitoring work.";
+    : "Tell us what you need, where, and by when. An engineer reviews it, may ask a question or book a site visit, and sends a clear, itemised quote in USD or ZiG.";
 
   return (
     <>
       <PageHero
-        eyebrow={selectedProduct ? `Product Quote / ${selectedProduct.sku}` : "Consultation / Request Quote"}
+        eyebrow={selectedProduct ? `Product Quote / ${selectedProduct.sku}` : "Get a quote"}
         title={heroTitle}
         description={heroDescription}
       />
@@ -44,16 +44,16 @@ export default async function QuotePage({ searchParams }: QuotePageProps) {
           <div className="grid gap-8 xl:grid-cols-[0.9fr_minmax(0,1.1fr)]">
             <Reveal>
               <div className="section-panel p-8 md:p-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">What to include</p>
-                <h2 className="mt-4 text-3xl font-semibold text-white">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">What to include</p>
+                <h2 className="mt-4 text-3xl font-semibold text-ink">
                   {selectedProduct ? "Your selected product has been attached to this request" : "The clearer the brief, the better the response"}
                 </h2>
                 {selectedProduct ? (
-                  <div className="mt-6 rounded-2xl border border-cyan-300/15 bg-cyan-300/8 px-5 py-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">Selected Product</p>
-                    <h3 className="mt-2 text-xl font-semibold text-white">{selectedProduct.name}</h3>
-                    <p className="mt-2 text-sm font-medium text-white/65">{selectedProduct.sku}</p>
-                    <p className="mt-3 text-sm leading-7 text-white/[0.72]">{selectedProduct.summary}</p>
+                  <div className="mt-6 rounded-2xl border border-brand-200 bg-brand-50 px-5 py-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">Selected Product</p>
+                    <h3 className="mt-2 text-xl font-semibold text-ink">{selectedProduct.name}</h3>
+                    <p className="mt-2 text-sm font-medium text-slate-600">{selectedProduct.sku}</p>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{selectedProduct.summary}</p>
                   </div>
                 ) : null}
                 <div className="mt-6 space-y-4">
@@ -63,9 +63,9 @@ export default async function QuotePage({ searchParams }: QuotePageProps) {
                     "Expected scale, quantities, or locations involved",
                     "Timing, urgency, and any critical constraints",
                   ].map((item) => (
-                    <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 text-cyan-300" />
-                      <span className="text-sm leading-7 text-white/[0.72]">{item}</span>
+                    <div key={item} className="flex items-start gap-3 rounded-2xl border border-ink/10 bg-white px-4 py-4">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 text-brand-700" />
+                      <span className="text-sm leading-7 text-slate-600">{item}</span>
                     </div>
                   ))}
                 </div>

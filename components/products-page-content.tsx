@@ -67,7 +67,7 @@ export function ProductsPageContent({ products }: ProductsPageContentProps) {
               <Reveal key={product.id} delay={index * 0.06}>
                 <article id={product.slug} className="surface-card-light p-7">
                   <div className="flex items-start justify-between gap-4">
-                    <div className="inline-flex rounded-2xl bg-slate-950 p-4 text-cyan-300">
+                    <div className="inline-flex rounded-2xl bg-brand-50 p-4 text-brand-700">
                       <Boxes className="h-6 w-6" />
                     </div>
                     <div className="flex flex-wrap justify-end gap-2">
@@ -101,7 +101,7 @@ export function ProductsPageContent({ products }: ProductsPageContentProps) {
                     ) : null}
                   </div>
                   <div className="mt-7 flex flex-wrap gap-3">
-                    <ButtonLink href={`/products/${product.slug}`} className="bg-slate-950 text-white hover:-translate-y-0.5 hover:bg-slate-900">
+                    <ButtonLink href={`/products/${product.slug}`} className="bg-ink text-[#fff] hover:-translate-y-0.5 hover:bg-brand-900">
                       View Details
                     </ButtonLink>
                     <ButtonLink href={`/quote?product=${encodeURIComponent(product.slug)}`} variant="ghost" className="rounded-full border border-slate-200 px-5 py-3 text-slate-700 hover:border-slate-300 hover:bg-slate-100">

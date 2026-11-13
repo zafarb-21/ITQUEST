@@ -98,9 +98,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
             <Reveal delay={0.08}>
               <aside className="section-panel p-8 md:p-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Sourcing Support</p>
-                <h2 className="mt-4 text-3xl font-semibold text-white">Need pricing, delivery timing, or a larger quantity?</h2>
-                <p className="mt-4 text-sm leading-7 text-white/[0.72]">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">Sourcing Support</p>
+                <h2 className="mt-4 text-3xl font-semibold text-ink">Need pricing, delivery timing, or a larger quantity?</h2>
+                <p className="mt-4 text-sm leading-7 text-slate-600">
                   Use the quote flow to request current pricing, confirm availability, or ask for recommended alternatives if this item is not the right fit for the project.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">

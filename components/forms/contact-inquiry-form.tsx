@@ -73,13 +73,13 @@ export function ContactInquiryForm({ light = false, sourcePage }: ContactInquiry
   return (
     <form onSubmit={handleSubmit} className={cn(light ? "surface-card-light p-8" : "surface-card p-8")} noValidate>
       <div className="mb-6">
-        <p className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300"}>
+        <p className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700"}>
           Contact Form
         </p>
-        <h3 className={light ? "mt-3 text-2xl font-semibold text-slate-950" : "mt-3 text-2xl font-semibold text-white"}>
+        <h3 className={light ? "mt-3 text-2xl font-semibold text-slate-950" : "mt-3 text-2xl font-semibold text-ink"}>
           Start the conversation
         </h3>
-        <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-white/[0.68]"}>
+        <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-slate-600"}>
           Tell us about your project, environment, or infrastructure requirement and our team will respond with the right next step.
         </p>
       </div>
@@ -119,7 +119,7 @@ export function ContactInquiryForm({ light = false, sourcePage }: ContactInquiry
       <button
         type="submit"
         disabled={isPending}
-        className="mt-5 inline-flex rounded-full bg-gradient-to-r from-brand-400 to-blue-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
+        className="mt-5 inline-flex rounded-xl bg-ink px-6 py-3.5 text-sm font-semibold text-[#fff] transition hover:-translate-y-0.5 hover:bg-brand-900 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isPending ? "Sending..." : "Send Enquiry"}
       </button>
@@ -163,7 +163,7 @@ function SubmissionNotice({
         state.ok
           ? light
             ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-            : "border-emerald-500/20 bg-emerald-500/10 text-emerald-200"
+            : "border-emerald-500/20 bg-emerald-500/10 text-emerald-700"
           : light
             ? "border-rose-200 bg-rose-50 text-rose-700"
             : "border-rose-500/20 bg-rose-500/10 text-rose-200",

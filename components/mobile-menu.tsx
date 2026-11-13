@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
-import { navItems } from "@/lib/site-data";
+import { navItems, whatsappHref } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 type MobileMenuProps = {
@@ -23,19 +23,19 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-xl md:hidden"
+          className="fixed inset-0 z-[60] bg-ink/40 backdrop-blur-xl md:hidden"
         >
           <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="ml-auto flex h-full w-[88%] max-w-sm flex-col border-l border-white/10 bg-slate-950 px-6 py-6"
+            className="ml-auto flex h-full w-[88%] max-w-sm flex-col border-l border-ink/10 bg-white px-6 py-6"
           >
             <button
               type="button"
               onClick={onClose}
-              className="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white"
+              className="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white text-ink"
               aria-label="Close menu"
             >
               <X className="h-5 w-5" />
@@ -50,8 +50,8 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                     href={item.href}
                     onClick={onClose}
                     className={cn(
-                      "block rounded-2xl px-4 py-3 text-base font-medium text-white/75 transition hover:bg-white/5 hover:text-white",
-                      active && "bg-white/[0.08] text-white",
+                      "block rounded-2xl px-4 py-3 text-base font-medium text-slate-600 transition hover:bg-brand-50 hover:text-ink",
+                      active && "bg-brand-50 text-ink",
                     )}
                   >
                     {item.label}
@@ -60,8 +60,11 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
               })}
             </div>
             <div className="mt-auto pt-8">
-              <ButtonLink href="/quote" className="w-full" >
-                Request a Quote
+              <ButtonLink href={whatsappHref()} variant="whatsapp" className="mb-3 w-full">
+                Chat on WhatsApp
+              </ButtonLink>
+              <ButtonLink href="/quote" className="w-full">
+                Get a quote
               </ButtonLink>
             </div>
           </motion.div>

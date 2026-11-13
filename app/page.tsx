@@ -1,96 +1,89 @@
-import { CheckCircle2, Globe, Lightbulb, MapPinned, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 import type { Metadata } from "next";
+import {
+  ArrowRight,
+  Cpu,
+  Globe2,
+  Network,
+  ShieldCheck,
+  Sparkles,
+  Thermometer,
+} from "lucide-react";
 import { ButtonLink } from "@/components/button-link";
-import { CaseStudyCard } from "@/components/case-study-card";
 import { Container } from "@/components/container";
-import { CtaBanner } from "@/components/cta-banner";
 import { FaqAccordion } from "@/components/faq-accordion";
-import { IndustryCard } from "@/components/industry-card";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
-import { ServiceCard } from "@/components/service-card";
-import { TestimonialCard } from "@/components/testimonial-card";
 import { buildMetadata } from "@/lib/metadata";
-import {
-  caseStudies,
-  featuredServices,
-  faqs,
-  industries,
-  reasonsToChoose,
-  smartSenseFeatures,
-  testimonials,
-  trustStrip,
-} from "@/lib/site-data";
+import { faqs, whatsappHref } from "@/lib/site-data";
 import { HomeHero } from "@/sections/home-hero";
 
+// Nov 13 2026 redesign (Concept A). The home page says what we do, how a job runs, and how to reach us. The old sample
+// testimonials and case studies are gone: ITQUEST shows only what is true.
 export const metadata: Metadata = buildMetadata(
-  "Premium Technology Solutions in Zimbabwe",
-  "ITQUEST AFRICA delivers premium infrastructure, security systems, managed IT support, digital platforms, AI-driven systems, hardware sourcing, and IoT solutions for modern businesses and institutions in Zimbabwe.",
+  "Reliable IT, Security & AI for Zimbabwean Businesses",
+  "Networks, CCTV and access control, IT hardware supply, websites, AI agents and SmartSense IoT monitoring for businesses in Zimbabwe. Designed, installed and supported by engineers.",
 );
+
+const services = [
+  { icon: Network, title: "Networking", text: "Cabling, Wi-Fi, firewalls and failover internet for offices, schools and clinics.", cta: "Site survey → quote", href: "/services#networking-infrastructure" },
+  { icon: ShieldCheck, title: "Security systems", text: "CCTV, access control and alarms with phone viewing and local recording.", cta: "Site survey → quote", href: "/services#cctv-surveillance-systems" },
+  { icon: Sparkles, title: "AI Agents", text: "A call agent, website chatbot and WhatsApp agent trained on your business, answering 24/7.", cta: "Pilot programme open", href: "/services#ai-intelligent-systems", featured: true },
+  { icon: Cpu, title: "Hardware supply", text: "Laptops, servers, UPS and network gear sourced, configured and delivered.", cta: "Browse products", href: "/products" },
+  { icon: Globe2, title: "Web & digital", text: "Fast business websites, booking and payment flows, hosting and business email.", cta: "From setup to care", href: "/services#web-digital-solutions" },
+  { icon: Thermometer, title: "SmartSense IoT", text: "Temperature, power and door alerts for server rooms, pharmacies and cold rooms.", cta: "Pilot units available", href: "/iot" },
+];
+
+const steps = [
+  ["1", "Tell us what you need", "WhatsApp, call or the quote form. We reply the same working day."],
+  ["2", "Site visit", "An engineer checks the space, power and existing equipment. No guesswork."],
+  ["3", "Clear quote", "Itemised, in USD or ZiG, with a timeline. Valid for 14 days."],
+  ["4", "Install & handover", "Tested, labelled and documented, with your team shown how it works."],
+  ["5", "Support", "Every install includes support after go-live, then optional care plans."],
+];
+
+const agentPoints = [
+  "Answers calls, WhatsApp and website chat in English and Shona",
+  "Trained on your prices, stock, hours and policies",
+  "Books appointments and takes orders, then hands over to your staff",
+  "A weekly report of what customers asked",
+];
 
 export default function HomePage() {
   return (
     <>
       <HomeHero />
 
-      <section className="section-pad pt-0">
-        <Container>
-          <div className="section-panel px-6 py-5 md:px-8">
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              {trustStrip.map((item) => (
-                <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4">
-                  <p className="text-sm font-semibold text-white">{item}</p>
-                  <p className="mt-2 text-sm text-white/55">
-                    Trusted by businesses, institutions, and modern enterprises seeking dependable technology delivery.
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-pad">
+      <section className="pb-16 md:pb-20">
         <Container>
           <Reveal>
-            <SectionHeading
-              eyebrow="Company Introduction"
-              title="A premium technology partner for connected growth in Zimbabwe"
-              description="ITQUEST AFRICA is a modern technology company focused on delivering reliable connectivity, digital systems, and smart infrastructure for a fast-changing world. We help organizations and individuals build stronger networks, modernize their digital presence, source quality IT hardware, and adopt intelligent connected solutions designed for efficiency, scale, and long-term value."
-            />
+            <h2 className="mb-7 text-3xl font-bold tracking-tight text-ink md:text-4xl">What we do</h2>
           </Reveal>
-          <div className="grid gap-6 lg:grid-cols-3">
-            {[
-              {
-                icon: Globe,
-                title: "Regionally minded, locally grounded",
-                description:
-                  "Built for Zimbabwe first, with the standard, positioning, and service ambition of a future-facing African brand.",
-              },
-              {
-                icon: ShieldCheck,
-                title: "Credibility through execution",
-                description:
-                  "Every touchpoint is designed to feel considered, structured, and aligned with serious business expectations.",
-              },
-              {
-                icon: MapPinned,
-                title: "Technology with operational purpose",
-                description:
-                  "We focus on infrastructure and systems that improve continuity, visibility, usability, and confidence.",
-              },
-            ].map((item, index) => {
-              const Icon = item.icon;
-
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((s, i) => {
+              const Icon = s.icon;
               return (
-                <Reveal key={item.title} delay={index * 0.08}>
-                  <div className="surface-card p-7">
-                    <div className="inline-flex rounded-2xl bg-white/[0.08] p-4 text-cyan-300">
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <h3 className="mt-5 text-2xl font-semibold text-white">{item.title}</h3>
-                    <p className="mt-4 text-base leading-7 text-white/[0.68]">{item.description}</p>
-                  </div>
+                <Reveal key={s.title} delay={i * 0.05}>
+                  <Link
+                    href={s.href}
+                    className={
+                      s.featured
+                        ? "group flex h-full flex-col rounded-2xl bg-ink p-6 text-[#fff] transition hover:-translate-y-1"
+                        : "group flex h-full flex-col rounded-2xl border border-ink/10 bg-white p-6 transition hover:-translate-y-1 hover:border-brand-300"
+                    }
+                  >
+                    <span className={s.featured ? "grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-brand-200" : "grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-700"}>
+                      <Icon className="h-5 w-5" aria-hidden />
+                    </span>
+                    <span className="mt-4 flex items-center gap-2 text-xl font-semibold">
+                      <span className={s.featured ? "text-[#fff]" : "text-ink"}>{s.title}</span>
+                      {s.featured ? <span className="rounded-full bg-brand-200 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-ink">New</span> : null}
+                    </span>
+                    <span className={s.featured ? "mt-2 text-[15px] leading-6 text-slate-300" : "mt-2 text-[15px] leading-6 text-slate-600"}>{s.text}</span>
+                    <span className={s.featured ? "mt-auto pt-5 text-sm font-semibold text-brand-200" : "mt-auto pt-5 text-sm font-semibold text-brand-700"}>
+                      {s.cta} <ArrowRight className="ml-1 inline h-3.5 w-3.5 transition group-hover:translate-x-0.5" aria-hidden />
+                    </span>
+                  </Link>
                 </Reveal>
               );
             })}
@@ -101,161 +94,19 @@ export default function HomePage() {
       <section className="section-light section-pad">
         <Container>
           <Reveal>
-            <SectionHeading
-              eyebrow="Service Pillars"
-              title="Integrated solutions across infrastructure, security systems, digital platforms, hardware, and connected intelligence"
-              description="A curated look at the infrastructure, security, support, and digital capabilities that define ITQUEST AFRICA's premium service model."
-              light
-            />
+            <SectionHeading eyebrow="How a job runs" title="From first message to handover, in five clear steps" light />
           </Reveal>
-          <div className="grid gap-6 xl:grid-cols-2">
-            {featuredServices.map((service, index) => (
-              <Reveal key={service.slug} delay={index * 0.08}>
-                <ServiceCard service={service} light />
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-pad">
-        <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="Why ITQUEST AFRICA"
-              title="Serious technology delivery for organizations that need more than a basic setup"
-              description="The difference is not only in what we provide, but in how each solution is framed: engineered with clarity, aligned to business reality, and prepared for what comes next."
-            />
-          </Reveal>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {reasonsToChoose.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <Reveal key={item.title} delay={index * 0.06}>
-                  <div className="surface-card p-7">
-                    <div className="flex items-center gap-4">
-                      <div className="rounded-2xl bg-white/[0.08] p-4 text-cyan-300">
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-                    </div>
-                    <p className="mt-5 text-sm leading-7 text-white/[0.68]">{item.description}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-light section-pad">
-        <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="Industries Served"
-              title="Technology support shaped around the realities of modern African organizations"
-              description="From private businesses to institutions and premium residential environments, each sector has distinct operational needs. ITQUEST AFRICA frames its work around those realities."
-              light
-            />
-          </Reveal>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {industries.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.06}>
-                <IndustryCard item={item} light />
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-pad">
-        <Container>
-          <div className="section-panel relative overflow-hidden px-8 py-10 md:px-10">
-            <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_center,rgba(34,192,240,0.18),transparent_58%)]" />
-            <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_460px]">
-              <Reveal>
-                <div>
-                  <span className="eyebrow">Flagship IoT Offering</span>
-                  <h2 className="mt-6 text-4xl font-semibold text-white md:text-5xl">
-                    ITQUEST <span className="text-gradient">SmartSense</span>
-                  </h2>
-                  <p className="mt-5 max-w-2xl text-lg leading-8 text-white/[0.72]">
-                    A smart monitoring and alert platform for businesses, clinics, server rooms, cold
-                    storage spaces, offices, and critical environments. SmartSense combines compact
-                    sensor hardware with cloud visibility and mobile alerts to monitor temperature,
-                    humidity, power conditions, unauthorized access events, and environmental risk in
-                    real time.
-                  </p>
-                  <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                    {[
-                      "Server rooms",
-                      "Pharmacy storage",
-                      "Office equipment rooms",
-                      "Retail refrigeration",
-                      "Clinics and labs",
-                      "Network equipment areas",
-                    ].map((item) => (
-                      <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
-                        <CheckCircle2 className="h-4 w-4 text-cyan-300" />
-                        <span className="text-sm text-white/[0.72]">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    <ButtonLink href="/iot">Explore SmartSense</ButtonLink>
-                    <ButtonLink href="/quote" variant="secondary">
-                      Request an IoT Consultation
-                    </ButtonLink>
+          <div className="grid gap-4 md:grid-cols-5">
+            {steps.map(([n, title, text], i) => (
+              <Reveal key={n} delay={i * 0.05}>
+                <div className="flex h-full gap-4 rounded-2xl border border-ink/10 bg-paper p-5 md:block">
+                  <span className="grid h-9 w-9 flex-none place-items-center rounded-full bg-ink text-sm font-bold text-[#fff]">{n}</span>
+                  <div>
+                    <h3 className="text-lg font-semibold md:mt-4">{title}</h3>
+                    <p className="mt-1 text-sm leading-6 md:mt-2">{text}</p>
                   </div>
                 </div>
               </Reveal>
-              <Reveal delay={0.1}>
-                <div className="grid gap-4">
-                  {smartSenseFeatures.slice(0, 4).map((feature) => {
-                    const Icon = feature.icon;
-
-                    return (
-                      <div key={feature.title} className="surface-card p-5">
-                        <div className="flex items-start gap-4">
-                          <div className="rounded-2xl bg-white/[0.08] p-3 text-cyan-300">
-                            <Icon className="h-5 w-5" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
-                            <p className="mt-2 text-sm leading-7 text-white/[0.65]">{feature.description}</p>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-light section-pad">
-        <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="Selected Project Narratives"
-              title="Capability previews shaped as credible, enterprise-grade case studies"
-              description="The project story matters. These examples demonstrate how ITQUEST AFRICA positions practical infrastructure, digital transformation, and smart monitoring outcomes."
-              action={
-                <ButtonLink href="/projects" variant="primary">
-                  View All Projects
-                </ButtonLink>
-              }
-              light
-            />
-          </Reveal>
-          <div className="grid gap-6 xl:grid-cols-2">
-            {caseStudies.map((study, index) => (
-              <Reveal key={study.title} delay={index * 0.08}>
-                <CaseStudyCard study={study} light />
-              </Reveal>
             ))}
           </div>
         </Container>
@@ -263,51 +114,55 @@ export default function HomePage() {
 
       <section className="section-pad">
         <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="Client Perspective"
-              title="A tone of service that feels structured, credible, and premium"
-              description="These sample testimonials reflect the kind of experience ITQUEST AFRICA is designed to deliver: clear communication, technical competence, and confidence from first contact to final outcome."
-            />
-          </Reveal>
-          <div className="grid gap-6 xl:grid-cols-3">
-            {testimonials.map((testimonial, index) => (
-              <Reveal key={testimonial.name} delay={index * 0.08}>
-                <TestimonialCard testimonial={testimonial} />
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-light section-pad">
-        <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="Frequently Asked Questions"
-              title="Straight answers for organizations evaluating their next technology investment"
-              description="The site is designed to convert serious interest into qualified conversations. These answers keep the positioning clear without adding clutter."
-              light
-            />
-          </Reveal>
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_minmax(0,1.1fr)]">
+          <div className="grid items-center gap-10 rounded-3xl bg-ink p-8 md:p-12 lg:grid-cols-[1.1fr_0.9fr]">
             <Reveal>
-              <div className="surface-card-light p-8">
-                <div className="flex items-center gap-4">
-                  <div className="rounded-2xl bg-slate-950 p-4 text-cyan-300">
-                    <Lightbulb className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-slate-950">Need a tailored recommendation?</h3>
-                </div>
-                <p className="mt-5 text-base leading-8 text-slate-600">
-                  Whether the priority is networking, web systems, equipment sourcing, or SmartSense,
-                  the next step is a focused conversation around requirements, scale, and timing.
+              <div>
+                <span className="inline-flex rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-brand-200">
+                  New · Pilot programme
+                </span>
+                <h2 className="mt-5 text-3xl font-bold tracking-tight text-[#fff] md:text-[2.75rem] md:leading-[1.1]">
+                  AI agents that answer your customers, day and night.
+                </h2>
+                <p className="mt-5 max-w-xl text-lg leading-8 text-slate-300">
+                  We build and run AI agents for your phone line, WhatsApp and website, tailored to your business. You get
+                  the results; we handle the technology.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <ButtonLink href="/contact">Talk to Our Team</ButtonLink>
-                  <ButtonLink href="/quote" variant="secondary">
-                    Request a Quote
+                  <ButtonLink href={whatsappHref("Hi ITQUEST, I'd like to join the AI agents pilot.")} variant="accent">
+                    Join the pilot
                   </ButtonLink>
+                  <ButtonLink href="/services#ai-intelligent-systems" variant="onDark">
+                    How it works
+                  </ButtonLink>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <ul className="space-y-3">
+                {agentPoints.map((p) => (
+                  <li key={p} className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-[15px] leading-6 text-slate-200">
+                    <Sparkles className="mt-0.5 h-4 w-4 flex-none text-brand-200" aria-hidden />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      <section className="section-light section-pad">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+            <Reveal>
+              <div>
+                <SectionHeading eyebrow="Questions" title="Straight answers" light />
+                <p className="-mt-6 text-base leading-7">
+                  Something else? Ask us on WhatsApp, or use the assistant in the corner.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <ButtonLink href={whatsappHref()} variant="whatsapp">Chat on WhatsApp</ButtonLink>
+                  <ButtonLink href="/contact" variant="secondary">Contact us</ButtonLink>
                 </div>
               </div>
             </Reveal>
@@ -318,10 +173,20 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <CtaBanner
-        title="Ready to build a smarter technology foundation?"
-        description="From connectivity and digital systems to hardware supply and intelligent monitoring, ITQUEST AFRICA is positioned to deliver technology with premium clarity and business confidence."
-      />
+      <section className="section-pad">
+        <Container>
+          <div className="flex flex-col items-start justify-between gap-6 rounded-3xl border border-ink/10 bg-white p-8 md:flex-row md:items-center md:p-10">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Ready when you are.</h2>
+              <p className="mt-2 text-base">Send us the job. You get an itemised quote within 24 hours.</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="/quote" className="px-6 py-3.5">Get a quote</ButtonLink>
+              <ButtonLink href={whatsappHref()} variant="whatsapp" className="px-6 py-3.5">WhatsApp</ButtonLink>
+            </div>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

@@ -34,7 +34,7 @@ export function SectionHeading({
         <h2
           className={cn(
             "mt-5 text-3xl font-semibold leading-tight md:text-4xl lg:text-[2.85rem]",
-            light ? "text-slate-950" : "text-white",
+            light ? "text-slate-950" : "text-ink",
           )}
         >
           {title}
@@ -43,7 +43,7 @@ export function SectionHeading({
           <p
             className={cn(
               "mt-5 max-w-2xl text-base leading-8 md:text-lg",
-              light ? "text-slate-600" : "text-white/70",
+              light ? "text-slate-600" : "text-slate-600",
               align === "center" && "mx-auto",
             )}
           >

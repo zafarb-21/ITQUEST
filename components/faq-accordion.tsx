@@ -24,7 +24,7 @@ export function FaqAccordion({ items, light = false }: FaqAccordionProps) {
             key={item.question}
             className={cn(
               "overflow-hidden rounded-[1.5rem] border",
-              light ? "border-slate-200 bg-white" : "border-white/10 bg-white/[0.04]",
+              light ? "border-slate-200 bg-white" : "border-ink/10 bg-white",
             )}
           >
             <button
@@ -32,13 +32,13 @@ export function FaqAccordion({ items, light = false }: FaqAccordionProps) {
               onClick={() => setActive(open ? null : index)}
               className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
             >
-              <span className={light ? "text-base font-semibold text-slate-950" : "text-base font-semibold text-white"}>
+              <span className={light ? "text-base font-semibold text-slate-950" : "text-base font-semibold text-ink"}>
                 {item.question}
               </span>
               <ChevronDown
                 className={cn(
                   "h-5 w-5 transition duration-300",
-                  light ? "text-slate-500" : "text-white/60",
+                  light ? "text-slate-500" : "text-slate-600",
                   open && "rotate-180",
                 )}
               />
@@ -52,7 +52,7 @@ export function FaqAccordion({ items, light = false }: FaqAccordionProps) {
                   transition={{ duration: 0.28, ease: "easeOut" }}
                 >
                   <div className="px-6 pb-5">
-                    <p className={light ? "text-sm leading-7 text-slate-600" : "text-sm leading-7 text-white/[0.68]"}>{item.answer}</p>
+                    <p className={light ? "text-sm leading-7 text-slate-600" : "text-sm leading-7 text-slate-600"}>{item.answer}</p>
                   </div>
                 </motion.div>
               ) : null}

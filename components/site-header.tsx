@@ -10,7 +10,7 @@ import { ButtonLink } from "@/components/button-link";
 import { Container } from "@/components/container";
 import { MobileMenu } from "@/components/mobile-menu";
 import { SearchTrigger, SiteSearch } from "@/components/site-search";
-import { navItems } from "@/lib/site-data";
+import { navItems, whatsappHref } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -44,17 +44,13 @@ export function SiteHeader() {
         <Container>
           <motion.div
             className={cn(
-              "flex items-center justify-between rounded-full border px-4 py-3 transition duration-500 md:px-5",
+              "flex items-center justify-between rounded-2xl border px-4 py-3 transition duration-500 md:px-5",
               solid
-                ? "border-white/10 bg-slate-950/[0.86] shadow-glow backdrop-blur-xl"
-                : "border-white/10 bg-white/[0.03] backdrop-blur-md",
+                ? "border-ink/10 bg-paper/95 backdrop-blur-xl"
+                : "border-transparent bg-transparent",
             )}
             animate={{
-              y: solid ? 0 : 6,
-              scale: solid ? 1 : 0.985,
-              boxShadow: solid
-                ? "0 18px 56px rgba(2, 10, 24, 0.28)"
-                : "0 8px 30px rgba(2, 10, 24, 0.08)",
+              boxShadow: solid ? "0 18px 40px -24px rgba(13, 27, 46, 0.25)" : "0 0 0 rgba(13, 27, 46, 0)",
             }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -68,8 +64,8 @@ export function SiteHeader() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "rounded-full px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white",
-                      active && "bg-white/[0.08] text-white",
+                      "rounded-lg px-3.5 py-2 text-[15px] font-medium text-slate-600 transition hover:text-ink",
+                      active && "text-ink underline decoration-brand-500 decoration-2 underline-offset-8",
                     )}
                   >
                     {item.label}
@@ -79,10 +75,10 @@ export function SiteHeader() {
             </nav>
             <div className="hidden items-center gap-3 lg:flex">
               <SearchTrigger onClick={() => setSearchOpen(true)} />
-              <ButtonLink href="/contact" variant="ghost">
-                Talk to Our Team
+              <ButtonLink href={whatsappHref()} variant="whatsapp">
+                WhatsApp
               </ButtonLink>
-              <ButtonLink href="/quote">Request a Quote</ButtonLink>
+              <ButtonLink href="/quote">Get a quote</ButtonLink>
             </div>
             <div className="flex items-center gap-2 lg:hidden">
               <SearchTrigger
@@ -98,7 +94,7 @@ export function SiteHeader() {
                   setSearchOpen(false);
                   setOpen(true);
                 }}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white text-ink"
                 aria-label="Open menu"
               >
                 <Menu className="h-5 w-5" />

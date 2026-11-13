@@ -10,7 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#08111f",
+        ink: "#0d1b2e",
+        paper: "#f7f5f0",
         mist: "#f3f7fc",
         line: "rgba(148, 163, 184, 0.16)",
         brand: {
@@ -37,8 +38,8 @@ const config: Config = {
           "linear-gradient(rgba(8,17,31,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(8,17,31,0.06) 1px, transparent 1px)",
       },
       fontFamily: {
-        heading: ["Manrope", "Aptos", "Segoe UI", "sans-serif"],
-        body: ["Satoshi", "Manrope", "Segoe UI", "sans-serif"],
+        heading: ["var(--font-inter)", "Inter", "Segoe UI", "sans-serif"],
+        body: ["var(--font-inter)", "Inter", "Segoe UI", "sans-serif"],
       },
       maxWidth: {
         "8xl": "90rem",

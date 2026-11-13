@@ -119,12 +119,18 @@ export const siteConfig = {
   tagline: "Engineering the Future of Connectivity",
   supportingPhrase: "Smart Networking, Digital Systems & IoT Solutions",
   description:
-    "Premium networking infrastructure, digital systems, AI-enabled business solutions, IT hardware supply, and IoT solutions for businesses, institutions, and modern residences in Zimbabwe.",
+    "Networks, CCTV and access control, IT hardware supply, websites, AI agents and SmartSense IoT monitoring for businesses and institutions in Zimbabwe. Designed, installed and supported by engineers.",
   location: "Zimbabwe",
   email: "info@itquestafrica.com",
-  phone: "+263 00 000 0000",
+  salesEmail: "sales@itquestafrica.com",
+  phone: "+263 77 436 9288",
+  whatsapp: "263774369288",   // the Zimbabwean number on the letterhead (wa.me link, digits only)
+  address: "622 Sandton Park, Westgate, Harare, Zimbabwe",
   hours: "Mon - Fri | 08:00 - 17:00",
 };
+
+export const whatsappHref = (text = "Hi ITQUEST, I'd like a quote.") =>
+  `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(text)}`;
 
 export const navItems: NavItem[] = [
   { href: "/", label: "Home" },
@@ -420,7 +426,7 @@ export const servicePillars: ServiceItem[] = [
     icon: Camera,
     featureSectionTitle: "Surveillance systems designed for visibility, control, and dependable coverage",
     featureSectionDescription:
-      "Premium CCTV infrastructure aligned with modern networking, access control, and smart security environments.",
+      "CCTV systems aligned with modern networking, access control, and smart security environments.",
     featureCards: [
       {
         title: "Camera Supply and Installation",
@@ -508,7 +514,7 @@ export const servicePillars: ServiceItem[] = [
     icon: DoorClosed,
     featureSectionTitle: "Security systems built for controlled, connected environments",
     featureSectionDescription:
-      "Premium access control designed to fit modern offices, institutions, commercial spaces, and intelligent properties.",
+      "Access control designed to fit modern offices, institutions, commercial spaces, and intelligent properties.",
     featureCards: [
       {
         title: "Card-Based Credentials",
@@ -1470,10 +1476,10 @@ export const industries: IndustryItem[] = [
     icon: Store,
   },
   {
-    title: "Premium Residential Clients",
+    title: "Homes & Residences",
     description:
       "High-quality home networking, connected devices, and discreet smart systems for secure, modern, well-managed living spaces.",
-    needs: ["Whole-home Wi-Fi", "Smart visibility", "Premium support"],
+    needs: ["Whole-home Wi-Fi", "Smart visibility", "Priority support"],
     icon: Home,
   },
 ];
@@ -1699,7 +1705,7 @@ export const products: ProductItem[] = [
 const pageSearchItems: SearchItem[] = [
   {
     title: "Home",
-    description: "Overview of ITQUEST AFRICA's premium infrastructure, systems, and technology capabilities.",
+    description: "Overview of ITQUEST AFRICA's infrastructure, systems, and technology capabilities.",
     href: "/",
     type: "page",
     keywords: ["homepage", "overview", "technology company", "itquest africa"],
@@ -1794,45 +1800,34 @@ export const siteSearchItems: SearchItem[] = [
 ];
 
 export const caseStudies: CaseStudy[] = [
+  // Nov 13 2026: typical project scopes (what we would do), not client stories. No made-up clients or results.
   {
-    title: "Network Modernization for a Growing Office",
-    sector: "Corporate Workspace",
-    challenge:
-      "An expanding office required more stable wireless coverage, cleaner network architecture, and better support for daily operations.",
-    solution:
-      "ITQUEST AFRICA redesigned the connectivity layout, refreshed core hardware recommendations, and structured the deployment for improved reliability and future capacity.",
-    impact:
-      "The client gained stronger day-to-day network performance, a more professional infrastructure baseline, and a path for growth without a disruptive redesign.",
+    title: "Office network upgrade",
+    sector: "Offices / SMEs",
+    challenge: "Wi-Fi drops in some rooms, cables run anywhere, and nobody knows what is plugged into what.",
+    solution: "A site survey, a planned layout, business access points, a firewall with backup internet, and labelled cabling.",
+    impact: "Steady coverage in every room, a documented network, and support after handover.",
   },
   {
-    title: "Digital Presence Transformation for a Local Business",
-    sector: "SME / Professional Services",
-    challenge:
-      "The business needed a more credible digital presence that matched its service quality and converted interest into enquiries.",
-    solution:
-      "A modern website and clearer digital presentation were developed to improve brand perception, user confidence, and inquiry flow.",
-    impact:
-      "The resulting platform positioned the company more professionally and created a stronger first impression for prospective customers and partners.",
+    title: "Business website that brings enquiries",
+    sector: "SMEs / Professional services",
+    challenge: "No website, or an old one that loads slowly and doesn't bring in work.",
+    solution: "A fast, mobile-first site with clear services, WhatsApp and quote buttons, hosting and business email.",
+    impact: "A credible first impression and enquiries that arrive in one place.",
   },
   {
-    title: "Structured Connectivity Setup for an Institution",
-    sector: "Education",
-    challenge:
-      "The institution needed a more organized, supportable connectivity environment that could serve administrators, staff, and connected learning functions.",
-    solution:
-      "ITQUEST AFRICA mapped the environment, planned the structure, and supplied a cleaner, more scalable connectivity approach.",
-    impact:
-      "The institution benefited from a more dependable network foundation and improved readiness for future digital initiatives.",
+    title: "School or campus cabling",
+    sector: "Education / Institutions",
+    challenge: "Labs and offices on patchy connections with no plan for growth.",
+    solution: "Mapping the buildings, structured cabling, managed switches and secure Wi-Fi for staff and students.",
+    impact: "A network that can be supported and extended without starting again.",
   },
   {
-    title: "Smart Environmental Monitoring Concept Deployment",
-    sector: "Critical Equipment Space",
-    challenge:
-      "Sensitive infrastructure areas required better visibility into environmental conditions and faster response to risk events.",
-    solution:
-      "The SmartSense concept was positioned to monitor temperature, humidity, power conditions, and access-related events through a connected alerting workflow.",
-    impact:
-      "The monitoring layer added a more proactive operating model, reducing blind spots around critical systems and improving response confidence.",
+    title: "SmartSense monitoring for a critical room",
+    sector: "Server rooms / Pharmacies / Cold rooms",
+    challenge: "Heat, power cuts or an open door go unnoticed until stock or equipment is damaged.",
+    solution: "SmartSense sensors for temperature, humidity, power and door status, with phone alerts.",
+    impact: "Problems are seen in minutes, not discovered the next morning.",
   },
 ];
 
@@ -1864,7 +1859,7 @@ export const faqs: FaqItem[] = [
   {
     question: "What type of clients does ITQUEST AFRICA work with?",
     answer:
-      "We serve SMEs, corporates, schools, healthcare providers, hospitality businesses, retail environments, institutions, NGOs, and premium residential clients that need dependable technology delivery.",
+      "We serve SMEs, corporates, schools, healthcare providers, hospitality businesses, retail environments, institutions, NGOs, and residential clients that need dependable technology delivery.",
   },
   {
     question: "Can you support both infrastructure projects and digital platforms?",
@@ -1928,10 +1923,12 @@ export const footerLinks = {
     label: service.title,
     href: "/services",
   })),
+  // Nov 13 2026: the social links were placeholders ("#"); the column now lists the real ways to reach us. Add social pages here
+  // once they exist.
   social: [
-    { label: "LinkedIn", href: "#" },
-    { label: "Facebook", href: "#" },
-    { label: "Instagram", href: "#" },
+    { label: "WhatsApp", href: "https://wa.me/263774369288" },
+    { label: "Email us", href: "mailto:info@itquestafrica.com" },
+    { label: "Get a quote", href: "/quote" },
   ] satisfies LinkItem[],
 };
 

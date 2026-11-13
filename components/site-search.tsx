@@ -68,7 +68,7 @@ export function SiteSearch({ open, onClose }: SiteSearchProps) {
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-[70] bg-slate-950/78 backdrop-blur-xl"
+          className="fixed inset-0 z-[70] bg-ink/40 backdrop-blur-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -76,16 +76,16 @@ export function SiteSearch({ open, onClose }: SiteSearchProps) {
         >
           <div className="mx-auto flex min-h-full w-full max-w-6xl items-start px-4 pb-10 pt-24 md:px-6">
             <motion.div
-              className="w-full rounded-[2rem] border border-white/10 bg-slate-950/96 shadow-[0_24px_90px_rgba(2,10,24,0.48)]"
+              className="w-full rounded-[2rem] border border-ink/10 bg-white shadow-[0_24px_90px_rgba(2,10,24,0.48)]"
               initial={{ opacity: 0, y: -18, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -18, scale: 0.98 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="border-b border-white/10 px-5 py-5 md:px-7">
+              <div className="border-b border-ink/10 px-5 py-5 md:px-7">
                 <div className="flex items-center gap-3">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-cyan-300">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-ink/10 bg-white text-brand-700">
                     <Search className="h-5 w-5" />
                   </div>
                   <div className="relative flex-1">
@@ -98,13 +98,13 @@ export function SiteSearch({ open, onClose }: SiteSearchProps) {
                         if (event.key === "Escape") onClose();
                       }}
                       placeholder="Search services, products, solutions, pages..."
-                      className="w-full border-none bg-transparent pr-4 text-base text-white outline-none placeholder:text-white/35 md:text-lg"
+                      className="w-full border-none bg-transparent pr-4 text-base text-ink outline-none placeholder:text-slate-400 md:text-lg"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={onClose}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-white/72 transition hover:border-cyan-300/25 hover:text-white"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white text-slate-600 transition hover:border-brand-300 hover:text-ink"
                     aria-label="Close search"
                   >
                     <X className="h-5 w-5" />
@@ -115,8 +115,8 @@ export function SiteSearch({ open, onClose }: SiteSearchProps) {
               <div className="max-h-[70vh] overflow-y-auto px-5 py-5 md:px-7 md:py-6">
                 {!normalizedQuery ? (
                   <div className="space-y-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">Search the site</p>
-                    <p className="max-w-2xl text-sm leading-7 text-white/[0.68]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-700">Search the site</p>
+                    <p className="max-w-2xl text-sm leading-7 text-slate-600">
                       Explore services, products, industry solutions, and core pages without leaving the current view.
                     </p>
                     <div className="flex flex-wrap gap-3">
@@ -125,7 +125,7 @@ export function SiteSearch({ open, onClose }: SiteSearchProps) {
                           key={item}
                           type="button"
                           onClick={() => setQuery(item)}
-                          className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/[0.75] transition hover:border-cyan-300/25 hover:bg-white/[0.07] hover:text-white"
+                          className="rounded-full border border-ink/10 bg-white px-4 py-2 text-sm text-slate-600 transition hover:border-brand-300 hover:bg-brand-100 hover:text-ink"
                         >
                           {item}
                         </button>
@@ -144,23 +144,23 @@ export function SiteSearch({ open, onClose }: SiteSearchProps) {
                         <Link
                           href={result.href}
                           onClick={onClose}
-                          className="block rounded-[1.5rem] border border-white/10 bg-white/[0.04] px-5 py-4 transition hover:border-cyan-300/25 hover:bg-white/[0.07]"
+                          className="block rounded-[1.5rem] border border-ink/10 bg-white px-5 py-4 transition hover:border-brand-300 hover:bg-brand-100"
                         >
                           <div className="flex flex-wrap items-center gap-3">
-                            <span className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.08] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-300">
+                            <span className="rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-700">
                               {typeLabels[result.type]}
                             </span>
-                            <h2 className="text-lg font-semibold text-white">{result.title}</h2>
+                            <h2 className="text-lg font-semibold text-ink">{result.title}</h2>
                           </div>
-                          <p className="mt-3 text-sm leading-7 text-white/[0.66]">{result.description}</p>
+                          <p className="mt-3 text-sm leading-7 text-slate-600">{result.description}</p>
                         </Link>
                       </motion.div>
                     ))}
                   </div>
                 ) : (
-                  <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] px-5 py-6">
-                    <p className="text-sm font-semibold text-white">No results found</p>
-                    <p className="mt-2 text-sm leading-7 text-white/[0.66]">
+                  <div className="rounded-[1.5rem] border border-ink/10 bg-white px-5 py-6">
+                    <p className="text-sm font-semibold text-ink">No results found</p>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">
                       Try broader terms such as a service type, product category, industry, or page name.
                     </p>
                   </div>
@@ -185,8 +185,8 @@ export function SearchTrigger({ onClick, mobile = false }: SearchTriggerProps) {
       type="button"
       onClick={onClick}
       className={cn(
-        "inline-flex items-center justify-center rounded-full border border-white/10 text-white/78 transition hover:border-cyan-300/25 hover:text-white",
-        mobile ? "h-11 w-11 bg-white/5" : "h-11 w-11 bg-white/[0.04]",
+        "inline-flex items-center justify-center rounded-full border border-ink/10 text-slate-600 transition hover:border-brand-300 hover:text-ink",
+        mobile ? "h-11 w-11 bg-white" : "h-11 w-11 bg-white",
       )}
       aria-label="Search the site"
     >

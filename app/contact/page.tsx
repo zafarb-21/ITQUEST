@@ -17,8 +17,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Speak with a team focused on modern infrastructure, digital systems, and connected growth"
-        description="Whether you are planning infrastructure, strengthening security, improving support coverage, building a digital platform, or exploring smart systems, our team is ready to help."
+        title="Talk to an engineer"
+        description="WhatsApp is fastest. You can also call, email or use the form; we reply within one working day."
         primaryCta={{ href: "/quote", label: "Request a Quote" }}
         secondaryCta={{ href: "/services", label: "Explore Services" }}
       />
@@ -39,7 +39,7 @@ export default function ContactPage() {
                   return (
                     <Reveal key={item.title} delay={index * 0.05}>
                       <div className="surface-card-light p-6">
-                        <div className="inline-flex rounded-2xl bg-slate-950 p-4 text-cyan-300">
+                        <div className="inline-flex rounded-2xl bg-brand-50 p-4 text-brand-700">
                           <Icon className="h-5 w-5" />
                         </div>
                         <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">{item.title}</p>

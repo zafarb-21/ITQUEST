@@ -14,8 +14,8 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Integrated technology services designed for operational confidence and growth"
-        description="ITQUEST AFRICA brings infrastructure, security, support, digital capability, cloud setup, hardware sourcing, and smart technology together under one premium service model. Each service area is structured to support serious organizations with clear operational needs and long-term ambitions."
+        title="Everything your business runs on, from one team"
+        description="Networks, security, support, websites, cloud, hardware, AI and IoT. Pick a service to see what's included, or tell us the problem and we'll recommend the fix."
         primaryCta={{ href: "/quote", label: "Request a Quote" }}
         secondaryCta={{ href: "/contact", label: "Talk to Our Team" }}
       />
@@ -23,8 +23,8 @@ export default function ServicesPage() {
       <ServicesPageContent />
 
       <CtaBanner
-        title="Need a tailored technology scope instead of a generic package?"
-        description="Share your environment, priorities, and operational requirements. ITQUEST AFRICA will help define the right combination of infrastructure, security, support, digital systems, cloud services, and supply support."
+        title="Not sure which service fits?"
+        description="Describe what's going wrong or what you want to build. An engineer will reply within a working day with a plan and a quote."
       />
     </>
   );

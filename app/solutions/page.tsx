@@ -17,9 +17,9 @@ export default function SolutionsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Solutions & Industries"
-        title="Sector-aware technology support for organizations with different operational realities"
-        description="The right solution depends on environment, scale, and business pressure. ITQUEST AFRICA positions technology around actual use cases, from offices and schools to healthcare facilities, hospitality sites, retail spaces, and premium residences."
+        eyebrow="Industries"
+        title="Technology that fits how your sector works"
+        description="Offices, schools, clinics, lodges, shops and homes each need different things. Here's what we usually set up for each."
         primaryCta={{ href: "/contact", label: "Discuss Your Sector" }}
         secondaryCta={{ href: "/quote", label: "Request a Proposal" }}
       />
@@ -29,8 +29,8 @@ export default function SolutionsPage() {
           <Reveal>
             <SectionHeading
               eyebrow="Industries We Serve"
-              title="Support designed around how each environment actually operates"
-              description="Each industry comes with distinct needs around uptime, visibility, customer experience, procurement, and room for growth. These capability profiles keep the company’s offering grounded in business context."
+              title="Pick your sector"
+              description="The common needs we see in each, and the systems that solve them."
               light
             />
           </Reveal>
@@ -66,8 +66,8 @@ export default function SolutionsPage() {
             ].map((item, index) => (
               <Reveal key={item.title} delay={index * 0.06}>
                 <div className="surface-card p-7">
-                  <h2 className="text-2xl font-semibold text-white">{item.title}</h2>
-                  <p className="mt-4 text-base leading-8 text-white/[0.68]">{item.description}</p>
+                  <h2 className="text-2xl font-semibold text-ink">{item.title}</h2>
+                  <p className="mt-4 text-base leading-8 text-slate-600">{item.description}</p>
                 </div>
               </Reveal>
             ))}
@@ -76,8 +76,8 @@ export default function SolutionsPage() {
       </section>
 
       <CtaBanner
-        title="Need solutions framed around your industry, not just the technology?"
-        description="ITQUEST AFRICA works from sector context to define the infrastructure, digital systems, hardware, and smart visibility layer that best fits your environment."
+        title="Don't see your sector?"
+        description="Tell us how your business runs and we'll suggest the right mix of network, security, hardware and software."
       />
     </>
   );

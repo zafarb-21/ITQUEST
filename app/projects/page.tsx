@@ -9,17 +9,17 @@ import { buildMetadata } from "@/lib/metadata";
 import { caseStudies } from "@/lib/site-data";
 
 export const metadata: Metadata = buildMetadata(
-  "Projects & Case Studies",
-  "Review polished case study narratives from ITQUEST AFRICA covering network modernization, digital presence transformation, structured connectivity, and smart monitoring concepts.",
+  "Typical Projects",
+  "Typical ITQUEST AFRICA project scopes: office network upgrades, business websites, structured cabling and SmartSense monitoring, with the challenge, approach and outcome for each.",
 );
 
 export default function ProjectsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Projects / Case Studies"
-        title="Project narratives that demonstrate capability, structure, and business relevance"
-        description="These examples are framed to show how ITQUEST AFRICA approaches real technology environments: by understanding the challenge, aligning the solution, and delivering a measurable operational advantage."
+        eyebrow="Typical projects"
+        title="The kinds of jobs we take on, and how we run them"
+        description="These are example project scopes, not client stories: the common problems we solve and how each job is planned, installed and handed over. Ask us about yours."
         primaryCta={{ href: "/contact", label: "Discuss a Project" }}
         secondaryCta={{ href: "/quote", label: "Request a Proposal" }}
       />
@@ -28,9 +28,9 @@ export default function ProjectsPage() {
         <Container>
           <Reveal>
             <SectionHeading
-              eyebrow="Capability Showcase"
-              title="From network modernization to digital transformation and monitoring visibility"
-              description="The purpose of these case studies is not volume. It is to communicate a mature delivery posture and the ability to frame technology projects in credible, outcome-oriented language."
+              eyebrow="Example scopes"
+              title="Networks, websites, cabling and monitoring"
+              description="Each card shows a typical starting point, what we would do, and what you would get."
               light
             />
           </Reveal>
@@ -45,8 +45,8 @@ export default function ProjectsPage() {
       </section>
 
       <CtaBanner
-        title="Planning a serious project that needs clear technical direction?"
-        description="Whether the goal is network reliability, a stronger digital presence, or a smarter monitoring environment, ITQUEST AFRICA is ready to shape the next step."
+        title="Have a job like one of these?"
+        description="Tell us about it on WhatsApp or through the quote form, and an engineer will come back to you within a working day."
       />
     </>
   );

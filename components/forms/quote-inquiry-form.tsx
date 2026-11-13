@@ -99,18 +99,18 @@ export function QuoteInquiryForm({
       ) : null}
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" />
       {selectedProduct ? (
-        <div className={cn("mb-6 rounded-[1.5rem] border px-5 py-5", light ? "border-slate-200 bg-slate-50" : "border-white/10 bg-white/[0.04]")}>
+        <div className={cn("mb-6 rounded-[1.5rem] border px-5 py-5", light ? "border-slate-200 bg-slate-50" : "border-ink/10 bg-white")}>
           <div className="flex items-start gap-4">
-            <div className={cn("rounded-2xl p-3", light ? "bg-slate-950 text-cyan-300" : "bg-white/[0.08] text-cyan-300")}>
+            <div className={cn("rounded-2xl p-3", light ? "bg-brand-50 text-brand-700" : "bg-brand-50 text-brand-700")}>
               <PackageCheck className="h-5 w-5" />
             </div>
             <div>
-              <p className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300"}>
+              <p className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700"}>
                 Selected Product
               </p>
-              <h3 className={light ? "mt-2 text-xl font-semibold text-slate-950" : "mt-2 text-xl font-semibold text-white"}>{selectedProduct.name}</h3>
-              <p className={light ? "mt-1 text-sm font-medium text-slate-500" : "mt-1 text-sm font-medium text-white/60"}>{selectedProduct.sku}</p>
-              <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-white/[0.72]"}>{selectedProduct.summary}</p>
+              <h3 className={light ? "mt-2 text-xl font-semibold text-slate-950" : "mt-2 text-xl font-semibold text-ink"}>{selectedProduct.name}</h3>
+              <p className={light ? "mt-1 text-sm font-medium text-slate-500" : "mt-1 text-sm font-medium text-slate-600"}>{selectedProduct.sku}</p>
+              <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-slate-600"}>{selectedProduct.summary}</p>
             </div>
           </div>
           <input type="hidden" name="selectedProductSlug" value={selectedProduct.slug} />
@@ -196,10 +196,10 @@ export function QuoteInquiryForm({
         type="submit"
         disabled={isPending}
         className={cn(
-          "mt-5 inline-flex rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70",
+          "mt-5 inline-flex rounded-xl px-6 py-3.5 text-sm font-semibold transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70",
           light
-            ? "bg-gradient-to-r from-brand-400 to-blue-500 text-slate-950"
-            : "border border-white/[0.12] bg-white/[0.07] text-white hover:border-cyan-300/35",
+            ? "bg-ink text-[#fff] hover:bg-brand-900"
+            : "bg-ink text-[#fff] hover:bg-brand-900",
         )}
       >
         {isPending ? "Submitting..." : variant === "full" ? "Submit Quote Request" : "Request Quote"}
@@ -211,13 +211,13 @@ export function QuoteInquiryForm({
 function CompactIntro({ light }: { light: boolean }) {
   return (
     <div className="mb-6">
-      <p className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300"}>
+      <p className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700"}>
         Quote Request
       </p>
-      <h3 className={light ? "mt-3 text-2xl font-semibold text-slate-950" : "mt-3 text-2xl font-semibold text-white"}>
+      <h3 className={light ? "mt-3 text-2xl font-semibold text-slate-950" : "mt-3 text-2xl font-semibold text-ink"}>
         Request a tailored proposal
       </h3>
-      <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-white/[0.68]"}>
+      <p className={light ? "mt-3 text-sm leading-7 text-slate-600" : "mt-3 text-sm leading-7 text-slate-600"}>
         For networking, surveillance, access control, AI systems, hardware sourcing, digital platforms, or smart technology, share the scope and we will frame an appropriate response.
       </p>
     </div>
@@ -260,7 +260,7 @@ function SubmissionNotice({
         state.ok
           ? light
             ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-            : "border-emerald-500/20 bg-emerald-500/10 text-emerald-200"
+            : "border-emerald-500/20 bg-emerald-500/10 text-emerald-700"
           : light
             ? "border-rose-200 bg-rose-50 text-rose-700"
             : "border-rose-500/20 bg-rose-500/10 text-rose-200",

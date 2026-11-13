@@ -9,27 +9,27 @@ import { aboutValues } from "@/lib/site-data";
 
 export const metadata: Metadata = buildMetadata(
   "About",
-  "Learn about ITQUEST AFRICA, a premium Zimbabwe-based technology company delivering networking, digital systems, hardware supply, and smart infrastructure solutions.",
+  "Learn about ITQUEST AFRICA, a Zimbabwe-based technology company delivering networking, digital systems, hardware supply, and smart infrastructure solutions.",
 );
 
 export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="About ITQUEST AFRICA"
-        title="A modern African technology company built around credibility, performance, and long-term value"
-        description="ITQUEST AFRICA exists to deliver reliable, modern, and scalable technology solutions for businesses, institutions, and connected environments. The company brings infrastructure, digital systems, hardware sourcing, and smart innovation together under one premium solutions brand."
+        eyebrow="About us"
+        title="A Zimbabwean technology company that does the job properly"
+        description="ITQUEST AFRICA designs, installs and supports the systems businesses run on: networks, security, hardware, websites, AI agents and smart monitoring. Engineers do the work, and we stay after go-live."
         primaryCta={{ href: "/quote", label: "Request a Consultation" }}
         secondaryCta={{ href: "/services", label: "Explore Services" }}
         aside={
           <div className="section-panel p-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">Leadership Perspective</p>
-            <p className="mt-4 text-2xl font-semibold text-white">
-              Technology should feel dependable, strategic, and ready for growth.
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-700">Our promise</p>
+            <p className="mt-4 text-2xl font-semibold text-ink">
+              If we install it, we stand behind it.
             </p>
-            <p className="mt-4 text-sm leading-7 text-white/[0.68]">
-              The brand perspective is grounded in engineering discipline, business context, and a commitment
-              to polished delivery standards that reflect serious organizational needs.
+            <p className="mt-4 text-sm leading-7 text-slate-600">
+              Every job gets a site visit, an itemised quote, tidy labelled work, documentation, and support
+              after go-live.
             </p>
           </div>
         }
@@ -41,35 +41,30 @@ export default function AboutPage() {
             <Reveal>
               <div className="section-panel p-8 md:p-10">
                 <span className="eyebrow">Our Story</span>
-                <h2 className="mt-6 text-4xl font-semibold text-white">A connected vision for Zimbabwe and beyond</h2>
-                <p className="mt-5 text-base leading-8 text-white/[0.72]">
-                  ITQUEST AFRICA was shaped around a clear gap in the market: organizations need technology
-                  partners that combine technical capability with business polish, structured delivery, and a
-                  broader view of where digital infrastructure is heading. Too often, networking, digital
-                  systems, hardware procurement, and emerging smart solutions are treated as disconnected
-                  services. ITQUEST AFRICA brings them together as one cohesive offer.
+                <h2 className="mt-6 text-4xl font-semibold text-ink">Why ITQUEST exists</h2>
+                <p className="mt-5 text-base leading-8 text-slate-600">
+                  Too many businesses deal with one person for the network, another for the cameras, a third for
+                  the website, and nobody who answers when something breaks. ITQUEST AFRICA puts it under one team
+                  of engineers who plan the work, install it properly and stay reachable afterwards.
                 </p>
-                <p className="mt-5 text-base leading-8 text-white/[0.72]">
-                  The result is a company positioned for modern African growth: credible in corporate
-                  environments, practical in execution, and ambitious enough to support future regional
-                  expansion with the right brand standard from the outset.
+                <p className="mt-5 text-base leading-8 text-slate-600">
+                  We started in networking and telecoms, and we're adding what our clients ask for next: AI agents
+                  that answer customers, and SmartSense monitoring for the rooms that can't fail.
                 </p>
               </div>
             </Reveal>
             <Reveal delay={0.08}>
               <div className="grid gap-6">
                 <div className="surface-card p-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Mission</p>
-                  <p className="mt-4 text-xl font-semibold text-white">
-                    To deliver reliable, modern, and scalable technology solutions that empower businesses,
-                    institutions, and communities through connectivity, digital systems, and smart innovation.
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">Mission</p>
+                  <p className="mt-4 text-xl font-semibold text-ink">
+                    Reliable technology for Zimbabwean businesses, installed properly and supported after go-live.
                   </p>
                 </div>
                 <div className="surface-card p-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Vision</p>
-                  <p className="mt-4 text-xl font-semibold text-white">
-                    To become one of Africa’s most trusted technology solution brands for connected infrastructure,
-                    digital transformation, and intelligent systems.
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">Vision</p>
+                  <p className="mt-4 text-xl font-semibold text-ink">
+                    To be the team African businesses call first for networks, security and AI.
                   </p>
                 </div>
               </div>
@@ -83,8 +78,8 @@ export default function AboutPage() {
           <Reveal>
             <SectionHeading
               eyebrow="Core Values"
-              title="Principles that shape every client engagement"
-              description="The brand standard is built on technical discipline, trustworthy communication, and a focus on solutions that remain useful beyond initial deployment."
+              title="How we work"
+              description="Six commitments you can hold us to, on every job."
               light
             />
           </Reveal>
@@ -95,7 +90,7 @@ export default function AboutPage() {
               return (
                 <Reveal key={value.title} delay={index * 0.06}>
                   <div className="surface-card-light p-7">
-                    <div className="inline-flex rounded-2xl bg-slate-950 p-4 text-cyan-300">
+                    <div className="inline-flex rounded-2xl bg-brand-50 p-4 text-brand-700">
                       <Icon className="h-6 w-6" />
                     </div>
                     <h3 className="mt-5 text-xl font-semibold text-slate-950">{value.title}</h3>
@@ -113,25 +108,25 @@ export default function AboutPage() {
           <div className="grid gap-6 xl:grid-cols-3">
             {[
               {
-                title: "Executive-level presentation",
+                title: "One team, end to end",
                 description:
-                  "Clients should feel that the company can sit comfortably in serious procurement, institutional, and growth-stage conversations.",
+                  "Survey, quote, supply, install and support from the same people, so nothing falls between contractors.",
               },
               {
-                title: "Integrated capability",
+                title: "Clear, itemised quotes",
                 description:
-                  "Infrastructure, sourcing, digital systems, and smart monitoring are framed as connected parts of one modern technology strategy.",
+                  "Every line priced in USD or ZiG, with timelines, before any work starts. No surprise extras.",
               },
               {
-                title: "Future-facing without looking experimental",
+                title: "Here after go-live",
                 description:
-                  "The company’s innovation posture is practical and commercially mature, allowing IoT and smart systems to feel credible from day one.",
+                  "Every install includes support, with optional care plans so your systems stay healthy.",
               },
             ].map((item, index) => (
               <Reveal key={item.title} delay={index * 0.06}>
                 <div className="surface-card p-7">
-                  <h3 className="text-2xl font-semibold text-white">{item.title}</h3>
-                  <p className="mt-4 text-base leading-7 text-white/[0.68]">{item.description}</p>
+                  <h3 className="text-2xl font-semibold text-ink">{item.title}</h3>
+                  <p className="mt-4 text-base leading-7 text-slate-600">{item.description}</p>
                 </div>
               </Reveal>
             ))}
@@ -140,8 +135,8 @@ export default function AboutPage() {
       </section>
 
       <CtaBanner
-        title="Looking for a technology partner with premium standards?"
-        description="Speak with ITQUEST AFRICA about infrastructure planning, digital systems, product sourcing, or a future-ready smart solutions roadmap."
+        title="Let's talk about your next job"
+        description="Networks, security, hardware, a website or an AI agent: tell us what you need and get an itemised quote within 24 hours."
       />
     </>
   );
