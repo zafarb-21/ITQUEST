@@ -7,7 +7,7 @@ import {
   shouldCaptureLead,
   validateAssistantMessages,
 } from "@/lib/assistant";
-import { reasoningFor, toResponsesInput } from "@/lib/responses";
+import { askAssistant, providerOrder } from "@/lib/assistant-llm";
 import { siteConfig } from "@/lib/site-data";
 
 export const runtime = "nodejs";
@@ -16,34 +16,6 @@ type AssistantRequestPayload = {
   messages?: unknown;
   sourcePage?: string;
 };
-
-type OpenAIResponsePayload = {
-  output_text?: string;
-  output?: Array<{
-    content?: Array<{
-      type?: string;
-      text?: string;
-    }>;
-  }>;
-  error?: {
-    message?: string;
-  };
-};
-
-function extractAssistantReply(result: OpenAIResponsePayload) {
-  if (typeof result.output_text === "string" && result.output_text.trim()) {
-    return result.output_text.trim();
-  }
-
-  const parts =
-    result.output
-      ?.flatMap((item) => item.content ?? [])
-      .filter((part) => part.type === "output_text" && typeof part.text === "string")
-      .map((part) => part.text?.trim() ?? "")
-      .filter(Boolean) ?? [];
-
-  return parts.join("\n\n").trim();
-}
 
 export async function POST(request: Request) {
   let payload: AssistantRequestPayload;
@@ -69,10 +41,8 @@ export async function POST(request: Request) {
   const lastUserMessage = extractLastUserMessage(messages);
   const recommendedServices = recommendServices(lastUserMessage);
   const showLeadCapture = shouldCaptureLead(lastUserMessage);
-  const apiKey = process.env.OPENAI_API_KEY;
-
-  if (!apiKey) {
-    console.error("[ITQUEST AFRICA] Assistant is missing OPENAI_API_KEY");
+  if (!providerOrder().length) {
+    console.error("[ITQUEST AFRICA] Assistant has no key (DEEPSEEK_API_KEY or OPENAI_API_KEY)");
 
     return NextResponse.json(
       {
@@ -86,61 +56,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const model = process.env.OPENAI_MODEL || "gpt-5-mini";
-
   try {
-    const response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model,
-        store: false,
-        max_output_tokens: 800,
-        ...(reasoningFor(model) ? { reasoning: reasoningFor(model) } : {}),
-        instructions: buildAssistantSystemPrompt(recommendedServices, await liveCatalogNote()),
-        metadata: {
-          sourcePage: typeof payload.sourcePage === "string" ? payload.sourcePage : "",
-        },
-        input: toResponsesInput(messages),
-      }),
+    const { reply } = await askAssistant({
+      system: buildAssistantSystemPrompt(recommendedServices, await liveCatalogNote()),
+      messages,
+      sourcePage: typeof payload.sourcePage === "string" ? payload.sourcePage : "",
     });
-
-    const result = (await response.json()) as OpenAIResponsePayload;
-
-    if (!response.ok) {
-      console.error("[ITQUEST AFRICA] Assistant response failed", {
-        status: response.status,
-        error: result.error?.message ?? "Unknown OpenAI error",
-        model,
-      });
-
-      return NextResponse.json(
-        {
-          ok: false,
-          message:
-            "The assistant could not respond right now. Please try again, request a quote, or talk to our team directly.",
-        },
-        { status: 502 },
-      );
-    }
-
-    const reply = extractAssistantReply(result);
-
-    if (!reply) {
-      console.error("[ITQUEST AFRICA] Assistant response was empty", result);
-
-      return NextResponse.json(
-        {
-          ok: false,
-          message:
-            "The assistant did not return a usable response. Please try again or contact our team directly.",
-        },
-        { status: 502 },
-      );
-    }
 
     return NextResponse.json({
       ok: true,

@@ -51,3 +51,12 @@ test("assistant: short reasoning only for reasoning models", () => {
   assert.deepEqual(reasoningFor("o4-mini"), { effort: "low" });
   assert.equal(reasoningFor("gpt-4.1-mini"), undefined);
 });
+
+test("assistant: DeepSeek answers first when its key is set, OpenAI is the backup", async () => {
+  const { providerOrder } = await import("../lib/assistant-llm");
+  assert.deepEqual(providerOrder({ DEEPSEEK_API_KEY: "d", OPENAI_API_KEY: "o" }), ["deepseek", "openai"]);
+  assert.deepEqual(providerOrder({ OPENAI_API_KEY: "o" }), ["openai"]);
+  assert.deepEqual(providerOrder({ DEEPSEEK_API_KEY: "d" }), ["deepseek"]);
+  assert.deepEqual(providerOrder({ DEEPSEEK_API_KEY: "d", OPENAI_API_KEY: "o", ASSISTANT_PROVIDER: "openai" }), ["openai", "deepseek"]);
+  assert.deepEqual(providerOrder({}), []);
+});
