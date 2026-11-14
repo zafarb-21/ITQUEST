@@ -48,8 +48,8 @@ export default function AboutPage() {
                   of engineers who plan the work, install it properly and stay reachable afterwards.
                 </p>
                 <p className="mt-5 text-base leading-8 text-slate-600">
-                  We started in networking and telecoms, and we're adding what our clients ask for next: AI agents
-                  that answer customers, and SmartSense monitoring for the rooms that can't fail.
+                  We started in networking and telecoms, and we&apos;re adding what our clients ask for next: AI agents
+                  that answer customers, and SmartSense monitoring for the rooms that can&apos;t fail.
                 </p>
               </div>
             </Reveal>
