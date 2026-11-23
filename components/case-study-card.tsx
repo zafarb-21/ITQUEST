@@ -3,9 +3,11 @@ import type { CaseStudy } from "@/lib/site-data";
 type CaseStudyCardProps = {
   study: CaseStudy;
   light?: boolean;
+  /** Nov 2026: typical engagements use their own labels (they are not past projects) */
+  labels?: [string, string, string];
 };
 
-export function CaseStudyCard({ study, light = false }: CaseStudyCardProps) {
+export function CaseStudyCard({ study, light = false, labels = ["Challenge", "Solution", "Impact"] }: CaseStudyCardProps) {
   return (
     <article className={light ? "surface-card-light p-8" : "surface-card p-8"}>
       <span className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700"}>
@@ -15,9 +17,9 @@ export function CaseStudyCard({ study, light = false }: CaseStudyCardProps) {
         {study.title}
       </h3>
       <div className="mt-6 space-y-5">
-        <CaseStudyRow label="Challenge" value={study.challenge} light={light} />
-        <CaseStudyRow label="Solution" value={study.solution} light={light} />
-        <CaseStudyRow label="Impact" value={study.impact} light={light} />
+        <CaseStudyRow label={labels[0]} value={study.challenge} light={light} />
+        <CaseStudyRow label={labels[1]} value={study.solution} light={light} />
+        <CaseStudyRow label={labels[2]} value={study.impact} light={light} />
       </div>
     </article>
   );

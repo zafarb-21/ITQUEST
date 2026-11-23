@@ -125,7 +125,18 @@ export type SalesQuoteEmail = {
   message: string;
   pdf: Buffer;
   pdfName: string;
+  /** Nov 2026: the customer's private quote page (Accept / Ask a question) */
+  quoteUrl?: string;
 };
+
+function actionButtonsHtml(quoteUrl: string) {
+  const url = escapeHtml(quoteUrl);
+  return `<table cellpadding="0" cellspacing="0" style="margin: 24px 0 8px;"><tr>
+    <td style="padding-right: 10px;"><a href="${url}" style="display: inline-block; padding: 12px 22px; border-radius: 999px; background: #0e7490; color: #ffffff; font-weight: 700; text-decoration: none; font-family: Arial, sans-serif;">View and accept the quote</a></td>
+    <td><a href="${url}#ask" style="display: inline-block; padding: 12px 22px; border-radius: 999px; border: 1px solid #94a3b8; color: #0f172a; font-weight: 700; text-decoration: none; font-family: Arial, sans-serif;">Ask a question</a></td>
+  </tr></table>
+  <p style="font-family: Arial, sans-serif; color: #64748b; font-size: 12px;">This link is private to you. You can also simply reply to this email.</p>`;
+}
 
 function escapeHtml(value: string) {
   return value
@@ -139,7 +150,10 @@ function escapeHtml(value: string) {
 export async function sendSalesQuoteEmail(quote: SalesQuoteEmail) {
   const html = `<div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(
     quote.message,
-  )}</div>`;
+  )}</div>${quote.quoteUrl ? actionButtonsHtml(quote.quoteUrl) : ""}`;
+  const text = quote.quoteUrl
+    ? `${quote.message}\n\nView, accept or ask about this quote: ${quote.quoteUrl}\n(This link is private to you.)`
+    : quote.message;
   const attachment = { filename: quote.pdfName, content: quote.pdf };
 
   const transport = salesSmtpTransport ?? (resolveProvider() === "smtp" ? smtpTransport : null);
@@ -151,7 +165,7 @@ export async function sendSalesQuoteEmail(quote: SalesQuoteEmail) {
       bcc: salesBccEmail || undefined,
       replyTo: salesReplyTo,
       subject: quote.subject,
-      text: quote.message,
+      text,
       html,
       attachments: [{ ...attachment, contentType: "application/pdf" }],
     });
@@ -165,7 +179,7 @@ export async function sendSalesQuoteEmail(quote: SalesQuoteEmail) {
       bcc: salesBccEmail || undefined,
       replyTo: salesReplyTo,
       subject: quote.subject,
-      text: quote.message,
+      text,
       html,
       attachments: [attachment],
     });
@@ -176,4 +190,55 @@ export async function sendSalesQuoteEmail(quote: SalesQuoteEmail) {
   }
 
   throw new Error("No mail provider is configured for sales@ (set SMTP or RESEND_API_KEY on the site).");
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Nov 2026: the customer gets a "we have your request" email with their private status page. Best effort: a failure here
+// never fails the request itself (it is already saved and Sales has it).
+export async function sendRequestReceivedEmail(input: { to: string; name: string; statusUrl: string; items: { name: string; quantity: number }[] }) {
+  const first = input.name.split(/\s+/)[0] || "there";
+  const lines = input.items.map((x) => `- ${x.quantity} x ${x.name}`).join("\n");
+  const text = `Hello ${first},\n\nThank you for your quote request. Our sales team usually sends a quotation within one business day.${
+    lines ? `\n\nYou asked about:\n${lines}` : ""
+  }\n\nFollow your request here: ${input.statusUrl}\n(This link is private to you.)\n\nITQUEST AFRICA\nEngineering the Future of Connectivity`;
+  const html = `<div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6;">
+    <p>Hello ${escapeHtml(first)},</p>
+    <p>Thank you for your quote request. Our sales team usually sends a quotation within one business day.</p>
+    ${input.items.length ? `<p style="margin-bottom: 4px;">You asked about:</p><ul>${input.items.map((x) => `<li>${x.quantity} x ${escapeHtml(x.name)}</li>`).join("")}</ul>` : ""}
+    <p><a href="${escapeHtml(input.statusUrl)}" style="display: inline-block; padding: 12px 22px; border-radius: 999px; background: #0e7490; color: #ffffff; font-weight: 700; text-decoration: none;">Follow your request</a></p>
+    <p style="color: #64748b; font-size: 12px;">This link is private to you.</p>
+    <p>ITQUEST AFRICA<br><span style="color: #64748b;">Engineering the Future of Connectivity</span></p></div>`;
+  const subject = "We have your quote request | ITQUEST AFRICA";
+  const transport = salesSmtpTransport ?? (resolveProvider() === "smtp" ? smtpTransport : null);
+  if (transport) {
+    await transport.sendMail({ from: salesFromEmail, to: input.to, replyTo: salesReplyTo, subject, text, html });
+    return true;
+  }
+  if (resolveProvider() === "resend" && resend) {
+    const result = await resend.emails.send({ from: salesFromEmail, to: input.to, replyTo: salesReplyTo, subject, text, html });
+    if (result.error) throw new Error(result.error.message || "Resend refused the email");
+    return true;
+  }
+  console.info("[ITQUEST AFRICA] Request-received email skipped: no mail provider configured", { to: input.to });
+  return false;
+}
+
+/** Nov 2026: Sales hears straight away when a customer accepts a quote or asks about it on the quote page. */
+export async function sendQuoteResponseNotice(input: { number: string; customer: string; action: "accepted" | "question"; text: string }) {
+  const to = process.env.SALES_NOTIFY_EMAIL || process.env.INQUIRY_TO_EMAIL || salesReplyTo;
+  const subject = input.action === "accepted" ? `Quote ${input.number} ACCEPTED by ${input.customer}` : `Question on quote ${input.number} from ${input.customer}`;
+  const text = `${subject}\n\n${input.text}`.trim();
+  const html = `<div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(text)}</div>`;
+  const transport = salesSmtpTransport ?? (resolveProvider() === "smtp" ? smtpTransport : null);
+  if (transport) {
+    await transport.sendMail({ from: salesFromEmail, to, subject, text, html });
+    return true;
+  }
+  if (resolveProvider() === "resend" && resend) {
+    const result = await resend.emails.send({ from: salesFromEmail, to, subject, text, html });
+    if (result.error) throw new Error(result.error.message || "Resend refused the email");
+    return true;
+  }
+  console.info("[ITQUEST AFRICA] Quote response (no mail provider configured)", { number: input.number, action: input.action });
+  return false;
 }

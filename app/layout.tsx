@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -38,6 +39,27 @@ export const metadata: Metadata = {
   },
 };
 
+// Nov 2026: business details for Google (LocalBusiness structured data)
+const businessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/favicon.png`,
+  image: `${siteConfig.url}/opengraph-image`,
+  description: siteConfig.description,
+  email: siteConfig.email,
+  telephone: siteConfig.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "622 Sandton Park, Westgate",
+    addressLocality: "Harare",
+    addressCountry: "ZW",
+  },
+  areaServed: "Zimbabwe",
+  slogan: siteConfig.tagline,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -53,6 +75,9 @@ export default function RootLayout({
           <SiteAssistant />
           <WhatsAppFloat />
         </div>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }} />
+        {/* Vercel Web Analytics (turn it on in Vercel -> the project -> Analytics). Only on Vercel: elsewhere the script isn't served. */}
+        {process.env.VERCEL ? <Script src="/_vercel/insights/script.js" strategy="afterInteractive" /> : null}
       </body>
     </html>
   );

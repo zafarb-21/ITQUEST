@@ -1831,29 +1831,22 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      "ITQUEST AFRICA approached our requirements with a level of structure and professionalism that immediately stood out. The result felt considered, not improvised.",
-    name: "Tawanda M.",
-    role: "Operations Lead",
-    company: "Regional Services Firm",
-  },
-  {
-    quote:
-      "Their understanding of both technology and business presentation helped us move from a basic setup to something far more credible and future-ready.",
-    name: "Rumbidzai C.",
-    role: "Director",
-    company: "Private Education Group",
-  },
-  {
-    quote:
-      "What impressed us most was the balance between technical clarity, practical sourcing advice, and communication that stayed professional from start to finish.",
-    name: "Nigel D.",
-    role: "Facilities Manager",
-    company: "Hospitality Brand",
-  },
-];
+/** Real client testimonials only, added with the client's permission. Empty = the section is not shown. */
+export const testimonials: Testimonial[] = [];
+
+/** Nov 2026: an honest invitation to the first clients (the actual pricing is set per quote). */
+export const launchPartner = {
+  eyebrow: "Launch Partners",
+  title: "Be one of our first clients",
+  description:
+    "ITQUEST AFRICA is taking on its first projects in Zimbabwe. Early clients get launch-partner pricing: ask for it in your quote request.",
+  points: [
+    "A written scope and quotation before any work starts",
+    "Launch-partner pricing on your first project",
+    "Direct contact with the engineers doing the work",
+    "With your permission, your project becomes one of our first published case studies",
+  ],
+};
 
 export const faqs: FaqItem[] = [
   {

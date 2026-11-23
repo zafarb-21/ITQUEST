@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { CircleDollarSign, Clock3, PackageCheck, ShieldQuestion, Tag } from "lucide-react";
 import { notFound } from "next/navigation";
+import { AddToQuote } from "@/components/add-to-quote";
 import { ButtonLink } from "@/components/button-link";
 import { Container } from "@/components/container";
 import { CtaBanner } from "@/components/cta-banner";
 import { PageHero } from "@/components/page-hero";
+import { ProductImage } from "@/components/product-image";
+import { WhatsAppIcon } from "@/components/whatsapp-button";
 import { Reveal } from "@/components/reveal";
 import { getCatalogProductBySlug } from "@/lib/catalog";
 import { formatCatalogPrice, formatStockStatus } from "@/lib/catalog-display";
+import { whatsappLink, whatsappMessageFor } from "@/lib/whatsapp";
 
 type ProductDetailPageProps = {
   params: Promise<{
@@ -15,7 +19,8 @@ type ProductDetailPageProps = {
   }>;
 };
 
-export const dynamic = "force-dynamic";
+// Nov 2026: cached for 5 minutes instead of rebuilt on every visit (stock and prices change through the admin, not by the second)
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -65,7 +70,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   </span>
                 </div>
 
-                <h2 className="mt-6 text-3xl font-semibold text-slate-950">Product Overview</h2>
+                <ProductImage src={product.imageUrl} alt={product.imageAlt || product.name} large className="mt-6" />
+
+                <h2 className="mt-8 text-3xl font-semibold text-slate-950">Product Overview</h2>
                 <p className="mt-4 text-base leading-8 text-slate-600">{product.summary}</p>
                 {product.description ? (
                   <p className="mt-4 text-base leading-8 text-slate-600">{product.description}</p>
@@ -81,6 +88,24 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   />
                   <DetailCard icon={Tag} label="Category" value={product.category?.name ?? "General supply"} />
                 </div>
+
+                {product.specs.length ? (
+                  <div className="mt-8">
+                    <h3 className="text-xl font-semibold text-slate-950">Specifications</h3>
+                    <table className="mt-4 w-full overflow-hidden rounded-[1.25rem] border border-slate-200 text-sm">
+                      <tbody>
+                        {product.specs.map((row) => (
+                          <tr key={row.label} className="border-b border-slate-200 last:border-0">
+                            <th scope="row" className="w-2/5 bg-slate-50 px-5 py-3 text-left font-semibold text-slate-600">
+                              {row.label}
+                            </th>
+                            <td className="px-5 py-3 text-slate-700">{row.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : null}
 
                 {product.inventoryNotes ? (
                   <div className="mt-8 rounded-[1.5rem] border border-slate-200 bg-slate-50 px-6 py-5">
@@ -103,11 +128,18 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 <p className="mt-4 text-sm leading-7 text-slate-600">
                   Use the quote flow to request current pricing, confirm availability, or ask for recommended alternatives if this item is not the right fit for the project.
                 </p>
-                <div className="mt-8 flex flex-wrap gap-3">
+                <AddToQuote product={{ slug: product.slug, name: product.name, sku: product.sku }} light={false} withQuantity className="mt-8" />
+                <div className="mt-4 flex flex-wrap gap-3">
                   <ButtonLink href={`/quote?product=${encodeURIComponent(product.slug)}`}>Get a Quote</ButtonLink>
-                  <ButtonLink href="/contact" variant="secondary">
-                    Talk to Sales
-                  </ButtonLink>
+                  <a
+                    href={whatsappLink(whatsappMessageFor(`/products/${product.slug}`, `${product.name} (${product.sku})`))}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5"
+                  >
+                    <WhatsAppIcon className="h-4 w-4" />
+                    Ask on WhatsApp
+                  </a>
                 </div>
               </aside>
             </Reveal>

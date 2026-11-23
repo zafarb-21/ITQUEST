@@ -2,8 +2,10 @@
 
 import { Boxes, CircleDollarSign, Clock3, PackageCheck, Search, ShieldQuestion, Tag } from "lucide-react";
 import { useState } from "react";
+import { AddToQuote } from "@/components/add-to-quote";
 import { ButtonLink } from "@/components/button-link";
 import { Container } from "@/components/container";
+import { ProductImage } from "@/components/product-image";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { formatCatalogPrice, formatStockStatus } from "@/lib/catalog-display";
@@ -66,6 +68,7 @@ export function ProductsPageContent({ products }: ProductsPageContentProps) {
             return (
               <Reveal key={product.id} delay={index * 0.06}>
                 <article id={product.slug} className="surface-card-light p-7">
+                  <ProductImage src={product.imageUrl} alt={product.imageAlt || product.name} className="mb-5" />
                   <div className="flex items-start justify-between gap-4">
                     <div className="inline-flex rounded-2xl bg-brand-50 p-4 text-brand-700">
                       <Boxes className="h-6 w-6" />
@@ -104,9 +107,7 @@ export function ProductsPageContent({ products }: ProductsPageContentProps) {
                     <ButtonLink href={`/products/${product.slug}`} className="bg-ink text-[#fff] hover:-translate-y-0.5 hover:bg-brand-900">
                       View Details
                     </ButtonLink>
-                    <ButtonLink href={`/quote?product=${encodeURIComponent(product.slug)}`} variant="ghost" className="rounded-full border border-slate-200 px-5 py-3 text-slate-700 hover:border-slate-300 hover:bg-slate-100">
-                      Get Quote
-                    </ButtonLink>
+                    <AddToQuote product={{ slug: product.slug, name: product.name, sku: product.sku }} />
                   </div>
                 </article>
               </Reveal>

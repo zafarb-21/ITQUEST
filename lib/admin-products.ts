@@ -1,5 +1,6 @@
 import { PricingMode, StockStatus } from "@/generated/prisma/enums";
 import { getPrismaClient } from "@/lib/prisma";
+import { cleanImageUrl, parseSpecsText, type SpecRow } from "@/lib/specs";
 
 const pricingModes = ["PUBLIC_PRICE", "STARTING_AT", "REQUEST_QUOTE"] as const;
 const stockStatuses = ["IN_STOCK", "LOW_STOCK", "OUT_OF_STOCK", "ON_REQUEST"] as const;
@@ -21,6 +22,9 @@ export type AdminProductMutationInput = {
   inventoryNotes: string;
   isFeatured: boolean;
   isActive: boolean;
+  imageUrl: string | null;
+  imageAlt: string;
+  specs: SpecRow[];
   categorySlug: string;
   newCategoryName: string;
   newCategorySlug: string;
@@ -75,6 +79,9 @@ export function validateAdminProductPayload(payload: unknown): AdminProductValid
     inventoryNotes: clean(input.inventoryNotes),
     isFeatured: parseBoolean(input.isFeatured),
     isActive: parseBoolean(input.isActive),
+    imageUrl: cleanImageUrl(input.imageUrl),
+    imageAlt: clean(input.imageAlt).slice(0, 160),
+    specs: parseSpecsText(clean(input.specsText)),
     categorySlug: clean(input.categorySlug),
     newCategoryName: clean(input.newCategoryName),
     newCategorySlug: clean(input.newCategorySlug).toLowerCase(),
@@ -89,6 +96,10 @@ export function validateAdminProductPayload(payload: unknown): AdminProductValid
 
   if (!isValidSlug(data.slug)) {
     errors.slug = "Use lowercase letters, numbers, and hyphens only.";
+  }
+
+  if (clean(input.imageUrl) && !data.imageUrl) {
+    errors.imageUrl = "Use an https:// link to the manufacturer's product image.";
   }
 
   if (data.sku.length < 3) {
@@ -195,6 +206,9 @@ export async function saveAdminProduct(input: AdminProductMutationInput, product
             isFeatured: input.isFeatured,
             pricingMode: input.pricingMode,
             currency: input.currency,
+            imageUrl: input.imageUrl,
+            imageAlt: input.imageAlt || null,
+            specs: input.specs,
           },
         })
       : await tx.product.create({
@@ -209,6 +223,9 @@ export async function saveAdminProduct(input: AdminProductMutationInput, product
             isFeatured: input.isFeatured,
             pricingMode: input.pricingMode,
             currency: input.currency,
+            imageUrl: input.imageUrl,
+            imageAlt: input.imageAlt || null,
+            specs: input.specs,
           },
         });
 

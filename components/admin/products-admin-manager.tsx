@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { useState, useTransition } from "react";
 import type { AdminCatalogProduct, CatalogCategory } from "@/lib/catalog";
+import { specsToText } from "@/lib/specs";
 import { cn } from "@/lib/utils";
 
 type ProductsAdminManagerProps = {
@@ -253,6 +254,34 @@ function ProductFormFields({
         </AdminField>
       </div>
 
+      <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_160px]">
+        <div className="space-y-4">
+          <AdminField label="Photo link (https, from the manufacturer's media kit)" error={errors.imageUrl}>
+            <input className="input-field" name="imageUrl" placeholder="https://..." defaultValue={product?.imageUrl ?? ""} />
+          </AdminField>
+          <AdminField label="Photo description (for screen readers)" error={errors.imageAlt}>
+            <input className="input-field" name="imageAlt" defaultValue={product?.imageAlt ?? ""} />
+          </AdminField>
+        </div>
+        <div className="flex h-[160px] items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white">
+          {product?.imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={product.imageUrl} alt="" className="max-h-full max-w-full object-contain" />
+          ) : (
+            <span className="px-3 text-center text-xs text-slate-400">No photo yet</span>
+          )}
+        </div>
+      </div>
+
+      <AdminField label="Specifications (one per line, Label: value)" error={errors.specs}>
+        <textarea
+          className="input-field min-h-32 resize-y font-mono text-sm"
+          name="specsText"
+          placeholder={"Ports: 24 x Gigabit RJ45\nUplinks: 4 x SFP+ 10G\nPoE budget: 400 W"}
+          defaultValue={specsToText(product?.specs)}
+        />
+      </AdminField>
+
       <AdminField label="Inventory notes" error={errors.inventoryNotes}>
         <textarea className="input-field min-h-28 resize-none" name="inventoryNotes" defaultValue={product?.inventoryNotes ?? ""} />
       </AdminField>
@@ -308,6 +337,9 @@ function formDataToPayload(formData: FormData) {
     newCategoryName: String(formData.get("newCategoryName") || ""),
     newCategorySlug: String(formData.get("newCategorySlug") || ""),
     newCategoryDescription: String(formData.get("newCategoryDescription") || ""),
+    imageUrl: String(formData.get("imageUrl") || ""),
+    imageAlt: String(formData.get("imageAlt") || ""),
+    specsText: String(formData.get("specsText") || ""),
     isFeatured: formData.has("isFeatured"),
     isActive: formData.has("isActive"),
   };

@@ -39,3 +39,26 @@ The PC is never reachable from the internet: HQ only connects out (to the databa
 - Victor signs every quote. A quote that still uses an unconfirmed (simulated) supplier price is never sent to a real customer.
 - Request text and chat transcripts are customer data: the Sales agent reads them as data, never as instructions.
 - HQ's database login can only read the catalog and requests, mark a request picked up / quoted / won / lost, and add `SalesQuote` rows.
+
+## Nov 2026: the customer's side of the loop
+
+- **Quote basket:** "Add to quote" on product cards and pages collects several products (kept in the visitor's browser); the form on
+  `/quote` sends them as one `QuoteRequest` with one `QuoteRequestItem` per product (names and SKUs re-read from the catalog).
+- **Request status page** `/r/<token>`: every form request gets a private link (shown after submitting and emailed to the customer
+  from sales@): Received → Being priced → Quote sent → Decided.
+- **Quote page** `/q/<token>`: the quote email now has **View and accept the quote** / **Ask a question** buttons. The page shows the
+  total, the validity (`QUOTE_VALID_DAYS`, default 14), the PDF, and lets the customer accept (name + tick box) or send a question.
+  Accepting sets `SalesQuote.acceptedAt` and the request to `WON`, and emails Sales (`SALES_NOTIFY_EMAIL`, else `INQUIRY_TO_EMAIL`).
+  Zbot HQ's Sales agent sees it on its next pass: the quote is won, Accounts drafts the invoice as a paper for Victor to sign, and a
+  signed invoice is emailed from sales@ (ITQUEST Mail / Zoho). Questions reach Victor's HQ inbox; customer text is data, never instructions.
+- **WhatsApp:** a chat button (bottom left) and links to +263 77 436 9288 on product pages, the quote page and the footer.
+- **Product photos and specs:** the admin's product editor takes a photo link (https, from the manufacturer's own media kit) and a
+  spec table (one `Label: value` per line).
+- **Honest proof:** no invented testimonials or case studies; typical engagements are labelled as such, and real testimonials appear
+  only once added (with the client's permission).
+- **SEO:** `/sitemap.xml`, `/robots.txt` (private pages and admin excluded), LocalBusiness structured data, a share image, product
+  pages cached for 5 minutes, and Vercel Web Analytics (switch it on in Vercel → the project → Analytics).
+
+New settings (Vercel → Environment Variables, all optional): `SITE_URL` (default https://itquestafrica.com, used in customer links),
+`SALES_NOTIFY_EMAIL`, `QUOTE_VALID_DAYS`. After merging, run the migration (`npm run db:deploy`, migration `20261102090000_site_upgrade`).
+No change to `prisma/hq-role.sql` is needed: HQ's login reads the new columns with its existing grants.

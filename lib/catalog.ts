@@ -1,5 +1,6 @@
 import { PricingMode, StockStatus } from "@/generated/prisma/enums";
 import { getPrismaClient, isDatabaseConfigured } from "@/lib/prisma";
+import { normalizeSpecs, type SpecRow } from "@/lib/specs";
 
 export type CatalogCategory = {
   id: string;
@@ -28,6 +29,9 @@ export type CatalogProduct = {
   leadTimeDays: number | null;
   inventoryNotes: string | null;
   isFeatured: boolean;
+  imageUrl: string | null;
+  imageAlt: string | null;
+  specs: SpecRow[];
 };
 
 export type AdminCatalogProduct = CatalogProduct & {
@@ -61,6 +65,9 @@ function mapCatalogProduct(product: Awaited<ReturnType<typeof getRawCatalogProdu
     leadTimeDays: product.inventory?.leadTimeDays ?? null,
     inventoryNotes: product.inventory?.notes ?? null,
     isFeatured: product.isFeatured,
+    imageUrl: product.imageUrl ?? null,
+    imageAlt: product.imageAlt ?? null,
+    specs: normalizeSpecs(product.specs),
   };
 }
 

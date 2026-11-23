@@ -1,8 +1,11 @@
 "use client";
 
-import { PackageCheck } from "lucide-react";
+import { PackageCheck, Trash2 } from "lucide-react";
+import Link from "next/link";
 import type { ReactNode } from "react";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
+import { useBasket } from "@/components/use-basket";
+import { addToBasket, readBasket, removeFromBasket, setQuantity, writeBasket } from "@/lib/basket";
 import type { CatalogProduct } from "@/lib/catalog";
 import { serviceOptions } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
@@ -17,6 +20,7 @@ type QuoteInquiryFormProps = {
 type SubmitState = {
   ok: boolean;
   message: string;
+  statusUrl?: string;
 } | null;
 
 export function QuoteInquiryForm({
@@ -28,7 +32,18 @@ export function QuoteInquiryForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitState, setSubmitState] = useState<SubmitState>(null);
   const [isPending, startTransition] = useTransition();
-  const defaultMessage = selectedProduct
+  // Nov 2026: the full form on /quote sends the whole quote basket; a ?product= link adds that product to it
+  const useBasketList = variant === "full";
+  const basket = useBasket();
+  useEffect(() => {
+    if (!useBasketList || !selectedProduct) return;
+    const current = readBasket();
+    if (!current.some((x) => x.slug === selectedProduct.slug)) {
+      writeBasket(addToBasket(current, { slug: selectedProduct.slug, name: selectedProduct.name, sku: selectedProduct.sku, quantity: 1 }));
+    }
+  }, [useBasketList, selectedProduct]);
+  const showSelected = selectedProduct && !useBasketList;
+  const defaultMessage = showSelected
     ? `Please quote ${selectedProduct.name} (${selectedProduct.sku}). Estimated quantity: 1. Please share current availability, lead time, and recommended alternatives if needed.`
     : "";
 
@@ -60,6 +75,7 @@ export function QuoteInquiryForm({
       message: String(formData.get("message") || ""),
       website: String(formData.get("website") || ""),
       sourcePage,
+      items: useBasketList ? readBasket() : [],
     };
 
     startTransition(async () => {
@@ -73,6 +89,7 @@ export function QuoteInquiryForm({
         ok: boolean;
         message: string;
         errors?: Record<string, string>;
+        statusUrl?: string;
       };
 
       if (!response.ok || !result.ok) {
@@ -85,9 +102,11 @@ export function QuoteInquiryForm({
       }
 
       form.reset();
+      if (useBasketList) writeBasket([]);
       setSubmitState({
         ok: true,
         message: result.message,
+        statusUrl: result.statusUrl,
       });
     });
   }
@@ -98,7 +117,44 @@ export function QuoteInquiryForm({
         <CompactIntro light={light} />
       ) : null}
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" />
-      {selectedProduct ? (
+      {useBasketList && basket.length ? (
+        <div className={cn("mb-6 rounded-[1.5rem] border px-5 py-5", light ? "border-slate-200 bg-slate-50" : "border-ink/10 bg-white")}>
+          <p className={light ? "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700" : "text-xs font-semibold uppercase tracking-[0.2em] text-brand-700"}>
+            Products in this request
+          </p>
+          <ul className="mt-3 space-y-2">
+            {basket.map((item) => (
+              <li key={item.slug} className="flex flex-wrap items-center gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className={light ? "truncate text-sm font-semibold text-slate-950" : "truncate text-sm font-semibold text-ink"}>{item.name}</p>
+                  {item.sku ? <p className={light ? "text-xs text-slate-500" : "text-xs text-slate-500"}>{item.sku}</p> : null}
+                </div>
+                <input
+                  type="number"
+                  min={1}
+                  max={10000}
+                  value={item.quantity}
+                  onChange={(event) => writeBasket(setQuantity(readBasket(), item.slug, Math.max(1, Math.floor(Number(event.target.value) || 1))))}
+                  className="input-field w-24 py-2"
+                  aria-label={`Quantity of ${item.name}`}
+                />
+                <button
+                  type="button"
+                  onClick={() => writeBasket(removeFromBasket(readBasket(), item.slug))}
+                  className={light ? "rounded-full p-2 text-slate-400 hover:bg-slate-200 hover:text-slate-700" : "rounded-full p-2 text-slate-400 hover:bg-slate-100 hover:text-ink"}
+                  aria-label={`Remove ${item.name}`}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <Link href="/products" className={light ? "mt-3 inline-block text-sm font-semibold text-brand-700 hover:underline" : "mt-3 inline-block text-sm font-semibold text-brand-700 hover:underline"}>
+            + Add more products
+          </Link>
+        </div>
+      ) : null}
+      {showSelected ? (
         <div className={cn("mb-6 rounded-[1.5rem] border px-5 py-5", light ? "border-slate-200 bg-slate-50" : "border-ink/10 bg-white")}>
           <div className="flex items-start gap-4">
             <div className={cn("rounded-2xl p-3", light ? "bg-brand-50 text-brand-700" : "bg-brand-50 text-brand-700")}>
@@ -137,7 +193,7 @@ export function QuoteInquiryForm({
             type="text"
             name="projectType"
             placeholder="Project type"
-            defaultValue={selectedProduct ? "Product sourcing" : ""}
+            defaultValue={selectedProduct || (useBasketList && basket.length) ? "Product sourcing" : ""}
           />
         </Field>
         <Field label="Industry / Sector" error={errors.industry}>
@@ -149,7 +205,7 @@ export function QuoteInquiryForm({
         <Field label="Estimated timeline" error={errors.timeline}>
           <input className="input-field" type="text" name="timeline" placeholder="Estimated timeline" />
         </Field>
-        {selectedProduct ? (
+        {showSelected ? (
           <Field label="Quantity required" error={errors.selectedProductQuantity}>
             <input className="input-field" type="number" name="selectedProductQuantity" min={1} defaultValue="1" />
           </Field>
@@ -157,7 +213,7 @@ export function QuoteInquiryForm({
         <Field
           label={variant === "full" ? "Primary service needed" : "Service of interest"}
           error={errors.primaryService}
-          className={variant === "compact" || selectedProduct ? "md:col-span-2" : undefined}
+          className={variant === "compact" || showSelected ? "md:col-span-2" : undefined}
         >
           <select className="input-field appearance-none" name="primaryService" defaultValue="">
             <option value="">Select a service</option>
@@ -267,6 +323,15 @@ function SubmissionNotice({
       )}
     >
       {state.message}
+      {state.statusUrl ? (
+        <>
+          {" "}
+          <Link href={state.statusUrl} className="font-semibold underline">
+            Follow your request
+          </Link>
+          {" "}(we&apos;ve emailed you this link too).
+        </>
+      ) : null}
     </div>
   );
 }

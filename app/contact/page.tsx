@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Clock3, Mail, MapPin, PhoneCall } from "lucide-react";
+import { Clock3, Mail, MapPin, MessageCircle, PhoneCall } from "lucide-react";
 import { ContactForms } from "@/components/contact-forms";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
@@ -31,6 +31,7 @@ export default function ContactPage() {
                 {[
                   { icon: Mail, title: "Email", value: siteConfig.email },
                   { icon: PhoneCall, title: "Phone", value: siteConfig.phone },
+                  { icon: MessageCircle, title: "WhatsApp", value: siteConfig.phone },
                   { icon: Clock3, title: "Business Hours", value: siteConfig.hours },
                   { icon: MapPin, title: "Location", value: siteConfig.location },
                 ].map((item, index) => {
@@ -47,6 +48,14 @@ export default function ContactPage() {
                           {item.title === "Email" ? (
                             <a href={`mailto:${siteConfig.email}`} className="hover:underline">
                               {item.value}
+                            </a>
+                          ) : item.title === "Phone" ? (
+                            <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="hover:underline">
+                              {item.value}
+                            </a>
+                          ) : item.title === "WhatsApp" ? (
+                            <a href={`https://wa.me/${siteConfig.whatsapp}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                              Chat on WhatsApp
                             </a>
                           ) : item.value}
                         </p>

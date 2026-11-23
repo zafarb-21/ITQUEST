@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { type InquiryInput, validateInquiry } from "@/lib/inquiry";
-import { sendInquiryEmail } from "@/lib/mailer";
+import { sendInquiryEmail, sendRequestReceivedEmail } from "@/lib/mailer";
 import { isDatabaseConfigured } from "@/lib/prisma";
 import { createQuoteRequestFromInquiry } from "@/lib/quote-requests";
 import { siteConfig } from "@/lib/site-data";
+import { statusPageUrl } from "@/lib/site-url";
 
 export async function POST(request: Request) {
   let payload: InquiryInput;
@@ -31,10 +32,12 @@ export async function POST(request: Request) {
   }
 
   const inquiry = validation.data;
+  let statusToken: string | null = null;
 
   try {
     if (inquiry.kind === "quote" && isDatabaseConfigured()) {
-      await createQuoteRequestFromInquiry(inquiry);
+      const saved = await createQuoteRequestFromInquiry(inquiry);
+      statusToken = saved?.publicToken ?? null;
     }
   } catch (error) {
     console.error("[ITQUEST AFRICA] Quote request persistence failed", error);
@@ -68,11 +71,26 @@ export async function POST(request: Request) {
     );
   }
 
+  // Nov 2026: the customer's private status page, and a "we have your request" email with its link (best effort)
+  if (statusToken) {
+    try {
+      await sendRequestReceivedEmail({
+        to: inquiry.email,
+        name: inquiry.fullName,
+        statusUrl: statusPageUrl(statusToken),
+        items: inquiry.items.map((x) => ({ name: x.name, quantity: x.quantity })),
+      });
+    } catch (error) {
+      console.error("[ITQUEST AFRICA] Request-received email failed", error instanceof Error ? error.message : error);
+    }
+  }
+
   return NextResponse.json({
     ok: true,
     message:
       inquiry.kind === "quote"
-        ? "Your quote request has been received. Our team will review the details and respond shortly."
+        ? "Your quote request has been received. Our sales team usually sends a quotation within one business day."
         : "Your enquiry has been received. Our team will get back to you shortly.",
+    statusUrl: statusToken ? `/r/${statusToken}` : undefined,
   });
 }

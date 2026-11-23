@@ -1,3 +1,5 @@
+import { type BasketItem, normalizeBasket } from "./basket";
+
 export type InquiryKind = "contact" | "quote";
 
 export type InquiryInput = {
@@ -20,6 +22,8 @@ export type InquiryInput = {
   selectedProductName?: string;
   selectedProductSku?: string;
   selectedProductQuantity?: string;
+  /** Nov 2026: the quote basket (several products in one request) */
+  items?: unknown;
 };
 
 export type ValidInquiry = InquiryInput & {
@@ -38,6 +42,7 @@ export type ValidInquiry = InquiryInput & {
   selectedProductName: string;
   selectedProductSku: string;
   selectedProductQuantity: string;
+  items: BasketItem[];
 };
 
 export type InquiryValidationResult =
@@ -73,7 +78,12 @@ export function validateInquiry(input: InquiryInput): InquiryValidationResult {
     selectedProductName: clean(input.selectedProductName),
     selectedProductSku: clean(input.selectedProductSku),
     selectedProductQuantity: clean(input.selectedProductQuantity),
+    items: input.kind === "quote" ? normalizeBasket(input.items) : [],
   };
+
+  if (data.kind === "quote" && !data.projectType && data.items.length) {
+    data.projectType = "Product sourcing";
+  }
 
   const errors: Record<string, string> = {};
 
@@ -93,8 +103,8 @@ export function validateInquiry(input: InquiryInput): InquiryValidationResult {
     errors.email = "Enter a valid email address.";
   }
 
-  if (data.message.length < 20) {
-    errors.message = "Please provide more project detail.";
+  if (data.message.length < 20 && !(data.items.length && data.message.length >= 2)) {
+    errors.message = data.items.length ? "Add a short note (site, timing, anything we should know)." : "Please provide more project detail.";
   }
 
   if (data.kind === "quote" && data.projectType.length < 2) {
@@ -136,6 +146,10 @@ export function formatInquiryEmail(data: ValidInquiry) {
       ["Preferred Contact Method", data.preferredContactMethod || "Not provided"],
     );
 
+    if (data.items.length) {
+      fields.push(["Products", data.items.map((x) => `${x.quantity} x ${x.name}${x.sku ? ` (${x.sku})` : ""}`).join("; ")]);
+    }
+
     if (data.selectedProductName || data.selectedProductSlug) {
       fields.push(
         ["Selected Product", data.selectedProductName || data.selectedProductSlug],
@@ -159,7 +173,7 @@ export function formatInquiryEmail(data: ValidInquiry) {
               ([label, value]) => `
                 <tr>
                   <td style="padding: 8px 0; width: 180px; color: #475569; font-weight: 600;">${label}</td>
-                  <td style="padding: 8px 0;">${value}</td>
+                  <td style="padding: 8px 0;">${escapeHtml(value)}</td>
                 </tr>`,
             )
             .join("")}

@@ -60,6 +60,10 @@ model Product {
   isFeatured  Boolean            @default(false)
   pricingMode PricingMode        @default(REQUEST_QUOTE)
   currency    String             @default("USD")
+  // Nov 2026: a photo from the manufacturer's own media kit (https link), and a spec table ([{label, value}])
+  imageUrl    String?
+  imageAlt    String?
+  specs       Json?
   prices      ProductPrice[]
   inventory   InventoryItem?
   quoteItems  QuoteRequestItem[]
@@ -120,6 +124,8 @@ model QuoteRequest {
   transcript             String?
   hqPickedAt             DateTime?
   hqQuoteNumber          String?
+  // Nov 2026: the customer's private status page /r/<publicToken>
+  publicToken            String?            @unique
   assistantLead          AssistantLead?
   salesQuotes            SalesQuote[]
 
@@ -160,6 +166,13 @@ model SalesQuote {
   error          String?
   createdAt      DateTime         @default(now())
   sentAt         DateTime?
+  // Nov 2026: the customer's private quote page /q/<publicToken>: viewed, accepted, or a question for Sales
+  publicToken       String?   @unique
+  viewedAt          DateTime?
+  acceptedAt        DateTime?
+  acceptedBy        String?
+  customerMessage   String?
+  customerMessageAt DateTime?
 
   @@index([status, createdAt])
 }

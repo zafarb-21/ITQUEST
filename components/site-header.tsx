@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
+import { BasketChip } from "@/components/basket-chip";
 import { BrandMark } from "@/components/brand-mark";
 import { ButtonLink } from "@/components/button-link";
 import { Container } from "@/components/container";
@@ -75,12 +76,14 @@ export function SiteHeader() {
             </nav>
             <div className="hidden items-center gap-3 lg:flex">
               <SearchTrigger onClick={() => setSearchOpen(true)} />
+              <BasketChip />
               <ButtonLink href={whatsappHref()} variant="whatsapp">
                 WhatsApp
               </ButtonLink>
               <ButtonLink href="/quote">Get a quote</ButtonLink>
             </div>
             <div className="flex items-center gap-2 lg:hidden">
+              <BasketChip />
               <SearchTrigger
                 mobile
                 onClick={() => {

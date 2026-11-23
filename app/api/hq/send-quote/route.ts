@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { checkHqToken } from "@/lib/hq";
 import { sendSalesQuoteEmail } from "@/lib/mailer";
 import { getPrismaClient, isDatabaseConfigured } from "@/lib/prisma";
+import { newPublicToken } from "@/lib/public-token";
+import { quotePageUrl } from "@/lib/site-url";
 
 export const runtime = "nodejs";
 
@@ -48,8 +50,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: quote.status === "SENT", status: quote.status, message: `Quote is ${quote.status.toLowerCase()}.` });
   }
 
+  // Nov 2026: the customer's private quote page (Accept / Ask a question), linked from the email
+  let publicToken = quote.publicToken;
+  if (!publicToken) {
+    publicToken = newPublicToken();
+    await prisma.salesQuote.update({ where: { id: quote.id }, data: { publicToken } });
+  }
+
   try {
     await sendSalesQuoteEmail({
+      quoteUrl: quotePageUrl(publicToken),
       to: quote.customerEmail,
       name: quote.customerName,
       subject: quote.subject,
